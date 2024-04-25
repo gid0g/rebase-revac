@@ -1,0 +1,31 @@
+.list-group-item-action {
+	&:hover,
+	&:focus {
+		color: var(--app-component-hover-color);
+		background-color: var(--app-component-hover-bg);
+	}
+}
+.list-group-item {
+	background-color: var(--app-component-bg);
+	color: var(--app-component-color);
+	border-color: rgba(var(--app-component-border-color-rgb), .75);
+	
+	&.list-group-item-inverse {
+		background: $gray-800;
+		border-color: $gray-900;
+		color: $white;
+		
+		& .label-inverse,
+		& .badge-inverse {
+			background: rgba($black, .4);
+		}
+		&.list-group-item-action {
+			&:hover, 
+			&:focus {
+				color: $white;
+				background: $gray-700;
+				text-decoration: none;
+			}
+		}
+	}
+}

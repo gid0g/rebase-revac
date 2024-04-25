@@ -1,0 +1,14 @@
+.step {
+  color: #000;
+  /* font-size: 12px; */
+  background-color: white;
+  border: 2px solid grey;
+  border-radius: 50%;
+  padding: 1rem;
+}
+.step.completed {
+  color: white;
+  background-color: #0275d8;
+  border: none;
+  padding: 1.2rem;
+}
