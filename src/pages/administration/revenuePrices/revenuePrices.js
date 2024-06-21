@@ -6,6 +6,7 @@ import api from "../../../axios/custom";
 import { Spinner } from "react-activity";
 import { AppSettings } from "../../../config/app-settings";
 import Select from "react-select";
+import { Modal } from "bootstrap";
 
 import "react-activity/dist/library.css";
 import { ToastContainer, toast } from "react-toastify";
@@ -32,7 +33,30 @@ const RevenuePrices = () => {
   const [categoryName, setCategoryName] = useState(null);
   const [amount, setAmount] = useState("");
   const [revenueName, setRevenueName] = useState("");
+  const [modalInstance, setModalInstance] = useState(null);
 
+  ////////////////////
+  const authCloseModal = (elementId) => {
+    const myModal = new Modal(document.getElementById(elementId));
+  
+    myModal.show();
+  
+    myModal._element.addEventListener('shown.bs.modal', () => {
+      clearTimeout(myModal._element.hideInterval);
+      const id = setTimeout(() => {
+        myModal.hide();
+      });
+      myModal._element.hideInterval = id;
+  
+      const backdropElement = document.querySelector('.modal-backdrop.show');
+      if (backdropElement) {
+        backdropElement.remove();
+      }
+    });
+  
+    setModalInstance(myModal);
+  }
+  ////////////////////
   const transformedRevenueData = revenues
     ? revenues.map((item) => ({
         label: item.revenueName,
@@ -207,7 +231,11 @@ const RevenuePrices = () => {
             theme: "colored",
           });
         }
-        setLoading(false);
+        authCloseModal("addCategory")
+ setTimeout(()=>{
+          window.location.reload();
+        },1000)
+                setLoading(false);
         return true;
       })
       .catch((error) => {
@@ -275,7 +303,11 @@ const RevenuePrices = () => {
             theme: "colored",
           });
         }
-        setLoading(false);
+        authCloseModal("editRevenuePrice")
+       setTimeout(()=>{
+          window.location.reload();
+        },1000)
+                setLoading(false);
         // return true;
       })
       .catch((error) => {

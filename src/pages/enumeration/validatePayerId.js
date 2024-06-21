@@ -8,8 +8,10 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { AppSettings } from "../../config/app-settings";
 import initialState from "./initial";
+import { Modal } from "bootstrap";
 
 const ValidatePayId = () => {
+  const [modalInstance, setModalInstance] = useState(null);
   const appSettings = useContext(AppSettings);
   const userData = appSettings.userData;
   const navigate = useNavigate();

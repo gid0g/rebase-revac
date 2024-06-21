@@ -131,7 +131,7 @@ const ViewBill = () => {
           {/* component to be printed */}
           <div ref={(el) => (componentRef = el)}>
            
-          <div className="">
+          <div className="px-2 py-1">
             <header className="flex justify-between">
               <div>
                 <img
@@ -164,7 +164,6 @@ const ViewBill = () => {
                 <font size="2" className="w-6/12">
                   Notice is hereby given to:
                   <br />
-                  <br />
                   <b>
                     Customer: {data[0]?.firstName} {data[0]?.middleName}{" "}
                     {data[0]?.lastName} ,{data[0]?.payerID}
@@ -183,7 +182,6 @@ const ViewBill = () => {
                 <font size="2" className="w-6/12">
                   <b>IMPORTANT!</b>
                   <br />
-                  <br />
                   <b>All enquiries are to be forwarded to:</b>
                   <br />
                   Council Treasurer - {"treasurePhone"}
@@ -198,7 +196,6 @@ const ViewBill = () => {
                 </font>
               </div>
 
-              <br />
 
               <div>
                 <font size="2">
@@ -216,35 +213,34 @@ const ViewBill = () => {
                 </font>
               </div>
 
-              <br />
-              <table className="w-full border-separate border-spacing-1 ">
+              <table className="w-full border-separate table-condensed text-xs ">
                 <tbody className="text-center">
-                  <tr className="mx-4 pr-8 ">
-                    <th className="border-solid border-2 border-dark text-center">
+                  <tr className="mx-2 pr-8">
+                    <th className="border-solid border-1 border-dark text-center">
                       Year
                     </th>
-                    <th className="border-solid border-2 border-dark text-center">
+                    <th className="border-solid border-1 border-dark text-center">
                       Bill Reference
                     </th>
-                    <th colSpan="3" className="border-solid border-2 border-dark text-center">
+                    <th colSpan="3" className="border-solid border-1 border-dark text-center">
                       Summary
                     </th>
-                    <th className="border-solid border-2 border-dark text-center">
+                    <th className="border-solid border-1 border-dark text-center">
                       Arrears(₦)
                     </th>
-                    <th className="border-solid border-2 border-dark text-center">
+                    <th className="border-solid border-1 border-dark text-center">
                       Credit(₦)
                     </th>
-                    {/* <th className="border-solid border-2 border-dark text-center">
+                    {/* <th className="border-solid border-1 border-dark text-center">
                       Credit(₦)
                     </th> */}
-                    <th className="border-solid border-2 border-dark text-center">
+                    <th className="border-solid border-1 border-dark text-center">
                       Balance(₦)
                     </th>
                   </tr>
                   {data.map((item, idx) => {
                     return (
-                      <tr key={idx} className=" ">
+                      <tr key={idx} className="p-0">
                         <td className="border-solid border-1 border-dark text-center">
                           {item.year}
                         </td>
@@ -272,16 +268,16 @@ const ViewBill = () => {
                 </tbody>
                 <tfoot>
                   <tr>
-                    <td colSpan="2" className="text-left font-bold">
+                    <td colSpan="5" className="text-left border-solid border-1 border-dark font-bold">
                       Hours of Payment : Monday - Friday 8:00 a.m. - 4:00 p.m.
                     </td>
-                    <td colSpan="2" className="text-right font-bold">
+                    {/* <td colSpan="2" className="text-right font-bold">
                       Harmonized Bill Reference
                     </td>
                     <td className="border-solid border-2 border-dark text-center">
                       {harmonisedBill ? harmonisedBill : data?.harmonizedBillReference}
-                    </td>
-                    <td colSpan="2" className="text-right font-bold">
+                    </td> */}
+                    <td colSpan="2" className="text-center border-solid border-1 border-dark font-bold">
                       Total Due
                     </td>
                     <td className="border-solid border-2 border-dark text-center">
@@ -290,25 +286,24 @@ const ViewBill = () => {
                   </tr>
                 </tfoot>
               </table>
-
-              <br />
+                <div>
+                  
               <font size="2">
                 Please turn over leaf for list of Banks into which paymentcan be
                 made. Collect your eReceipt before leaving before leaving the
                 bank or before leaving the revenue collecting agent's office.
               </font>
-              <br />
-              <br />
-              <hr className=" border-dashed border-dark" />
-              <br />
+                </div>
+             
 
-              <div className="flex">
+              <hr className=" border-dashed border-dark" />
+
+              <div className="flex p-0">
                 <div className="w-6/12 text-center border-r-2 border-dark">
                   <font size="2">
                     <b>Bank's/Agent's Copy</b> <br />
                     <b>{data[0]?.organisationName}</b> <br />
-                    <b> DEMAND NOTICE FOR YEAR {2023}</b> <br />
-                    <br />
+                    <b > DEMAND NOTICE FOR YEAR {2023}</b> <br />
                     <font size="2" className="w-6/12">
                       <b>Payer Name:</b> {data[0]?.firstName}{" "}
                       {data[0]?.middleName} {data[0]?.lastName} ,
@@ -326,12 +321,11 @@ const ViewBill = () => {
                     </font>
                   </font>
                 </div>
-                <div className="w-6/12 text-center ">
+                <div className="w-6/12 text-center">
                   <font size="2">
                     <b>Local Govt's Copy</b> <br />
                     <b>{data[0]?.organisationName}</b> <br />
-                    <b> DEMAND NOTICE FOR YEAR {2023}</b> <br />
-                    <br />
+                    <b > DEMAND NOTICE FOR YEAR {2023}</b> <br />
                     <font size="2" className="w-6/12">
                       <b>Payer Name:</b> {data[0]?.firstName}{" "}
                       {data[0]?.middleName} {data[0]?.lastName} ,
@@ -351,14 +345,14 @@ const ViewBill = () => {
                   </font>
                 </div>
               </div>
-              <div className="mt-[30px] flex justify-around">
+              <div className="mt-[20px] flex justify-around">
                 <div className="p-0">
                   <img
                     className="img-responsive"
                     src="https://drive.google.com/uc?id=1VwOBRRQ85TqqSUWwtxFoeLqZYDsCzMXK&export=download"
                     alt="lasepa signature"
                   />
-                  <div className="w-full font-bold ml-[15px]">
+                  <div className="w-full font-bold ml-[10px]">
                     Council Treasurer
                   </div>
                 </div>
@@ -368,13 +362,12 @@ const ViewBill = () => {
                     src="https://drive.google.com/uc?id=1VwOBRRQ85TqqSUWwtxFoeLqZYDsCzMXK&export=download"
                     alt="lasepa signature"
                   />
-                  <div className="w-full font-bold ml-[15px]">
+                  <div className="w-full font-bold ml-[10px]">
                     Revenue Chairman
                   </div>
                 </div>
               </div>
 
-              <br />
 
               <div>
                 <div className="text-center">

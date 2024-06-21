@@ -45,7 +45,7 @@ const Revenues = () => {
   const [itemId, setItemId] = useState("");
   let navigate = useNavigate();
   const roleId = sessionStorage.getItem("roleId");
-  // console.log(roleId)
+  // console.log("role",roleId)
 
 
   function extractFirstThreeDigits(data) {
@@ -554,7 +554,7 @@ const Revenues = () => {
                   className="btn bg-primary text-white"
                   type="button"
                 >
-                  Map Revenue
+                  Add Revenue
                 </button> 
 
                   <button

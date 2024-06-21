@@ -90,7 +90,7 @@ const CreateNewStreet = () => {
       enteredSpaceFloorIsValid &&
       enteredLocationAddressIsValid &&
       selectedSpaceIdentifierOption &&
-      selectedWardOption &&
+      // selectedWardOption &&
       selectedAgency
     ) {
       setValidateForm(false);
@@ -242,7 +242,7 @@ const CreateNewStreet = () => {
   
     const transformedAgencyData = agencies
       ? agencies.map((item) => ({
-          label: item.agencyName,
+          label: `${item.agencyName} / ${item.agencyCode}`,
           value: item.agencyId,
         }))
       : [];

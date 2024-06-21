@@ -28,6 +28,8 @@ const Home = () => {
         const backgroundLogo = `data:image/png;base64,${response.data.backgroundImagesData}`;
         setLogo(logoUrl);
         setBackgroundImage(backgroundLogo);
+        sessionStorage.setItem('organisationdata', response.data.organisationName);
+
         console.log(response.data);
       })
       .catch((error) => {
