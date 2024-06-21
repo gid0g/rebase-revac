@@ -87,7 +87,7 @@ const NewPropertyProfile = () => {
       enteredSpaceFloorIsValid &&
       // enteredLocationAddressIsValid &&
       selectedSpaceIdentifierOption &&
-      selectedWardOption &&
+      // selectedWardOption &&
       selectedStreet &&
       selectedAgency
     ) {
@@ -205,14 +205,16 @@ const NewPropertyProfile = () => {
   };
 
 
+
   const handleStreetChange = (streetOption) => {
     console.log("street:", streetOption);
     setStreetOption(streetOption);
   }
-  
+ 
   
   const fetchAgencyStreets = async (agencyId) => {
     try {
+      console.log("gbese",organisationId,agencyId)
       const response = await api.get(`enumeration/${organisationId}/agency/${agencyId}/streets`, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -251,7 +253,7 @@ const NewPropertyProfile = () => {
     : "";
   const transformedAgencyData = agencies
     ? agencies.map((item) => ({
-        label: item.agencyName,
+        label: `${item.agencyName} / ${item.agencyCode}`,
         value: item.agencyId,
       }))
     : "";
@@ -332,11 +334,14 @@ const NewPropertyProfile = () => {
           setIsSubmittedForm(true);
       }
     }
-
+useEffect(()=>{
+  console.log("agencies ", agencies)
+},[agencies])
   const getRoleAgency = (storedAgencyId) => {
     const filteredAgency = agencies.find(agency => agency.agencyId == storedAgencyId);
     setAgencyOption(filteredAgency);
-    return filteredAgency?.agencyName
+    console.log("boom")
+    return`${filteredAgency?.agencyName} / ${filteredAgency?.agencyCode}`
   }
 
   const getRoleAgencyStreets = async (storedAgencyId) => {
@@ -415,7 +420,7 @@ const NewPropertyProfile = () => {
                     </div>
                   </div>
                   <div className="row gx-5">
-                    <div className="col">
+                    {/* <div className="col">
                       <div className="mb-3">
                         <label className="form-label">Ward</label>
 
@@ -429,7 +434,7 @@ const NewPropertyProfile = () => {
                           onChange={handleWardChange}
                         />
                       </div>
-                    </div>
+                    </div> */}
                     <div className="col">
                       <div className="flex flex-column mb-3">
                         <label className="form-label">Building Number</label>{" "}

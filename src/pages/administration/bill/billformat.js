@@ -35,6 +35,8 @@ const BillFormats = () => {
   const [filterText, setFilterText] = useState("");
   const [resetPaginationToggle, setResetPaginationToggle] = useState(false);
   const [modalInstance, setModalInstance] = useState(null);
+  const [contentLoaded, setcontentLoaded] = useState(false);
+  // const [error, setError] = useState({});
 
 
   useEffect(() => {
@@ -137,7 +139,7 @@ const BillFormats = () => {
       ),
     },
   ];
-
+const disabled= data.length!==0
 
   const filteredItems = useMemo(() => {
     if (!filterText.trim()) {
@@ -184,31 +186,29 @@ const BillFormats = () => {
 
   const handleSignatureOne = (event) => {
     const file = event.target.files[0];
-    setSignatureOne(file);
 
-    // const reader = new FileReader();
-    // reader.onload = () => {
-    //   setSignatureOne(reader.result)
-    // };
+    const reader = new FileReader();
+    reader.onload = () => {
+      setSignatureOne(reader.result)
+    };
 
-    // if (file) {
-    //   reader.readAsDataURL(file);
-    // }
+    if (file) {
+      reader.readAsDataURL(file);
+    }
     setSignatureOneName(file.name);
   };
 
   const handleSignatureTwo = (event) => {
     const file = event.target.files[0];
-    setSignatureTwo(file);
-    // const reader = new FileReader();
-    // reader.onload = () => {
-    //   setSignatureTwo(reader.result)
-    // };
+    const reader = new FileReader();
+    reader.onload = () => {
+      setSignatureTwo(reader.result)
+    };
 
-    // if (file) {
-    //   reader.readAsDataURL(file);
-    // }
-    // setSignatureTwoName(file.name);
+    if (file) {
+      reader.readAsDataURL(file);
+    }
+    setSignatureTwoName(file.name);
   };
 
   const handleChange = (e) => {
@@ -226,18 +226,26 @@ const BillFormats = () => {
     })
     .then((response) => {
       setData(response.data);
+      setPending(false);
+      setcontentLoaded(true);
     })
     .catch((error) => {
-       toast.error(error.message, {
-         position: "top-right",
-         autoClose: 5000,
-         hideProgressBar: true,
-         closeOnClick: true,
-         pauseOnHover: true,
-         draggable: true,
-         progress: undefined,
-         theme: "colored",
-       });
+      if (error.response && error.response.status === 400){
+        setData([]);
+        setPending(false);
+        setcontentLoaded(false);
+      } else {
+        toast.error(error.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+      }
     }).finally(() => {
       setLoading(false);
     });
@@ -245,6 +253,7 @@ const BillFormats = () => {
 
   useEffect(() => {
     fetchBillFormats();
+    setcontentLoaded(true);
   }, []);
 
 
@@ -300,8 +309,9 @@ const BillFormats = () => {
             theme: "colored",
           });
           setTimeout(() => {
-            authCloseModal("addBillFormat");
+            authCloseModal("editBillFormat");
             fetchBillFormats();
+            window.location.reload() 
           }, 5000)
         }
         setLoading(false);
@@ -322,7 +332,9 @@ const BillFormats = () => {
         });
       });
   };
-
+useEffect(()=>{
+  console.log("item", itemId, organisationId)
+},[itemId])
   const editBillFormat = async (e) => {
     setLoading(true);
     e.preventDefault();
@@ -333,8 +345,10 @@ const BillFormats = () => {
     formData.append("ContentTwo", editRow?.contentTwo || "");
     formData.append("ClosingSection", editRow?.closingSection || "");
     formData.append("dateCreated", new Date().toISOString());
-    formData.append("createdBy", userData[0]?.email);
-  
+    formData.append("modifiededBy", userData[0]?.email);
+    for (let entry of formData.entries()) {
+      console.log(entry[0], entry[1]);
+    }
     await attachment
       .post(
         `billing/${organisationId}/bill-format/${itemId}/update-bill-format`,
@@ -352,9 +366,13 @@ const BillFormats = () => {
             progress: undefined,
             theme: "colored",
           });
+          setTimeout(()=>{
 
-          fetchBillFormats();
-        }
+            authCloseModal("editBillFormat");
+            fetchBillFormats();
+            // window.location.reload() 
+          },3000)
+               }
         setLoading(false);
         return true;
       })
@@ -374,9 +392,9 @@ const BillFormats = () => {
         
       });
   };
+
+
   
-
-
   return (
     <>
       <div>
@@ -406,6 +424,7 @@ const BillFormats = () => {
                 data-bs-target="#addBillFormat"
                 className="btn shadow-md bg-blue-900 text-white"
                 type="button"
+                disabled={loading || disabled}
               >
                 Add Bill Format
               </button>
@@ -455,10 +474,11 @@ const BillFormats = () => {
                     <div className="row gx-3">
                       <div className="col-6">
                         <label
-                          className="form-label"
+                          className="form-label flex items-center justify-start  gap-x-1"
                           htmlFor="exampleInputEmail1"
                         >
-                          Signature One
+                          Signature One 
+                          <span className="text-2xl text-red-900"> * </span>
                         </label>
                         <div className="">
                           <input
@@ -475,7 +495,7 @@ const BillFormats = () => {
                           className="form-label"
                           htmlFor="exampleInputEmail1"
                         >
-                          Signature Two
+                          Signature Two 
                         </label>
                         <div className="">
                           <input
@@ -492,10 +512,11 @@ const BillFormats = () => {
                       <div className="col-12">
                         <div className="mb-3 ">
                           <label
-                            className="form-label"
+                            className="form-label flex items-center justify-start  gap-x-1"
                             htmlFor="exampleInputEmail1"
                           >
                             Content One
+                            <span className="text-2xl text-red-900"> * </span>
                           </label>
 
                           <input
@@ -514,10 +535,11 @@ const BillFormats = () => {
                       <div className="col-12">
                         <div className="mb-3 ">
                           <label
-                            className="form-label"
+                            className="form-label flex items-center justify-start  gap-x-1"
                             htmlFor="exampleInputEmail1"
                           >
                             Content Two
+                            <span className="text-2xl text-red-900"> * </span>
                           </label>
 
                           <input
@@ -536,10 +558,11 @@ const BillFormats = () => {
                       <div className="col-12">
                         <div className="mb-3 ">
                           <label
-                            className="form-label"
+                            className="form-label flex items-center justify-start  gap-x-1"
                             htmlFor="exampleInputEmail1"
                           >
                             Closing Section
+                            <span className="text-2xl text-red-900"> * </span>
                           </label>
 
                           <input
@@ -596,6 +619,9 @@ const BillFormats = () => {
                         >
                           Signature One
                         </label>
+                        {editRow && (
+                              <img src={editRow.signatureOneData} alt="Signature One" />
+                            )}
                         <div className="">
                           <input
                             type="file"

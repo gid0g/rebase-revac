@@ -181,7 +181,7 @@ const NavItem = ({ menu, ...props }: LinkProps) => {
 // export default SidebarNav;
 
 const SidebarNav = () => {
-  const Id = sessionStorage.getItem("userId");
+  const Id = sessionStorage.getItem("organisationId");
   const token = sessionStorage.getItem("myToken");
   const [modules, setModules] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -202,6 +202,8 @@ const Dashboard= { path: "Dashboard", icon: "fa fa-sitemap", title: "Dashboard" 
       .then((response) => {
         if (response.status === 200) {
           setLoading(false);
+          console.log("module", response)
+          console.log("module", Id)
           setModules(response.data);
           toast.success(response.data.statusMessage, {
             position: "top-right",

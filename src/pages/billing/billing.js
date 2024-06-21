@@ -89,9 +89,12 @@ const Billings = () => {
         value: item.id,
       }))
     : "";
-
-    
-
+//////////////////////////
+          useEffect(()=>{
+            console.log("allCustomers", allCustomers)
+            console.log("transformedAllCustomerData", transformedAllCustomerData)
+          },[allCustomers])    
+///////////////////////
   const transformedCategoryData = (idx) => {
     return categoryType[idx]?.types.map((category) => ({
       label: category.categoryName,
@@ -204,9 +207,13 @@ const Billings = () => {
     fetchCategories();
   }, [checkedRevenues]);
   
+//////////////////////////////
+
+/////////////////////////////
 
   const fetchRevenueCategories = async (revenueIds) => {
-
+    console.log("Organization ID:", organisationId)
+    console.log("Revenue ID:", revenueIds)
     const apiEndpoints = revenueIds.map(revenueId => `revenue/${organisationId}/revenueprice-revenue/${revenueId}`);
   
     try {
@@ -285,6 +292,7 @@ const Billings = () => {
         }
       )
       .then((response) => {
+        console.log("got revenuetypes:", response.data)
         return response.data;
       })
       .catch((error) => {
@@ -441,12 +449,14 @@ function handleRevenueChange(idx, event) {
 
     const isValid = validateForm();
     const confirmation = window.confirm("Do you want to continue to generate bill?");
-    
     if (isValid && confirmation) {    
       const formData = {
         createPropertyBillDto: fields,
       }
-      
+     
+        console.log("see", formData);
+      console.log(organisationId,selectedProperty,selectedCustomer)
+
       try {
       setLoading(true);
       const response = await api.post(
@@ -702,6 +712,8 @@ function handleRevenueChange(idx, event) {
           }
         )
         .then((response) => {
+            console.log("customers",response.data)
+            console.log("customers",selectedProperty)
           setCorrespondingCustomers(response.data);
         })
         .catch((error) => {
@@ -1012,6 +1024,7 @@ function handleRevenueChange(idx, event) {
                       isSearchable={true}
                       name="color"
                       options={transformedAllCustomerData}
+                      
                       onChange={handleCustomerChange}
                     />
                   </div>

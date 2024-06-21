@@ -58,30 +58,47 @@ const Profile = () => {
       };
       const handleLogoUpload = (event) => {
         const file = event.target.files[0];
-        const reader = new FileReader();
-        reader.onload = () => {
-          setLogo(reader.result);
-        };
-    
+      
         if (file) {
-          reader.readAsDataURL(file);
+          setLogo(file);
+          setLogoName(file.name);
         }
-    
-        setLogoName(file.name);
       };
+      // const handleLogoUpload = (event) => {
+      //   const file = event.target.files[0];
+      //   const reader = new FileReader();
+      //   reader.onload = () => {
+      //     setLogo(reader.result);
+      //   };
+    
+      //   if (file) {
+      //     reader.readAsDataURL(file);
+      //   }
+    
+      //   setLogoName(file.name);
+      // };
     
       const handleBackgroundUpload = (event) => {
         const file = event.target.files[0];
-        const reader = new FileReader();
-        reader.onload = () => {
-          setBackgroundImage(reader.result);
-        };
+
     
         if (file) {
-          reader.readAsDataURL(file);
+          setBackgroundImage(file);
+          setBackgroundName(file.name);
         }
-        setBackgroundName(file.name);
       };
+      // const handleBackgroundUpload = (event) => {
+      //   const file = event.target.files[0];
+      //   const reader = new FileReader();
+      //   reader.onload = () => {
+      //     setBackgroundImage(reader.result);
+      //   };
+    
+      //   if (file) {
+      //     reader.readAsDataURL(file);
+      //   }
+      //   setBackgroundName(file.name);
+      // };
       useEffect(() => {
         fetchOrganisationData();
       }, []);
@@ -116,7 +133,9 @@ const Profile = () => {
         formData.append("ModifiedBy", userData[0]?.email);
 
         console.log("--FormData:", formData);
-    
+        for (let entry of formData.entries()) {
+          console.log(entry[0], entry[1]);
+        }
         await attachment
           .post(`organisation/${organisationId}`, formData, {
             headers: {

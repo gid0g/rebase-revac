@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import { Link } from "react-router-dom";
 import FilterComponent from "../../../components/filtercomponent/filtercomponent";
 import DataTable from "react-data-table-component";
@@ -7,6 +7,7 @@ import { Spinner } from "react-activity";
 import { AppSettings } from "../../../config/app-settings";
 import "react-activity/dist/library.css";
 import { ToastContainer, toast } from "react-toastify";
+import { Modal } from "bootstrap";
 
 const Streets = () => {
   const token = sessionStorage.getItem("myToken");
@@ -25,12 +26,34 @@ const Streets = () => {
   const streetId = sessionStorage.getItem("streetId");
   const agencyId = sessionStorage.getItem("agencyId");
   const roleId = sessionStorage.getItem("roleId");
+  const agencyType = sessionStorage.getItem("agencyType");
+  const [modalInstance, setModalInstance] = useState(null);
 
 
   const handleChange = (event) => {
     setNewStreet(event.target.value);
   };
 
+  const authCloseModal = (elementId) => {
+    const myModal = new Modal(document.getElementById(elementId));
+  
+    myModal.show();
+  
+    myModal._element.addEventListener('shown.bs.modal', () => {
+      clearTimeout(myModal._element.hideInterval);
+      const id = setTimeout(() => {
+        myModal.hide();
+      });
+      myModal._element.hideInterval = id;
+  
+      const backdropElement = document.querySelector('.modal-backdrop.show');
+      if (backdropElement) {
+        backdropElement.remove();
+      }
+    });
+  
+    setModalInstance(myModal);
+  }
   const addNewStreet = async (e) => {
     setLoading(true);
     e.preventDefault();
@@ -83,14 +106,15 @@ const Streets = () => {
   };
 
   const editStreet = async (e) => {
+    console.log("information:",editRow) 
     setLoading(true);
     e.preventDefault();
     try {
       const response = await api.post(
         `enumeration/streets/${itemId}`,
         {
-          organisationId: editRow?.organisationId,
-          agencyId: editRow?.agencyId,
+          organisationId: organisationId,
+          agencyId: agencyId,
           streetName: editRow?.streetName,
           description: "",
           active: true,
@@ -115,6 +139,10 @@ const Streets = () => {
           progress: undefined,
           theme: "colored",
         });
+        setTimeout(()=>{
+          authCloseModal("editStreet")
+          window.location.reload()
+        },2000)
       }
 
     } catch (error) {
@@ -180,11 +208,17 @@ const Streets = () => {
   }, []);
 
   const getEndpoint = (roleId, organisationId, agencyId) => {
+  
     switch (roleId) {
       case "1":
         return `enumeration/streets/`; // SuperAdmin
       case "2":
-        return `enumeration/${organisationId}/agency/${agencyId}/streets`; // Admin
+        if(agencyType){
+          return `enumeration/${organisationId}/streets`; // Head Office Admin
+        }
+        else{
+          return `enumeration/${organisationId}/agency/${agencyId}/streets`; // Admin
+        }
       case "3":
         return `enumeration/${organisationId}/agency/${agencyId}/streets`; // SuperUser
       case "4":
@@ -195,9 +229,13 @@ const Streets = () => {
         return '';
     }
   }
-  
+  useEffect(()=>{
+    console.log("agencytype", agencyType)
+  },[agencyType])
 
-
+useEffect(()=>{
+  console.log("item",itemId,organisationId,agencyId)
+},[itemId,organisationId,agencyId])
   useEffect(() => {
     api
       .get(getEndpoint(roleId, organisationId, agencyId), {
@@ -238,6 +276,7 @@ const Streets = () => {
       [name]: value,
     }));
   };
+
 
   const handleEdit = (item) => {
     setEditRow(item);
@@ -440,13 +479,14 @@ const Streets = () => {
 
                             <input
                               type="text"
-                              name="StreetName"
+                              name="streetName"
                               className="form-control"
                               value={editRow ? editRow.streetName : ""}
                               placeholder="Enter Street Name"
                               onChange={handleEditChange}
                               required
                             />
+                          
                           </div>
                         </div>
                       </div>

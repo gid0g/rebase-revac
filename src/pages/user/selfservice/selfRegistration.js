@@ -286,7 +286,7 @@ const SelfRegistration = () => {
                       <ReCAPTCHA sitekey={process.env.REACT_APP_SITE_KEY} />
                     </div>
                     <div className="mt-3 fs-14px">
-                      By continuing, you agree to Revbill{" "}
+                      By continuing, you agree to RevAc{" "}
                       <Link to="/" className="text-primary">
                         Terms of Use
                       </Link>{" "}

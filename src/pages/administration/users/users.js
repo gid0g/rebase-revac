@@ -47,10 +47,11 @@ const Users = () => {
   const modal = document.getElementById("modal24");
   const [noUser, sucessUser]= useState("")
   const modalRef = useRef(null);
-
+  // const [Variable, setVariable]=useState([])
   const options = [
     { value: "2", label: "Admin" },
     { value: "3", label: "Super User" },
+    { value: "4", label: "User" },
   ];
   const handleRoleChange = (options) => {
     setSelectedOptionId(options.value);
@@ -214,6 +215,7 @@ const Users = () => {
 
   const handleAgencyChange = (option) => {
     console.log("Agency Change:", option);
+    console.log("date Change:", new Date().toISOString());
     setAgencyId(option?.value);
   };
 
@@ -226,6 +228,7 @@ const Users = () => {
     e.preventDefault();
     console.log("Selected Role ID:", selectedOptionId);
     setLoading(true);
+    console.log("organize",organisationId)
     setIsRefreshing(true);
     await api
       .post(
@@ -433,6 +436,13 @@ const Users = () => {
         console.log(error);
       });
   }, [organisationId, token]);
+
+  // useEffect(()=>{
+  //    setVariable( roles.map(obj=>({
+  //     label:obj.roleName,
+  //     value:obj.roleId,
+  //   })))
+  // },[roles])
 
   useEffect(() => {
     api

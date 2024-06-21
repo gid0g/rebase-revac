@@ -93,6 +93,8 @@ useEffect(()=>{
            if (response.status === 200) {
                setLoading(false);
                console.log("addorganisationmodule", response.data)
+
+
                toast.success(response.data, {
                    position: "top-right",
                    autoClose: 5000,
@@ -103,16 +105,9 @@ useEffect(()=>{
                    progress: undefined,
                    theme: "colored",
                });
-            }    
-           setTimeout(() => {
-              navigate("../");
-              window.location.reload();
-
-            }, 3000
-       )
+           }
            setLoading(false);
            return true;
-
        })
        .catch((error) => {
            setLoading(false);
@@ -846,6 +841,7 @@ function cancelDefault(e){
    </>
  );
 };
+
 
 export default ViewOrganisation;
 

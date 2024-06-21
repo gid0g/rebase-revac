@@ -187,7 +187,7 @@ const PasswordReset = () => {
         ></div>
         <div className="news-caption">
           <h4 className="caption-title fs-38px">
-            <b>RevBills</b>
+            <b>RevAc</b>
           </h4>
           <p className="fs-32px">
             Enumeration, Billing Payment & Report Management Application

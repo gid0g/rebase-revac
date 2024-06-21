@@ -19,6 +19,9 @@ const AddBusinessProfile = () => {
   const userData = appSettings.userData;
   const [businessType, setBusinessType] = useState([]);
   const [businessSize, setBusinessSize] = useState([]);
+  const [typeSelected, setTypeSelected] = useState({});
+  const [sizeSelected, setSizeSelected] = useState({});
+  const [allSelected,setallSelected]=useState(false)
   const [revenueType, setRevenueType] = useState({
     0: {
       types: [],
@@ -47,7 +50,14 @@ const AddBusinessProfile = () => {
   
       console.log("Checked Revenues:", checkedRevenues);
     }
-
+    useEffect(() => {
+      const allTypeSelected = Object.values(typeSelected).every((value) => value);
+      const allSizeSelected = Object.values(sizeSelected).every((value) => value);
+      setallSelected(allTypeSelected && allSizeSelected && isValid  && fields.every((field) => field.businessTypeId && field.businessSizeId));
+    }, [typeSelected, sizeSelected, fields]);
+    useEffect(()=>{
+      console.log("allSelected ", allSelected)
+    },[allSelected])
   async function handleTypeChange(index, event) {
     const { name, value } = event.target;
     const selectedIndex = event.target.selectedIndex;
@@ -61,6 +71,8 @@ const AddBusinessProfile = () => {
       ...updatedFields[index],
       businessTypeId: parseInt(selectedOption.id),
     };
+    setTypeSelected((prevTypeSelected) => ({...prevTypeSelected, [index]: event.target.value!== "" }));
+
     setFields(updatedFields);
     setIsRevenueTypeVisible(true);
     const types = await api
@@ -99,6 +111,7 @@ const AddBusinessProfile = () => {
       id: value,
       name: event.target[selectedIndex].text,
     };
+    setSizeSelected((prevSizeSelected) => ({...prevSizeSelected, [index]: event.target.value!== "" }));
 
     const updatedFields = [...fields];
   
@@ -166,6 +179,9 @@ const AddBusinessProfile = () => {
     });
     setFields(values);
     setCount(count + 1);
+    setTypeSelected({});
+    setSizeSelected({});
+
   }
 
   function handleDelete(idx) {
@@ -226,7 +242,10 @@ const AddBusinessProfile = () => {
       setIsLoading(false);
     }
   }
+////////////////////////////////////////
 
+
+///////////////////////////////////////
 
   return (
     <>
@@ -358,6 +377,7 @@ const AddBusinessProfile = () => {
             <div className="mr-2">
               <button
                 type="button"
+                disabled={!allSelected}
                 onClick={() => handleAdd()}
                 className="btn btn-default"
               >
@@ -378,10 +398,10 @@ const AddBusinessProfile = () => {
 
             <button 
               type="submit" 
-              className={`btn ${!isValid ? "!bg-sky-300": "!bg-blue-900"} text-white me-5px`}
-              disabled={!isValid}
+              className={`btn ${!allSelected ? "!bg-sky-300": "!bg-blue-900"} text-white me-5px`}
+              disabled={!allSelected}
             >
-              {!isValid ? 
+              {!allSelected ? 
                 "Disabled, Please Fill Necessary Details" 
                 : isLoading ?
                 <Spinner /> 

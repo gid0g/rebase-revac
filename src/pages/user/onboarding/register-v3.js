@@ -21,7 +21,7 @@ function RegisterV3() {
         ></div>
         <div className="news-caption">
           <h4 className="caption-title fs-38px">
-            <b>RevBills</b>
+            <b>RevAc</b>
           </h4>
           <p className="caption-text">
             Enumeration, Billing Payment & Report Management Application
@@ -33,7 +33,7 @@ function RegisterV3() {
           <div className="brand">
             <div className="d-flex justify-content-between">
               <span className="l">
-                <img className="revbill-logo" src={logo} alt="revbill"/>
+                <img className="revbill-logo" src={logo} alt="revac"/>
               </span>
               <Link className="icon" to="/">
                 <div>

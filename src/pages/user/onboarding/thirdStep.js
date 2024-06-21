@@ -53,7 +53,7 @@ const ThirdStep = (props) => {
                 />
                 <label className="form-check-label" htmlFor="rememberMe">
                   <p className=" mb-4">
-                    By Continuing, you agree to Revbill{" "}
+                    By Continuing, you agree to RevAc{" "}
                     <Link to="/user/register-v3" className="text-primary">
                       Terms of Use
                     </Link>{" "}
