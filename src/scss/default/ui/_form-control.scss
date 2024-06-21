@@ -1,0 +1,30 @@
+.form-control,
+.form-select {
+  border-color: var(--app-component-border-color);
+  font-size: rem(16px);
+  @include media-breakpoint-down(lg) {
+    font-size: rem(14px);
+  }
+}
+.label{
+  font-size: rem(16px);
+  @include media-breakpoint-down(lg) {
+    font-size: rem(14px);
+  }
+}
+.inp {
+  outline: 0;
+  border-width: 0 0 2px;
+  border-radius: 0;
+  border-color: lightgray;
+}
+
+.form-select:not([multiple]) {
+  & option {
+    color: transparent;
+  }
+  & .selectt {
+    color: red;
+    color: transparent;
+  }
+}

@@ -1,0 +1,211 @@
+.pos-booking {
+	padding-top: $pos-booking-header-height;
+	
+	@include media-breakpoint-up(lg) {
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+	}
+	
+	& .pos-booking-header {
+		background: var(--app-component-bg);
+		padding: $spacer * 0.66 $spacer * 1.75;
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		z-index: $app-header-zindex;
+		height: $pos-booking-header-height;
+		display: flex;
+		align-items: center;
+		
+		& .logo,
+		& .time,
+		& .nav {
+			width: 33.33%;
+			
+			@include media-breakpoint-down(md) {
+				width: 50%;
+			}
+		}
+		& .logo {
+			display: flex;
+			
+			& > div,
+			& > a {
+				text-align: center;
+				color: var(--app-component-color);
+				text-decoration: none;
+				display: flex;
+				align-items: center;
+				
+				& .logo-img {
+					& img {
+						height: rem(32px);
+						
+						.dark-mode & {
+							filter: invert(1);
+						}
+					}
+				}
+				& .logo-text {
+					font-weight: 500;
+					font-size: rem(16px);
+					letter-spacing: rem(1px);
+					
+					@if $enable-rtl {
+						margin-right: rem(15px);
+					} @else {
+						margin-left: rem(15px);
+					}
+				}
+			}
+		}
+		& .time {
+			font-weight: $font-weight-bold;
+			font-size: rem(20px);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			
+			@include media-breakpoint-down(md) {
+				display: none;
+			}
+		}
+		& .nav {
+			align-items: center;
+			justify-content: flex-end;
+			
+			& .nav-item {
+				& .nav-link {
+					padding: $spacer * .333 $spacer;
+					
+					@include media-breakpoint-down(md) {
+						padding: $spacer * .333 $spacer * 0.66;
+					}
+					& .nav-icon {
+						height: rem(20px);
+						color: var(--app-component-color);
+					}
+				}
+			}
+		}
+	}
+	& .pos-booking-body {
+		height: calc(100% - 52px);
+		flex: 1;
+		display: flex;
+		
+		& .pos-booking-content {
+			flex: 1;
+			
+			& .pos-booking-content-container {
+				padding: $spacer * 1.75;
+				height: 100%;
+			}
+			& .table-booking {
+				display: block;
+				margin-bottom: $spacer * 1.25;
+				text-decoration: none;
+				
+				& .table-booking-container {
+					background: $gray-800;
+					color: $white;
+					border-radius: $border-radius-lg;
+					transition: box-shadow .1s linear;
+					
+					&:hover {
+						box-shadow: 0 0 0 5px rgba($gray-800,.5);
+					}
+					& .table-booking-header {
+						padding: $spacer;
+							
+						& .title {
+							font-weight: $font-weight-bold;
+							color: $gray-500;
+						}
+						& .no {
+							font-size: $font-size-lg * 2.5;
+							font-weight: $font-weight-bold;
+						}
+						& .desc {
+							font-weight: $font-weight-bold;
+							color: $gray-500;
+						}
+					}
+					& .table-booking-body {
+						background: $gray-700;
+						border-bottom-left-radius: $border-radius-lg;
+						border-bottom-right-radius: $border-radius-lg;
+						
+						& .booking {
+							font-size: $font-size-sm;
+							padding: $spacer * .333 $spacer;
+							display: flex;
+							
+							& .time {
+								width: rem(60px);
+								font-weight: $font-weight-bold;
+								color: $gray-300;
+							}
+							& .info {
+								white-space: nowrap;
+								text-overflow: ellipsis;
+								overflow: hidden;
+								flex: 1;
+							}
+							& .status {
+								font-size: rem(6px);
+								color: $gray-500;
+								display: flex;
+								align-items: center;
+								
+								@if $enable-rtl {
+									padding-right: $spacer;
+								} @else {
+									padding-left: $spacer;
+								}
+								
+								&.upcoming {
+									color: $warning;
+								}
+								&.in-progress {
+									color: $success;
+								}
+							}
+							&.highlight {
+								background: $gray-800;
+							}
+							& + .booking {
+								border-top: 1px solid $gray-800;
+							}
+						}
+					}
+				}
+			}
+			& .date {
+				border: 2px solid $gray-700;
+				max-width: rem(240px);
+				border-radius: $border-radius-lg;
+				
+				& .form-control {
+					border: none;
+					background: none;
+					font-size: $font-size-lg;
+					font-weight: $font-weight-bold;
+					color: var(--app-component-color);
+					box-shadow: none;
+					border-radius: 0;
+					
+					&::placeholder {
+					color: $gray-500;
+				}
+
+				}
+				& .input-group-addon {
+					background: none;
+				}
+			}
+		}
+	}
+}

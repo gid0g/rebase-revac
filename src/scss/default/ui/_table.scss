@@ -1,0 +1,37 @@
+.table {
+	&.table-card,
+	&.table-panel {
+		& > thead,
+		& > tbody,
+		& > tfoot {
+			& > tr {
+				& > th,
+				& > td {
+					&:first-child {
+						padding-left: $spacer;
+						
+						@if $enable-rtl {
+							border-right: 0;
+						} @else {
+							border-left: 0;
+						}
+					}
+					&:last-child {
+						padding-right: $spacer;
+						
+						@if $enable-rtl {
+							border-left: 0;
+						} @else {
+							border-right: 0;
+						}
+					}
+				}
+			}
+		}
+	}
+	&.table-dark {
+		& > :not(:last-child) > :last-child > * {
+			border-bottom-color: $gray-600;
+		}
+	}
+}

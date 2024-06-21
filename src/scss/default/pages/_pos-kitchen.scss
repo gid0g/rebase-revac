@@ -1,0 +1,277 @@
+.pos-kitchen {
+	min-height: 100%;
+	padding-top: $pos-kitchen-header-height;
+	display: flex;
+	flex-direction: column;
+	
+	& .pos-kitchen-header {
+		background: var(--app-component-bg);
+		padding: $spacer * 0.66 $spacer * 1.75;
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		z-index: $app-header-zindex;
+		height: $pos-kitchen-header-height;
+		display: flex;
+		align-items: center;
+		
+		& .logo,
+		& .time,
+		& .nav {
+			width: 33.33%;
+			
+			@include media-breakpoint-down(md) {
+				width: 50%;
+			}
+		}
+		& .logo {
+			display: flex;
+			
+			& > div,
+			& > a {
+				text-align: center;
+				color: var(--app-component-color);
+				text-decoration: none;
+				display: flex;
+				align-items: center;
+				
+				& .logo-img {
+					& img {
+						height: rem(32px);
+						
+						.dark-mode & {
+							filter: invert(1);
+						}
+					}
+				}
+				& .logo-text {
+					font-weight: 500;
+					font-size: rem(16px);
+					letter-spacing: rem(1px);
+					
+					@if $enable-rtl {
+						margin-right: rem(15px);
+					} @else {
+						margin-left: rem(15px);
+					}
+				}
+			}
+		}
+		& .time {
+			font-weight: $font-weight-bold;
+			font-size: rem(20px);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			
+			@include media-breakpoint-down(md) {
+				display: none;
+			}
+		}
+		& .nav {
+			align-items: center;
+			justify-content: flex-end;
+			
+			& .nav-item {
+				& .nav-link {
+					padding: $spacer * .333 $spacer;
+					
+					@include media-breakpoint-down(md) {
+						padding: $spacer * .333 $spacer * 0.66;
+					}
+					& .nav-icon {
+						height: rem(20px);
+						color: var(--app-component-color);
+					}
+				}
+			}
+		}
+	}
+	& .pos-kitchen-body {
+		flex: 1;
+		
+		& .pos-task-row {
+			& .pos-task {
+				border-bottom: 1px solid var(--app-component-border-color);
+				
+				@include media-breakpoint-up(md) {
+					display: flex;
+				}					
+				& .pos-task-info {
+					width: 30%;
+					padding: rem(25px);
+					
+					@if $enable-rtl {
+						text-align: left;
+					} @else {
+						text-align: right;
+					}
+					@include media-breakpoint-down(md) {
+						width: auto;
+						position: relative;
+						
+						@if $enable-rtl {
+							text-align: right;
+						} @else {
+							text-align: left;
+						}
+					}
+					
+					& .table-no {
+						font-size: rem(24px);
+					}
+					& .order-type {
+						font-size: rem(14px);
+					}
+					& .order-no {
+						margin-bottom: rem(5px);
+					}
+					& .time-pass {
+						font-size: rem(16px);
+						font-weight: $font-weight-bold;
+						margin-top: rem(25px);
+						
+						@include media-breakpoint-down(md) {
+							position: absolute;
+							top: 0;
+							margin: 0;
+							padding: rem(25px);
+							
+							@if $enable-rtl {
+								left: 0;
+							} @else {
+								right: 0;
+							}
+						}
+					}
+				}
+				& .pos-task-body {
+					padding: rem(25px);
+					flex: 1;
+					
+					@if $enable-rtl {
+						border-right: 1px solid var(--app-component-border-color);
+					} @else {
+						border-left: 1px solid var(--app-component-border-color);
+					}
+					@include media-breakpoint-down(md) {
+						border-left: none;
+						padding-top: 0;
+					}
+					
+					& .pos-task-completed {
+						font-size: rem(16px);
+						line-height: rem(36px);
+						
+						@include media-breakpoint-down(md) {
+							border-top: 1px solid var(--app-component-border-color);
+							margin-top: rem(-10px);
+							padding-top: rem(10px);
+						}
+					}
+					& .pos-task-product-row {
+						margin: 0 rem(-10px) rem(-20px);
+						display: flex;
+						flex-wrap: wrap;
+						
+						& .pos-task-product {
+							width: 25%;
+							margin-bottom: rem(20px);
+							padding-left: rem(10px);
+							padding-right: rem(10px);
+							flex: 0 0 25%;
+							display: flex;
+							flex-direction: column;
+							
+							@include media-breakpoint-down(lg) {
+								width: 33.33%;
+								flex: 0 0 33.33%;
+							}
+							@include media-breakpoint-down(sm) {
+								width: 100%;
+								flex: 0 0 100%;
+							}
+							
+							& .pos-task-product-img {
+								padding-top: 75%;
+								position: relative;
+								margin-bottom: rem(10px);
+							
+								& .cover {
+									position: absolute;
+									top: 0;
+									left: 0;
+									right: 0;
+									bottom: 0;
+									background-size: cover;
+									background-repeat: no-repeat;
+									background-position: center;
+									border-radius: $border-radius-lg;
+								}
+								& .caption {
+									position: absolute;
+									top: 0;
+									left: 0;
+									right: 0;
+									bottom: 0;
+									background: rgba($gray-600, .75);
+									color: $white;
+									font-size: rem(24px);
+									border-radius: $border-radius-lg;
+									display: flex;
+									align-items: center;
+									justify-content: center;
+								}
+							}
+							& .pos-task-product-info {
+								display: flex;
+								flex: 1;
+								
+								& .info {
+									flex: 1;
+									
+									& .title {
+										font-size: rem(16px);
+										font-weight: $font-weight-bold;
+										
+										& + .desc {
+											padding-top: rem(3px);
+										}
+									}
+									& .desc {
+										font-size: $font-size-base;
+										font-weight: $font-weight-bold;
+										color: rgba(var(--app-component-color-rgb), .5);
+									}
+								}
+								& .qty {
+									font-size: rem(18px);
+									font-weight: $font-weight-bold;
+								}
+							}
+							& .pos-task-product-action {
+								padding-top: rem(10px);
+								
+								& .btn {
+									display: block;
+									font-weight: $font-weight-bold;
+									font-size: rem(14px);
+									
+									& + .btn {
+										margin-top: rem(10px);
+									}
+								}
+							}
+							&.completed {
+								& .pos-task-product-info {
+									opacity: 0.75;
+								}	
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

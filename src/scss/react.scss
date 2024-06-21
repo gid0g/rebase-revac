@@ -1,0 +1,1009 @@
+@import 'default/styles';
+
+/* Mailbox */
+.mailbox {
+	& .mailbox-to {
+		& .react-tags {
+			border: 0;
+			flex: 1;
+			box-shadow: none !important;
+		}
+	}
+	& .mailbox-input {
+		& .quill {
+			& .ql-toolbar {
+				border: 0;
+				border-bottom: 1px solid var(--app-component-border-color);
+			}
+			& .ql-container {
+				border: 0 !important;
+			}
+		}
+	}
+}
+
+/* react-quill */
+.quill.border-0 {
+	& .ql-toolbar {
+		border: 0;
+		border-bottom: 1px solid var(--app-component-border-color);
+	}
+	& .ql-container {
+		border: 0 !important;
+	}
+}
+
+
+/* React Calendar */
+.react-calendar {
+	width: auto;
+	min-width: 300px;
+	border: none;
+	font-family: inherit;
+	background: none;
+	padding: 5px;
+	
+	& .react-calendar__navigation {
+		height: auto;
+		margin-bottom: 0;
+		min-height: 30px;
+		
+		& .react-calendar__navigation__label {
+			font-weight: $font-weight-bold;
+			font-size: 12px;
+			padding: 0;
+			color: var(--app-component-color);
+			border-radius: $border-radius-lg;
+			
+			&:hover,
+			&:focus {
+				background: var(--app-component-hover-bg);
+				outline: none;
+			}
+			&[disabled] {
+				background: none;
+				color: rgba(var(--app-component-color-rgb), .5);
+			}
+		}
+		& .react-calendar__navigation__arrow {
+			color: transparent;
+			position: relative;
+			padding: 0;
+			color: rgba(var(--app-component-color-rgb), .5);
+			border-radius: $border-radius-lg;
+			
+			@include fontawesome();
+			
+			&:hover,
+			&:focus {
+				background: var(--app-component-hover-bg);
+				outline: none;
+			}
+			&:after {
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				color: rgba(var(--app-component-color-rgb), .5);
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+			&.react-calendar__navigation__prev2-button:after {
+				content: '\f100';
+			}
+			&.react-calendar__navigation__prev-button:after {
+				content: '\f104';
+			}
+			&.react-calendar__navigation__next2-button:after {
+				content: '\f101';
+			}
+			&.react-calendar__navigation__next-button:after {
+				content: '\f105';
+			}
+		}
+	}
+	& .react-calendar__month-view {
+		& .react-calendar__month-view__weekdays {
+			& .react-calendar__month-view__weekdays__weekday {
+				min-height: 30px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				
+				& abbr {
+					font-size: 12px;
+					text-decoration: initial;
+					font-weight: bold;
+					text-transform: initial;
+				}
+			}
+		}
+		& .react-calendar__month-view__days {
+			& .react-calendar__tile {
+				height: auto;
+				min-height: 30px;
+				color: rgba(var(--app-component-color-rgb), .5);
+				font-weight: $font-weight-bold;
+				border-radius: $border-radius-lg;
+			
+				&:hover,
+				&:focus {
+					background: var(--app-component-hover-bg);
+					color: var(--app-component-color);
+					outline: none;
+				}
+				&.react-calendar__tile--active {
+					background: var(--app-component-active-bg);
+					color: var(--app-component-active-color);
+				}
+			}
+		}
+	}
+	& .react-calendar__year-view,
+	& .react-calendar__decade-view,
+	& .react-calendar__century-view {
+		& .react-calendar__tile {
+			height: auto;
+			min-height: 50px;
+			color: rgba(var(--app-component-color-rgb), .5);
+			font-weight: $font-weight-bold;
+			padding: 0;
+			border-radius: $border-radius-lg;
+		
+			&:hover,
+			&:focus {
+				background: var(--app-component-hover-bg);
+				color: var(--app-component-color);
+				outline: none;
+			}
+			&.react-calendar__tile--active,
+			&.react-calendar__tile--hasActive {
+				background: var(--app-component-active-bg);
+				color: var(--app-component-active-color);
+			}
+		}
+	}
+}
+
+
+/* Highlight.js */
+.hljs {
+	& .hljs-keyword,
+	& .hljs-built_in {
+		color: darken($blue, 15%);
+	}
+	& .hljs-class {
+		color: lighten($blue, 5%);
+	}
+	& .hljs-string,
+	& .hljs-literal {
+		color: darken($red, 7.5%);
+	}
+	& .hljs-title {
+		color: lighten($dark, 20%);
+	}
+}
+
+
+/* Countdown */
+.countdown-row {
+	clear: both;
+	width: 100%;
+	padding: 0px 2px;
+	text-align: center;
+}
+.countdown-section {
+	display: block;
+	float: left;
+	font-size: 75%;
+	text-align: center;
+	
+	& .countdown-period {
+		display: block;
+	}
+	& .countdown-descr {
+		display: block;
+		width: 100%;
+	}
+	.countdown-show1 & {
+		width: 98%;
+	}
+	.countdown-show2 & {
+		width: 48%;
+	}
+	.countdown-show3 & {
+		width: 32.5%;
+	}
+	.countdown-show4 & {
+		width: 24.5%;
+	}
+	.countdown-show5 & {
+		width: 19.5%;
+	}
+	.countdown-show6 & {
+		width: 16.25%;
+	}
+	.countdown-show7 & {
+		width: 14%;
+	}
+}
+
+
+/* Rdt Datepicker */
+.react-datepicker-wrapper {
+	display: block;
+}
+.rdt {
+	& .rdtPicker {
+		width: auto;
+		background: var(--app-component-dropdown-bg);
+		border: none;
+		border-radius: $border-radius-lg;
+		box-shadow: 0 0.5rem 1rem rgba($black,.175);
+		
+		& table {
+			& thead {
+				& tr {
+					& th {
+						&.rdtPrev,
+						&.rdtNext,
+						&.rdtSwitch {
+							line-height: 20px;
+							padding: 5px;
+							height: auto;
+							min-height: 30px;
+							border: none;
+							border-radius: $border-radius;
+							
+							&:hover,
+							&:focus {
+								background: var(--app-component-dropdown-hover-bg);
+								
+								& span:before {
+									color: var(--app-component-color);
+								}
+							}
+						}
+						&.rdtPrev,
+						&.rdtNext {
+							color: transparent;
+							width: 14.28%;
+							position: relative;
+							
+							& span {
+								color: transparent;
+								position: relative;
+								display: block;
+								border-radius: $border-radius-lg;
+								
+								@include fontawesome();
+							
+								&:before {
+									color: rgba(var(--app-component-color-rgb), .5);
+									position: absolute;
+									font-size: 14px;
+									top: 0;
+									left: 0;
+									right: 0;
+									bottom: 0;
+									line-height: 1;
+									display: flex;
+									align-items: center;
+									justify-content: center;
+								}
+								& i {
+									display: none;
+								}
+							}
+						}
+						&.rdtPrev {
+							& span:before {
+								content: '\f104';
+							}
+						}
+						&.rdtNext {
+							& span:before {
+								content: '\f105';
+							}
+						}
+						&.rdtSwitch {
+							width: auto;
+						}
+						&.dow {
+							padding: 5px 0;
+						}
+					}
+				}
+			}
+			& tfoot {
+				border: none;
+				
+				& tr {
+					& td {
+						&.rdtTimeToggle {
+							border: none;
+							font-weight: $font-weight-bold;
+							color: rgba(var(--app-component-color-rgb), .5);
+							text-shadow: none;
+							border-radius: $border-radius-lg;
+				
+							&:hover,
+							&:focus {
+								background: var(--app-component-dropdown-hover-bg);
+								text-shadow: none;
+							}
+						}
+					}	
+				}
+			}
+		}
+		& .rdtTime {
+			min-width: 180px;
+			
+			& .rdtCounters {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				
+				& > div {
+					float: none;
+				}
+				& .rdtCounter {
+					height: 110px;
+					width: 60px;
+					
+					& .rdtBtn {
+						height: 35%;
+						color: transparent;
+						position: relative;
+						border-radius: $border-radius-lg;
+						
+						@include fontawesome();
+						
+						&:before {
+							content: '\f106';
+							position: absolute;
+							top: 0;
+							left: 0;
+							right: 0;
+							bottom: 0;
+							color: rgba(var(--app-component-color-rgb), .5);
+							font-size: 18px;
+							display: flex;
+							align-items: center;
+							justify-content: center;
+						}
+						&:hover,
+						&:focus {
+							background: var(--app-component-dropdown-hover-bg);
+						}
+					}
+					& .rdtCount {
+						height: 30%;
+						font-weight: $font-weight-bold;
+						color: rgba(var(--app-component-color-rgb), .75);
+						font-size: 13px;
+						display: flex;
+						align-items: center;
+						justify-content: center;
+						
+						& + .rdtBtn {
+							&:before {
+								content: '\f107';
+							}
+						}
+					}
+				}
+			}
+		}
+		& .rdtDays {
+			min-width: 290px;
+			
+			& .rdtDay {
+				font-weight: $font-weight-bold;
+				color: rgba(var(--app-component-color-rgb), .75);
+				padding: 5px;
+				line-height: 20px;
+				border-radius: $border-radius-lg;
+				
+				&:hover,
+				&:focus,
+				&.rdtSelected,
+				&.rdtHighlighted,
+				&.rdtRange {
+					background: var(--app-component-dropdown-hover-bg) !important;
+					text-shadow: none;
+				}
+				&.rdtToday {
+					background: rgba(var(--app-component-bg-rgb), .5) !important;
+					color: var(--app-component-color) !important;
+				}
+				&.rdtActive {
+					background: var(--app-component-active-bg) !important;
+					color: var(--app-component-active-color) !important;
+					text-shadow: none !important;
+				}
+				&.rdtOld {
+					color: rgba(var(--app-component-color-rgb), .25);
+				}
+				&.rdtNew {
+					color: rgba(var(--app-component-color-rgb), .5);
+				}
+				&.disabled {
+					color: rgba(var(--app-component-color-rgb), .25);
+					
+					&:hover,
+					&:focus {
+						background: none;
+					}
+				}
+			}
+		}	
+		& .rdtMonths,
+		& .rdtYears {
+			min-width: 290px;
+			
+			& .rdtMonth,
+			& .rdtYear {
+				font-weight: $font-weight-bold;
+				color: rgba(var(--app-component-color-rgb), .5);
+				text-shadow: none;
+				border-radius: $border-radius;
+				
+				&:hover,
+				&:focus {
+					background: var(--app-component-dropdown-hover-bg);
+				}
+				&.rdtFocused {
+					background: var(--app-component-dropdown-hover-bg);
+					color: var(--app-component-color);
+				}
+				&.rdtActive {
+					background: var(--app-component-active-bg) !important;
+					color: var(--app-component-active-color);
+				}
+			}
+		}
+	}
+}
+
+
+/* React Datepicker */
+.react-datepicker {
+	border: none;
+	display: block;
+	font-family: inherit;
+	background: none;
+	
+	.react-datepicker-popper & {
+		padding: 5px;
+		background: var(--app-component-dropdown-bg);
+		z-index: 10;
+		border-radius: $border-radius-lg;
+		box-shadow: 0 0.5rem 1rem rgba($black,.175);
+	}
+	& .react-datepicker__triangle {
+		display: none;
+	}
+	& .react-datepicker__navigation {
+		color: transparent;
+		padding: 5px;
+		line-height: 20px;
+		border: none;
+		width: 30px;
+		height: 30px;
+		top: 0;
+		text-indent: 0;
+		border-radius: $border-radius-lg;
+		
+		&:hover,
+		&:focus {
+			background: var(--app-component-hover-bg);
+			outline: none;
+			
+			&:after {
+				color: var(--app-component-hover-color);
+			}
+		}
+		&:after {
+			color: rgba(var(--app-component-color-rgb), .5);
+			position: absolute;
+			font-size: 14px;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			
+			@include fontawesome();
+		}
+		& .react-datepicker__navigation-icon {
+			display: none;
+		}
+		&.react-datepicker__navigation--previous {
+			&:after {
+				content: '\f104';
+			}
+		}
+		&.react-datepicker__navigation--next {
+			&:after {
+				content: '\f105';
+			}
+		}
+	}
+	& .react-datepicker__month-container {
+		float: none;
+		
+		& .react-datepicker__header {
+			background: none;
+			border: none;
+			padding: 0;
+			
+			& .react-datepicker__current-month {
+				font-size: 12px;
+				color: var(--app-component-color);
+				font-weight: 700;
+				padding: 5px;
+				line-height: 20px;
+			}
+			& .react-datepicker__day-names {
+				display: flex;
+				
+				& .react-datepicker__day-name {
+					font-weight: $font-weight-bold;
+					color: rgba(var(--app-component-color-rgb), .5);
+					font-size: 12px;
+					padding: 5px;
+					line-height: 20px;
+					margin: 0;
+					flex: 1;
+				}
+			}
+		}
+		
+		& .react-datepicker__month {
+			margin: 0;
+			
+			& .react-datepicker__week {
+				display: flex;
+				
+				& .react-datepicker__day {
+					padding: 5px;
+					line-height: 20px;
+					font-weight: 600;
+					color: rgba(var(--app-component-color-rgb), .5);
+					flex: 1;
+					border-radius: $border-radius-lg;
+					
+					&:hover,
+					&:focus,
+					&.react-datepicker__day--today {
+						background: var(--app-component-hover-bg);
+						color: var(--app-component-color);
+						outline: none;
+					}
+					&.react-datepicker__day--selected {
+						background: var(--app-component-active-bg);
+						color: var(--app-component-active-color);
+					}
+				}
+			}
+		}
+	}
+}
+
+
+/* React Tag Autocomplete */
+.react-tags {
+	min-height: 34px;
+	border: 1px solid var(--app-component-border-color);
+	padding: 5px 12px;
+	border-radius: $border-radius;
+	display: flex;
+	flex-wrap: wrap;
+	transition: all .2s linear;
+	
+	.email-to & {
+		border-left: none;
+		border-right: none;
+		border-top: none;
+		padding-left: 50px;
+		min-height: 43px;
+		align-items: center;
+		border-radius: 0;
+		
+		&.is-focused {
+			box-shadow: none;
+		}
+	}
+	&.is-focused {
+		border-color: var(--app-component-focus-border-color);
+		box-shadow: 0 0 0 0.2rem rgba($blue,.25);
+	}
+	& .react-tags__selected {
+		& .react-tags__selected-tag {
+			background: var(--app-component-active-bg);
+			color: var(--app-component-active-color);
+			padding: 2px 25px 2px 10px;
+			border: none;
+			outline: none;
+			font-weight: $font-weight-bold;
+			font-size: $font-size-base;
+			line-height: 18px;
+			margin: 0 2px;
+			position: relative;
+			border-radius: $border-radius;
+			
+			&:after {
+				content: '\f00d';
+				position: absolute;
+				right: 2px;
+				top: 0;
+				bottom: 0;
+				width: 20px;
+				font-size: 10px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				
+				@include fontawesome();
+			}
+		}
+	}
+	& .react-tags__search {
+		position: relative;
+		
+		& .react-tags__search-input {
+			border: none;
+			background: none;
+			height: 20px;
+			outline: none;
+			margin: 1px 5px;
+			font-weight: $font-weight-bold;
+			color: var(--app-component-color);
+			min-width: rem(150px);
+			box-shadow: none;
+			
+			&::placeholder {
+				color: rgba(var(--app-component-color-rgb), .5);
+			}
+		}
+		& .react-tags__suggestions {
+			position: absolute;
+			top: 100%;
+			left: 0;
+			background: var(--app-component-dropdown-bg);
+			padding: 10px 0;
+			min-width: 120px;
+			border-radius: $border-radius-lg;
+			box-shadow: 0 0.5rem 1rem rgba($black,.175);
+			
+			& ul {
+				list-style-type: none;
+				margin: 0;
+				padding: 0;
+				
+				& li {
+					display: block;
+					padding: 5px 10px;
+					
+					&:hover,
+					&:focus {
+						background: var(--app-component-dropdown-hover-bg);
+					}
+					& span {
+						font-weight: $font-weight-bold;
+						color: rgba(var(--app-component-color-rgb), .5);
+						
+						& mark {
+							background: lighten($yellow, 20%);
+							color: dark;
+							padding: 0 2px;
+							border-radius: $border-radius;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+
+/* React Color */
+.sketch-picker,
+.chrome-picker {
+	background: none !important;
+	border: none !important;
+	box-shadow: none !important;
+	
+	.dropdown-menu & {
+		margin: -8px 0;
+	}
+	
+	& label {
+		color: var(--app-component-color) !important;
+	}
+	& input {
+		border: 1px solid var(--app-component-border-color) !important;
+		background: var(--app-component-bg) !important;
+		color: var(--app-component-color) !important;
+		transition: all .2s linear;
+		box-shadow: none !important;
+		border-radius: $border-radius;
+		
+		&:focus {
+			border-color: var(--app-component-focus-border-color) !important;
+			outline: none;
+			box-shadow: 0 0 0 0.2rem rgba($blue,.25) !important;
+		}
+	}
+	& .flexbox-fix {
+		border-color: var(--app-component-border-color) !important;
+	}
+}
+
+
+/* React DataTable */
+body {
+	& .rdt_TableHeader {
+		padding: 0;
+		font-size: $font-size-base * 1.5;
+		margin-bottom: $spacer * .5;
+		min-height: auto;
+		background: none;
+		color: var(--app-component-color);
+		
+		& > div + div {
+			background: var(--bs-light);
+			color: var(--app-component-color);
+			font-size: $font-size-base;
+			
+			& > div {
+				font-weight: $font-weight-bold;
+			}
+		}
+	}
+	& .rdt_TableHead {
+		& .rdt_TableHeadRow {
+			border-color: var(--app-component-border-color);
+		}
+	}
+	& .rdt_Table {
+		border: 1px solid var(--app-component-border-color);
+		color: var(--app-component-color);
+		background: none;
+		
+		& svg {
+			fill: var(--app-component-color);
+		}
+		& .rdt_TableHeadRow {
+			min-height: auto;
+			font-weight: $font-weight-bold;
+			color: var(--app-component-color);
+			background: none;
+		}
+		& .rdt_TableRow {
+			padding: 0;
+			min-height: auto;
+			color: var(--app-component-color);
+			background: none;
+			
+			&:not(:last-child) {
+				border-bottom: 1px solid var(--app-component-border-color);
+			}
+			&:last-child {
+				margin-bottom: -1px;
+			}
+			
+			& > div + div {
+				@if ($enable-rtl) {
+					border-right: 1px solid var(--app-component-border-color);
+				} @else {
+					border-left: 1px solid var(--app-component-border-color);
+				}
+			}
+		}
+		& .rdt_TableCol {
+			padding: $table-cell-padding-y $table-cell-padding-x;
+		}
+		& .rdt_TableCol_Sortable {
+			& > span {
+				color: transparent;
+				position: relative;
+				padding: 0;
+				
+				@if ($enable-rtl) {
+					margin-right: auto;
+				} @else {
+					margin-left: auto;
+				}
+				
+				&:before {
+					content: '\f0dd';
+					color: var(--app-component-active-bg);
+					font-size: $font-size-lg;
+					position: absolute;
+					top: 0;
+					left: 0;
+					right: 0;
+					bottom: 0;
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					
+					@include fontawesome();
+				}
+			}
+		}
+		& .rdt_TableCell {
+			padding: $table-cell-padding-y $table-cell-padding-x;
+		}
+		& input[type="checkbox"] {
+			width: $form-check-input-width;
+			height: $form-check-input-width;
+			margin-top: ($line-height-base - $form-check-input-width) * .5; // line-height minus check height
+			vertical-align: top;
+			background-color: $form-check-input-bg;
+			background-repeat: no-repeat;
+			background-position: center;
+			background-size: contain;
+			border: $form-check-input-border;
+			appearance: none;
+			font-size: $font-size-base !important;
+			print-color-adjust: exact; // Keep themed appearance for print
+			@include transition($form-check-transition);
+			@include border-radius($form-check-input-border-radius);
+
+			&:active {
+				filter: $form-check-input-active-filter;
+			}
+			&:focus {
+				border-color: $form-check-input-focus-border;
+				outline: 0;
+				box-shadow: $form-check-input-focus-box-shadow;
+			}
+			&:checked {
+				background-color: $form-check-input-checked-bg-color;
+				border-color: $form-check-input-checked-border-color;
+
+				&[type="checkbox"] {
+					@if $enable-gradients {
+						background-image: escape-svg($form-check-input-checked-bg-image), var(--#{$prefix}gradient);
+					} @else {
+						background-image: escape-svg($form-check-input-checked-bg-image);
+					}
+				}
+			}
+
+			&[type="checkbox"]:indeterminate {
+				background-color: $form-check-input-indeterminate-bg-color;
+				border-color: $form-check-input-indeterminate-border-color;
+
+				@if $enable-gradients {
+					background-image: escape-svg($form-check-input-indeterminate-bg-image), var(--#{$prefix}gradient);
+				} @else {
+					background-image: escape-svg($form-check-input-indeterminate-bg-image);
+				}
+			}
+
+			&:disabled {
+				pointer-events: none;
+				filter: none;
+				opacity: $form-check-input-disabled-opacity;
+			}
+
+			// Use disabled attribute in addition of :disabled pseudo-class
+			// See: https://github.com/twbs/bootstrap/issues/28247
+			&[disabled],
+			&:disabled {
+				~ .form-check-label {
+					cursor: default;
+					opacity: $form-check-label-disabled-opacity;
+				}
+			}
+		}
+		& .rdt_ExpanderRow {
+			margin: 0;
+			padding: $spacer;
+			background: var(--bs-light);
+			border-bottom: 1px solid var(--app-component-border-color);
+			
+			& pre {
+				margin: 0;
+				color: var(--app-component-color);
+			}
+		}
+	}
+	& .rdt_Pagination {
+		border: none;
+		background: none;
+		color: var(--app-component-color);
+		font-size: $font-size-base;
+		min-height: auto;
+		padding: $spacer * .5 0;
+		
+		& button {
+			width: auto;
+			height: auto;
+			color: var(--app-component-color);
+			border-radius: $border-radius;
+			padding: $btn-padding-y-sm $btn-padding-x-sm * .5;
+			
+			& svg {
+				fill: var(--app-component-color);
+			}
+			&:hover:not(:disabled) {
+				background: var(--bs-light);
+			}
+			&:disabled {
+				opacity: .25;
+			}
+			& + button {
+				@if ($enable-rtl) {
+					margin-right: $spacer * .25;
+				} @else {
+					margin-left: $spacer * .25;
+				}
+			}
+		}
+		& select {
+			display: block;
+			height: auto;
+			padding: $form-select-padding-y-sm $form-select-indicator-padding $form-select-padding-y-sm $form-select-padding-x;
+			-moz-padding-start: subtract($form-select-padding-x, 3px); // See https://github.com/twbs/bootstrap/issues/32636
+			font-family: $form-select-font-family;
+			@include font-size($form-select-font-size);
+			font-weight: $form-select-font-weight;
+			line-height: $form-select-line-height;
+			color: $form-select-color;
+			background-color: $form-select-bg;
+			background-image: escape-svg($form-select-indicator);
+			background-repeat: no-repeat;
+			background-position: $form-select-bg-position;
+			background-size: $form-select-bg-size;
+			border: $form-select-border-width solid var(--app-component-border-color);;
+			@include border-radius($form-select-border-radius, 0);
+			@include box-shadow($form-select-box-shadow);
+			@include transition($form-select-transition);
+			appearance: none;
+
+			&:focus {
+				border-color: $form-select-focus-border-color;
+				outline: 0;
+				@if $enable-shadows {
+					@include box-shadow($form-select-box-shadow, $form-select-focus-box-shadow);
+				} @else {
+					box-shadow: $form-select-focus-box-shadow;
+				}
+			}
+			& + svg {
+				display: none;
+			}
+		}
+	}
+}
+
+
+/* Boxed Layout */
+.boxed-layout {
+	#root {
+		height: 100%;
+	}
+}
+
+
+/* React Notification */
+.rnc__base {
+	top: 0;
+	left: 0;
+}
+
+.scrollbar-container {
+	.app:not(.app-sidebar-fixed) & {
+		height: auto;
+	}
+}

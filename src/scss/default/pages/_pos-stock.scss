@@ -1,0 +1,201 @@
+.pos-stock {
+	padding-top: $pos-stock-header-height;
+	
+	@include media-breakpoint-up(lg) {
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+	}
+	
+	& .pos-stock-header {
+		background: var(--app-component-bg);
+		padding: $spacer * 0.66 $spacer * 1.75;
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		z-index: $app-header-zindex;
+		height: $pos-stock-header-height;
+		display: flex;
+		align-items: center;
+		
+		& .logo,
+		& .time,
+		& .nav {
+			width: 33.33%;
+			
+			@include media-breakpoint-down(md) {
+				width: 50%;
+			}
+		}
+		& .logo {
+			display: flex;
+			
+			& > div,
+			& > a {
+				text-align: center;
+				color: var(--app-component-color);
+				text-decoration: none;
+				display: flex;
+				align-items: center;
+				
+				& .logo-img {
+					& img {
+						height: rem(32px);
+						
+						.dark-mode & {
+							filter: invert(1);
+						}
+					}
+				}
+				& .logo-text {
+					font-weight: 500;
+					font-size: rem(16px);
+					letter-spacing: rem(1px);
+					
+					@if $enable-rtl {
+						margin-right: rem(15px);
+					} @else {
+						margin-left: rem(15px);
+					}
+				}
+			}
+		}
+		& .time {
+			font-weight: $font-weight-bold;
+			font-size: rem(20px);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			
+			@include media-breakpoint-down(md) {
+				display: none;
+			}
+		}
+		& .nav {
+			align-items: center;
+			justify-content: flex-end;
+			
+			& .nav-item {
+				& .nav-link {
+					padding: $spacer * .333 $spacer;
+					
+					@include media-breakpoint-down(md) {
+						padding: $spacer * .333 $spacer * 0.66;
+					}
+					& .nav-icon {
+						height: rem(20px);
+						color: var(--app-component-color);
+					}
+				}
+			}
+		}
+	}
+	& .pos-stock-body {
+		height: calc(100% - 52px);
+		flex: 1;
+		display: flex;
+		
+		& .pos-stock-content {
+			flex: 1;
+			
+			& .pos-stock-content-container {
+				padding: $spacer * .5;
+				height: 100%;
+				
+				& .pos-stock-product {
+					height: 100%;
+					padding: $spacer * .5;
+					
+					& .pos-stock-product-container {
+						background: var(--app-component-bg);
+						height: 100%;
+						overflow: hidden;
+						box-shadow: $box-shadow;
+						border-radius: $border-radius-lg;
+						
+						& .product {
+							height: 100%;
+							display: flex;
+							flex-direction: column;
+							
+							& .product-img {
+								& .img {
+									padding-top: 75%;
+									background-size: cover;
+									background-position: center;
+									background-repeat: no-repeat;
+									
+									@include media-breakpoint-down(md) {
+										padding-top: 56.25%;
+									}
+								}
+							}
+							& .product-info {
+								padding: $spacer $spacer * 1.25;
+								flex: 1;
+								
+								& .title {
+									font-size: $font-size-lg;
+									font-weight: $font-weight-bold;
+								}
+								& .desc {
+									color: rgba(var(--app-component-color-rgb), .5);
+									margin-bottom: $spacer;
+								}
+							}
+							& .product-option {
+								margin: 0 0 $spacer * .333;
+								
+								& .option {
+									padding: rem(0);
+									flex: 1;
+									display: flex;
+									align-items: center;
+									
+									& .option-label {
+										font-weight: $font-weight-bold;
+										width: rem(90px);
+										
+										@if $enable-rtl {
+											padding-left: $spacer * 0.66;
+										} @else {
+											padding-right: $spacer * 0.66;
+										}
+									}
+									& .option-input {
+										flex: 1;
+										
+										& .form-control {
+											padding: $spacer * 0.25 $spacer * 0.66;
+										}
+										& .form-switch {
+											& .form-check-input {
+												&:checked {
+													background-color: $teal;
+													border-color: $teal;
+												}
+											}
+										}
+									}
+									& + .option {
+										padding-top: $spacer;
+									}
+								}
+							}
+							& .product-action {
+								display: flex;
+								
+								& .btn {
+									padding: $spacer * 0.75 0;
+									flex: 1;
+									border-radius: 0;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
