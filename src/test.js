@@ -694,12 +694,12 @@ export default IndividualScreen;
                 <img
                   className="block h-8 w-auto lg:hidden"
                   src={logo}
-                  alt="Revbill"
+                  alt="RevAc"
                 />
                 <img
                   className="hidden h-8 w-auto lg:block"
                   src={logo}
-                  alt="Revbill"
+                  alt="RevAc"
                 />
               </div>
               <div className=" sm:flex hidden sm:ml-6 sm:block">

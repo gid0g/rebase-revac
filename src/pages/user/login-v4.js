@@ -202,7 +202,7 @@ const LoginV3 = () => {
           <div className="brand">
             <div className="d-flex justify-content-between">
               <span className="l">
-                <img className="revbill-logo" src={logo} alt="revac" />
+                <img className="RevAc-logo" src={logo} alt="revac" />
               </span>
 
               <Link className="icon" to="/">
