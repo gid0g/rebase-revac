@@ -75,7 +75,7 @@ export const SuperAdminMenu = [
         title: "Revenue Prices",
       },
       { path: "administration/spaceidentifiers", title: "Space Identifiers" },
-      // { path: "administration/agencies", title: "Agencies" },
+      { path: "administration/agencies", title: "Agencies" },
       { path: "administration/revenues", title: "Revenues" },
       { path: "administration/businesstype", title: "Business Type" },
       { path: "administration/businesssize", title: "Business Size" },
