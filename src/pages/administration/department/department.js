@@ -8,9 +8,10 @@ import { AppSettings } from "../../../config/app-settings";
 import "react-activity/dist/library.css";
 import { ToastContainer, toast } from "react-toastify";
 import Toast from 'react-bootstrap/Toast';
+import { Modal } from "bootstrap";
 
 
-const Agencies = () => {
+const Departments = () => {
   const token = sessionStorage.getItem("myToken");
   const appSettings = useContext(AppSettings);
   const userData = appSettings.userData;
@@ -24,8 +25,10 @@ const Agencies = () => {
   const [newAgency, setNewAgency] = useState("");
   const [description, setDescription] = useState("");
   const [agencyCode, setAgencyCode] = useState("");
+  const [departments, setDepartment]= useState([])
   const [currentPage, setCurrentPage] = useState(1);
   const customRowsPerPageOptions = [5, 10, 20];
+  const [modalInstance, setModalInstance] = useState(null);
 
   const [show, setShow] = useState(false);
 
@@ -45,7 +48,7 @@ const Agencies = () => {
     },
     {
       name: "Department Name",
-      selector: (row) => row.agencyName,
+      selector: (row) => row.departmentName,
       sortable: true,
       grow: 2,
       style: {
@@ -54,7 +57,7 @@ const Agencies = () => {
     },
     {
       name: "Department Code",
-      selector: (row) => row.agencyCode,
+      selector: (row) => row.departmentCode,
       sortable: true,
       grow: 1,
       style: {
@@ -86,22 +89,80 @@ const Agencies = () => {
 
 
 ////////////////////////////
+const authCloseModal = (elementId) => {
+  const myModal = new Modal(document.getElementById(elementId));
 
+  myModal.show();
+
+  myModal._element.addEventListener('shown.bs.modal', () => {
+    clearTimeout(myModal._element.hideInterval);
+    const id = setTimeout(() => {
+      myModal.hide();
+    });
+    myModal._element.hideInterval = id;
+
+    const backdropElement = document.querySelector('.modal-backdrop.show');
+    if (backdropElement) {
+      backdropElement.remove();
+    }
+  });
+
+  setModalInstance(myModal);
+}
+const DepartApi= "http://pm.ebs-rcm.com/api/api/department"
+useEffect(()=>{
+  console.log("finding departments")
+ async function Getdepartments(){
+  try{
+    const response= await fetch (DepartApi)
+    const data= await response.json()
+    console.log("departments", data)
+    setDepartment(data)
+  }
+  catch(error){
+    console.log("error", error)
+  }
+ }
+
+  Getdepartments();
+},[currentPage, perPage])
+
+useEffect(()=>{
+  console.log("depart", departments)
+},[departments])
 ////////////////////////////
 
 
   const handleEditChange = (e) => {
     const { name, value } = e.target;
+    console.log("view",name, value)
+    console.log("edit", editRow)
     setEditRow((prevEditData) => ({
       ...prevEditData,
       [name]: value,
     }));
   };
+  // const handleEdit = (item) => {
+  //   setEditRow(item);
+  //   setItemId(item.departmentCode);
+  // };
+  // const handleEdit = (item) => {
+  //   setEditRow(item);
+  //   setItemId(item.departmentCode);
+  //   setNewAgency(item.departmentName); // Update newAgency state
+  //   setAgencyCode(item.departmentCode); // Update agencyCode state
+  // };
   const handleEdit = (item) => {
-    setEditRow(item);
-    setItemId(item.agencyId);
+    setEditRow({...item });
+    setItemId(item.departmentCode);
   };
-
+  useEffect(()=>{
+    console.log("editRow", editRow)
+  },[editRow])
+  useEffect(()=>{
+    console.log("newDepartment", newAgency)
+    console.log("newcode", agencyCode)
+  },[newAgency, agencyCode])
 
   const handleChange = (event) => {
     setNewAgency(event.target.value);
@@ -112,49 +173,30 @@ const Agencies = () => {
   const handleDescriptionChange = (event) => {
     setDescription(event.target.value);
   };
-
-  const addNewAgency = async (e) => {
+  const addDepartment = async (e) => {
     setLoading(true);
     e.preventDefault();
-    await api
-      .post(
-        `enumeration/create-agency`,
-        {
-          organisationId: organisationId,
-          agencyCode: agencyCode,
-          agencyName: newAgency,
-          description: description,
-          active: true,
-          dateCreated: new Date().toISOString(),
-          createdBy: userData[0]?.email,
+    try {
+      console.log("doing")
+      const requestBody = {
+        "departmentName": newAgency,
+        "departmentCode": agencyCode,
+        "departmentStatus": true
+      };
+  
+      const response = await fetch('/api/department', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
         },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
-      .then((response) => {
-        if (response.status === 200) {
-          setLoading(false);
-          toast.success(response.statusText, {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: true,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "colored",
-          });
-          setNewAgency("");
-        }
+        body: JSON.stringify(requestBody)
+      });
+  
+      const data = await response.json();
+      console.log("department created", data);
+      if(data.departmentStatus){
         setLoading(false);
-        return true;
-      })
-      .catch((error) => {
-        setLoading(false);
-        toast.error(error.response.data.agencyName[0], {
+        toast.success("Department succesfully created", {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: true,
@@ -164,15 +206,71 @@ const Agencies = () => {
           progress: undefined,
           theme: "colored",
         });
-      });
-  };
+        setNewAgency("");
+      }
+      authCloseModal("addAgency")
+    } catch (error) {
+      console.log("error", error);
+    }
+    setLoading(false);
+    setTimeout(()=>{
+             window.location.reload();
+           },2000)
+  }
+  
 
+
+  const editDepartments= async(e)=>{
+    e.preventDefault();
+    setLoading(true);
+    e.preventDefault();
+    try {
+      console.log("doing")
+      const requestBody = {
+        "departmentName": editRow.departmentName,
+        "departmentCode": editRow.departmentCode,
+        "departmentStatus": true
+      };
+  
+      const response = await fetch(`/api/department/${editRow.departmentId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(requestBody)
+      });
+  
+      const data = await response.json();
+      console.log("department created", data);
+      if(data.departmentStatus){
+        setLoading(false);
+        toast.success("Department succesfully Updated", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+        setNewAgency("");
+      }
+      authCloseModal("editAgency")
+    } catch (error) {
+      console.log("error", error);
+    }
+    setLoading(false);
+    setTimeout(()=>{
+             window.location.reload();
+           },2000)
+  }
 
   const editAgency = async (e) => {
     e.preventDefault();
     console.log("userData:", userData);
-   
     console.log("itemId:", itemId);
+   
     const modifiedBy = userData && userData.length > 0 ? userData[0]?.email : "";
     await api
     .post(`enumeration/agencies/${itemId}`,
@@ -230,12 +328,19 @@ const Agencies = () => {
   });
 };
 //filter item 
-  const filteredItems = data?.filter(
+  const filteredItems1 = data?.filter(
     (item) =>
       item.agencyName &&
       item.agencyName.toLowerCase().includes(filterText.toLowerCase()) || 
       item.agencyCode &&
       item.agencyCode.toLowerCase().includes(filterText.toLowerCase())
+  );
+  const filteredItems = departments?.filter(
+    (item) =>
+      item.departmentName &&
+      item.departmentName.toLowerCase().includes(filterText.toLowerCase()) || 
+      item.departmentCode &&
+      item.departmentCode.toLowerCase().includes(filterText.toLowerCase())
   );
 
   const subHeaderComponentMemo = React.useMemo(() => {
@@ -271,6 +376,7 @@ const Agencies = () => {
       })
       .then((response) => {
         setData(response.data);
+        console.log("agencies", response.data)
       })
       .catch((error) => {
         if (error.response) {
@@ -438,7 +544,7 @@ const Agencies = () => {
                 <ToastContainer />
                 <div className="  ">
                   <div className=" p-2 ">
-                    <form onSubmit={addNewAgency}>
+                    <form onSubmit={addDepartment}>
                       <div className="row gx-5">
                         <div className="col">
                           <div className="mb-3 ">
@@ -575,7 +681,7 @@ const Agencies = () => {
                 <ToastContainer />
                 <div className="  ">
                   <div className=" p-2 ">
-                    <form onSubmit={editAgency}>
+                    <form onSubmit={editDepartments}>
                       <div className="row gx-5">
                         <div className="col">
                           <div className="mb-3 ">
@@ -586,17 +692,26 @@ const Agencies = () => {
                               Department Name
                             </label>
 
-                            <input
+                            {/* <input
                               type="text"
                               name="agencyName"
                               className="form-control"
-                              value={editRow ? editRow.agencyName : ""}
+                              value={editRow ? editRow.departmentName : ""}
                               placeholder="Enter Department"
                               onChange={handleEditChange}
                               required
-                            />
+                            /> */}
+                      <input
+                      type="text"
+                      name="agencyName"
+                      className="form-control"
+                      value={editRow? editRow.departmentName : ""}
+                      placeholder="Enter Department"
+                      onChange={(e) => setEditRow({...editRow, departmentName: e.target.value })}
+                      required
+                    />
                           </div>
-                          <div className="row gx-5">
+                          {/* <div className="row gx-5">
                         <div className="col">
                           <div className="mb-3 ">
                             <label
@@ -609,14 +724,14 @@ const Agencies = () => {
                             <input
                               type="text"
                               className="form-control"
-                              value={agencyCode}
+                              value={editRow ? editRow.departmentCode : ""}
                               placeholder="Enter Department Code"
                               onChange={handleCodeChange}
                               required
                             />
                           </div>
                         </div>
-                      </div>
+                      </div> */}
                         </div>
                       </div>
                       <div className="d-flex justify-content-end">
@@ -647,4 +762,4 @@ const Agencies = () => {
   );
 };
 
-export default Agencies;
+export default Departments;

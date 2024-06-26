@@ -113,6 +113,10 @@ const Agencies = () => {
     setDescription(event.target.value);
   };
 
+  useEffect(()=>{
+    console.log("newDepartment", newAgency)
+    console.log("newcode", agencyCode)
+  },[newAgency, agencyCode])
   const addNewAgency = async (e) => {
     setLoading(true);
     e.preventDefault();
