@@ -14,7 +14,7 @@ const ManifestSlip = () => {
   const componentRef = useRef();
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
-    documentTitle: "revbill-manifest-slip",
+    documentTitle: "RevAc-manifest-slip",
     // onAfterPrint: () => alert("Print Success"),
   });
 
@@ -65,7 +65,7 @@ const ManifestSlip = () => {
               <div key={idx} ref={componentRef} style={{ width: "100%" }}>
                 <div className="container border p-3">
                   <header className="header flex justify-between">
-                    <img className="w-1/12" src={logo} alt="revbill" />
+                    <img className="w-1/12" src={logo} alt="RevAc" />
                     <h2>{manifest.organisationName}</h2>
                     <img alt="organisation" />
                   </header>

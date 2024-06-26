@@ -11,7 +11,7 @@ const ThankYou = () => {
       </div>
 
       <div className='flex flex-col justify-center items-center lg:justify-start lg:items-start gap-2'>
-        <p className='text-gray-800 text-center lg:text-start'>Thanks for signing up to Revbill.</p>
+        <p className='text-gray-800 text-center lg:text-start'>Thanks for signing up to RevAc.</p>
         <p className='text-gray-800 text-center lg:text-start'>Your request for Onboarding is currently undergoing for processing</p>
         <p className='text-gray-800 text-center lg:text-start'>If you have any questions, feel free to <Link to={""} className='text-blue-900'>email our customer service team.</Link></p>
 

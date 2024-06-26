@@ -234,7 +234,7 @@ const OneTimePassword = () => {
             <div className="brand">
               <div className="d-flex justify-content-between">
                 <span className="l">
-                  <img className="revbill-logo" src={logo} alt="revbill" />
+                  <img className="RevAc-logo" src={logo} alt="RevAc" />
                 </span>
                 <Link to="/">
                   <div className="icon">
