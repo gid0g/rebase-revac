@@ -6,7 +6,7 @@ const ThankYou = () => {
   return (
     <section className='flex flex-col justify-center items-center h-screen gap-8'>
       <div className='flex flex-col justify-center items-center gap-3'>
-        <img src={Logo} alt="revbill" className='w-[50%] md:w-[30%] object-cover h-auto'/>
+        <img src={Logo} alt="revac" className='w-[50%] md:w-[30%] object-cover h-auto'/>
         <h4 className='text-blue-900 text-xl md:text-2xl lg:text-4xl font-semibold'>Thanks for Signing Up!</h4>
       </div>
 
