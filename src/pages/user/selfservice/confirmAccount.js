@@ -178,7 +178,7 @@ const ConfirmAccount = () => {
           <div className="brand">
             <div className="d-flex justify-content-between">
               <span className="l">
-                <img className="RevAc-logo" src={logo} alt="RevAc" />
+                <img className="RevAc-logo" src={logo} alt="RevAc" width="300px"/>
               </span>
               <Link to="/">
                 <div className="icon">

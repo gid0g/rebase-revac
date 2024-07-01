@@ -109,39 +109,42 @@ const authCloseModal = (elementId) => {
 
   setModalInstance(myModal);
 }
-const DepartApi= "https://pm.ebs-rcm.com/revac/api/department"
 useEffect(()=>{
   console.log("finding departments")
  async function Getdepartments(){
   try{
-    const response= await fetch (DepartApi)
-    const data= await response.json()
-    console.log("departments", data)
-    setDepartment(data)
+    await api
+    .get(`department`)
+      .then((response)=>{
+        console.log("response---", response)
+        setDepartment(response)
+      })
+      .catch((error) => {
+        if (error.response) {
+          toast.error(error.response.data, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          });
+        } else
+          toast.error(error.message, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          });
+      });
   }
   catch(error){
-    if (error.response) {
-      toast.error(error.response.data, {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-      });
-    } else
-      toast.error(error.message, {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-      });
     console.log("error", error)
   }
  }
@@ -196,29 +199,47 @@ useEffect(()=>{
     setDescription(event.target.value);
   };
   const addDepartment = async (e) => {
+    console.log("adding")
     setLoading(true);
     e.preventDefault();
-    try {
-      console.log("doing")
-      const requestBody = {
-        "departmentName": newAgency,
-        "departmentCode": agencyCode,
-        "departmentStatus": true
-      };
-  
-      const response = await fetch('/department', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
+      await api.post(
+        `department`, 
+        {
+          departmentName:newAgency,
+          departmentCode:agencyCode,
+          departmentStatus:true
         },
-        body: JSON.stringify(requestBody)
-      });
-  
-      const data = await response.json();
-      console.log("department created", data);
-      if(data.departmentStatus){
+        {
+          headers:{
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((response)=>{
+        if(response.status === 200) {
+          setLoading(false);
+          toast.success(response.statusText, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          });
+          setNewAgency("");
+          authCloseModal("addAgency")
+        }
         setLoading(false);
-        toast.success("Department succesfully created", {
+        setTimeout(()=>{
+          window.location.reload();
+        },2000)
+        return true;
+      })
+      .catch((error) => {
+        setLoading(false);
+        toast.error(error.response.data.agencyName[0], {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: true,
@@ -228,45 +249,54 @@ useEffect(()=>{
           progress: undefined,
           theme: "colored",
         });
-        setNewAgency("");
+      });
       }
-    } catch (error) {
-      console.log("error", error);
-    }
-    setLoading(false);
-    setTimeout(()=>{
-      authCloseModal("addAgency")
-      window.location.reload();
-           },2000)
-  }
   
 
 
   const editDepartments= async(e)=>{
-    e.preventDefault();
+    console.log("editing")
     setLoading(true);
     e.preventDefault();
     try {
-      console.log("doing")
-      const requestBody = {
-        "departmentName": editRow.departmentName,
-        "departmentCode": editRow.departmentCode,
-        "departmentStatus": true
-      };
-  
-      const response = await fetch(`/api/department/${editRow.departmentId}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json'
+      await api.post(
+        `/api/department/${editRow.departmentId}`, 
+        {
+          departmentName:editRow.departmentName,
+          departmentCode:editRow.departmentCode,
+          departmentStatus:true
         },
-        body: JSON.stringify(requestBody)
-      });
-  
-      const data = await response.json();
-      console.log("department created", data);
-      if(data.departmentStatus){
+        {
+          headers:{
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((response)=>{
+        if(response.status === 200) {
+          setLoading(false);
+          toast.success("Department succesfully Updated", {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          });
+          setNewAgency("");
+          authCloseModal("editAgency")
+        }
         setLoading(false);
-        toast.success("Department succesfully Updated", {
+        setTimeout(()=>{
+          window.location.reload();
+        },2000)
+        return true;
+      })
+      .catch((error) => {
+        setLoading(false);
+        toast.error(error.response.data.agencyName[0], {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: true,
@@ -276,15 +306,14 @@ useEffect(()=>{
           progress: undefined,
           theme: "colored",
         });
-        setNewAgency("");
-      }
-    } catch (error) {
+      });
+    }
+ catch (error) {
       console.log("error", error);
     }
     setLoading(false);
     setTimeout(()=>{
-      authCloseModal("editAgency")
-      window.location.reload();
+             window.location.reload();
            },2000)
   }
 
@@ -426,7 +455,7 @@ useEffect(()=>{
       });
   };
   useEffect(() => {
-    // fetchAgencies();
+    fetchAgencies();
   }, [currentPage, perPage]);
 
   const handlePageChange = (page) => {
@@ -464,7 +493,7 @@ useEffect(()=>{
           theme: "colored",
         });
         setShow(true)
-        // fetchAgencies();
+        fetchAgencies();
         setTimeout(()=>{
           window.location.reload();
         },2000)
