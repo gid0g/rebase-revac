@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "homepage": ".",
   "private": true,
-  "proxy": "http://pm.ebs-rcm.com/api/",
+  "proxy": "https://pm.ebs-rcm.com/revac/api/",
   "dependencies": {
     "@emotion/css": "^11.10.6",
     "@emotion/react": "^11.11.0",
