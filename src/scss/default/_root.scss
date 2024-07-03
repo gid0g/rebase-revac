@@ -1,0 +1,191 @@
+:root {
+	--app-theme: #{$theme};
+	--app-theme-rgb: #{to-rgb($theme)};
+	--app-theme-color: #{$theme-color};
+	--app-theme-color-rgb: #{to-rgb($theme-color)};
+	
+	--app-border-color: #{$border-color};
+	--app-border-color-rgb: #{to-rgb($border-color)};
+	
+	--app-header-bg: #{$app-header-bg};
+	--app-header-bg-rgb: #{to-rgb($app-header-bg)};
+	--app-header-color: #{$app-header-color};
+	--app-header-color-rgb: #{to-rgb($app-header-color)};
+	--app-header-input-bg: #{$app-header-input-bg};
+	--app-header-input-border: #{$app-header-input-border};
+	--app-header-mobile-divider-bg: #{$app-header-mobile-divider-bg};
+	--app-header-divider-bg: #{$app-header-divider-bg};
+	
+	--app-sidebar-bg: #{$app-sidebar-bg};
+	--app-sidebar-bg-rgb: #{to-rgb($app-sidebar-bg)};
+	--app-sidebar-profile-bg: #{$app-sidebar-profile-bg};
+	--app-sidebar-profile-bg-rgb: #{to-rgb($app-sidebar-profile-bg)};
+	--app-sidebar-profile-color: #{$app-sidebar-profile-color};
+	--app-sidebar-profile-color-rgb: #{to-rgb($app-sidebar-profile-color)};
+	--app-sidebar-component-color: #{$app-sidebar-component-color};
+	--app-sidebar-component-color-rgb: #{to-rgb($app-sidebar-component-color)};
+	--app-sidebar-active-component-bg: #{$app-sidebar-active-component-bg};
+	--app-sidebar-active-component-bg-rgb: #{to-rgb($app-sidebar-active-component-bg)};
+	--app-sidebar-menu-header-color: #{$app-sidebar-menu-header-color};
+	--app-sidebar-menu-divider-bg: #{$app-sidebar-menu-divider-bg};
+	--app-sidebar-menu-badge-bg: #{$app-sidebar-menu-badge-bg};
+	--app-sidebar-minify-btn-bg: #{$app-sidebar-minify-btn-bg};
+	--app-sidebar-minify-btn-hover-bg: #{$app-sidebar-minify-btn-hover-bg};
+	--app-sidebar-transparent-bg-image: #{$app-sidebar-transparent-bg-image};
+	
+	--app-component-bg: #{$component-bg};
+	--app-component-bg-rgb: #{to-rgb($component-bg)};
+	--app-component-dropdown-bg: #{$component-dropdown-bg};
+	--app-component-dropdown-bg-rgb: #{to-rgb($component-dropdown-bg)};
+	--app-component-dropdown-hover-bg: #{$component-dropdown-hover-bg};
+	--app-component-dropdown-hover-bg-rgb: #{to-rgb($component-dropdown-hover-bg)};
+	--app-component-dropdown-border-color: #{$component-dropdown-border-color};
+	--app-component-dropdown-border-color-rgb: #{to-rgb($component-dropdown-border-color)};
+	--app-component-modal-bg: #{$component-modal-bg};
+	--app-component-modal-bg-rgb: #{to-rgb($component-modal-bg)};
+	--app-component-modal-border-color: #{$component-modal-border-color};
+	--app-component-modal-border-color-rgb: #{to-rgb($component-modal-border-color)};
+	--app-component-secondary-bg: #{$component-secondary-bg};
+	--app-component-color: #{$component-color};
+	--app-component-color-rgb: #{to-rgb($component-color)};
+	--app-component-border-color: #{$component-border-color};
+	--app-component-border-color-rgb: #{to-rgb($component-border-color)};
+	--app-component-active-bg: #{$component-active-bg};
+	--app-component-active-bg-rgb: #{to-rgb($component-active-bg)};
+	--app-component-active-color: #{$component-active-color};
+	--app-component-active-color-rgb: #{to-rgb($component-active-color)};
+	--app-component-hover-bg: #{$component-hover-bg};
+	--app-component-hover-color: #{$component-hover-color};
+	--app-component-hover-border-color: #{$component-hover-border-color};
+	--app-component-focus-border-color: #{$component-focus-border-color};
+	--app-component-disabled-bg: #{$component-disabled-bg};
+	--app-component-disabled-color: #{$component-disabled-color};
+	--app-component-disabled-border-color: #{$component-disabled-border-color};
+	--app-component-table-border-color: #{$component-table-border-color};
+	--app-component-table-separator-color: #{$component-table-separator-color};
+	
+	--app-pos-bg: #{$pos-bg};
+	--app-login-bg-cover: #{$app-login-bg-cover};
+	--form-switch-bg-image: #{$form-switch-bg-image};
+}
+
+.dark-mode {
+	--bs-body-bg:    #{$body-bg-dark-mode};
+	--bs-body-color: #{$body-color-dark-mode};
+	
+	--bs-dark:       #{$gray-100};
+	--bs-dark-rgb:   #{to-rgb($gray-100)};
+	--bs-black:      #{$white};
+	--bs-black-rgb:  #{to-rgb($white)};
+	--bs-light:      #{$gray-900};
+	--bs-light-rgb:  #{to-rgb($gray-900)};
+	
+	--app-border-color: #{$border-color-dark-mode};
+	
+	--app-header-bg:                #{$app-header-bg-dark-mode};
+	--app-header-color:             #{$app-header-color-dark-mode};
+	--app-header-input-bg:          #{$app-header-input-bg-dark-mode};
+	--app-header-input-border:      #{$app-header-input-border-dark-mode};
+	--app-header-divider-bg:        #{$app-header-divider-bg-dark-mode};
+	--app-header-mobile-divider-bg: #{$app-header-mobile-divider-bg-dark-mode};
+	
+	--app-component-bg:                    #{$component-bg-dark-mode};
+	--app-component-bg-rgb:                #{to-rgb($component-bg-dark-mode)};
+	--app-component-color:                 #{$component-color-dark-mode};
+	--app-component-color-rgb:             #{to-rgb($component-color-dark-mode)};
+	--app-component-border-color:          #{$component-border-color-dark-mode};
+	--app-component-border-color-rgb:      #{to-rgb($component-border-color-dark-mode)};
+	--app-component-hover-bg:              #{$component-hover-bg-dark-mode};
+	--app-component-hover-color:           #{$component-hover-color-dark-mode};
+	--app-component-hover-border-color:    #{$component-hover-border-color-dark-mode};
+	--app-component-disabled-bg:           #{$component-disabled-bg-dark-mode};
+	--app-component-disabled-border-color: #{$component-disabled-border-color-dark-mode};
+	--app-component-disabled-color:        #{$component-disabled-color-dark-mode};
+	
+	--app-component-dropdown-bg:               #{$component-dropdown-bg-dark-mode};
+	--app-component-dropdown-bg-rgb:           #{to-rgb($component-dropdown-bg-dark-mode)};
+	--app-component-dropdown-hover-bg:         #{$component-dropdown-hover-bg-dark-mode};
+	--app-component-dropdown-hover-bg-rgb:     #{to-rgb($component-dropdown-hover-bg-dark-mode)};
+	--app-component-dropdown-border-color:     #{$component-dropdown-border-color-dark-mode};
+	--app-component-dropdown-border-color-rgb: #{to-rgb($component-dropdown-border-color-dark-mode)};
+	--app-component-modal-bg:                  #{$component-modal-bg-dark-mode};
+	--app-component-modal-bg-rgb:              #{to-rgb($component-modal-bg-dark-mode)};
+	--app-component-modal-border-color:        #{$component-modal-border-color-dark-mode};
+	--app-component-modal-border-color-rgb:    #{to-rgb($component-modal-border-color-dark-mode)};
+	--app-component-secondary-bg:              #{$component-secondary-bg-dark-mode};
+	--app-component-table-border-color:        #{$component-table-border-color-dark-mode};
+	--app-component-table-separator-color:     #{$component-table-separator-color-dark-mode};
+	
+	--app-pos-bg:           #{$pos-bg-dark-mode};
+	--app-login-bg-cover:   #{$app-login-bg-cover-dark-mode};
+	--form-switch-bg-image: #{$form-switch-bg-image-dark-mode};
+	
+	
+	& .table {
+		--bs-table-striped-bg: #{rgba($gray-700, 0.7)};
+		--bs-table-active-color: var(--app-component-color);
+		--bs-table-active-bg: $gray-700;
+		--bs-table-hover-color: var(--app-component-color);
+		--bs-table-hover-bg: #{rgba($gray-700, 0.85)};
+	}
+	
+	& .bg-white,
+	& .bg-dark {
+		--bs-bg-opacity: .25;
+	}
+	& .text-dark {
+		--bs-text-opacity: .5;
+		
+		color: rgba(var(--bs-white-rgb),var(--bs-text-opacity))!important;
+	}
+	& .btn-white,
+	& .btn-dark {
+		border-color: transparent;
+		background-color: $gray-700;
+		color: $white;
+		
+		&:hover,
+		&:focus,
+		&.active {
+			background-color: $gray-600;
+			border-color: transparent;
+			color: $white;
+		}
+	}
+	& .btn-outline-inverse,
+	& .btn-outline-default {
+		color: $gray-600;
+		border-color: $gray-600;
+		
+		&:hover,
+		&:focus,
+		&.active {
+			background-color: $gray-600;
+			color: $white !important;
+		}
+	}
+	& .btn-default {
+		background: $gray-600;
+		border-color: $gray-600;
+		color: $white;
+		
+		&:hover,
+		&:focus,
+		&.active {
+			background: $gray-700;
+			border-color: $gray-700;
+			color: $white;
+		}
+	}
+	& .btn-group {
+		& > .btn-white {
+			& + .btn-white {
+				@if $enable-rtl {
+					border-right-color: $gray-600;
+				} @else {
+					border-left-color: $gray-600;
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,26 @@
+VIEW MODIFICATION BASED ON AGENCYTYPE, AGENCYID AND ROLE
+
+Key Players:
+The login process now returns the following values added to the ones available before.
+
+**AgencyId (INTEGER)
+**AgencyType (Boolean) (TRUE/FALSE)
+** Role => (Admin, Admin1)
+
+NB: AgencyType returned value have the following data below
+
+AgencyType: {
+    TRUE: This indicates that the logged-in user's Organisation is a HEAD
+    FALSE: This indicates that the logged-in user's Organisation is a NOT HEAD
+}
+
+Frontend Data-Fetching Scenarios:
+
+1. If the logged-in user's Organisation ROLE is EITHER (Admin or Admin 1) AND the AgencyType is TRUE (i.e HEAD), THEN, Every data should be fetched based on ONLY the OrganisationId.
+
+2. If the logged-in user's Organisation ROLE is NEITHER (Admin nor Admin 1) AND the AgencyType is TRUE (i.e NOT HEAD), THEN, Every data should be fetched based on ONLY the AgencyId.
+
+3. If the logged-in user's Organisation ROLE is NEITHER (Admin nor Admin 1) AND the AgencyType is FALSE (i.e NOT HEAD), THEN, Every data should be fetched based on ONLY the AgencyId.
+
+4. If the logged-in user's Organisation ROLE is EITHER (Admin or Admin 1) AND the AgencyType is FALSE (i.e NOT HEAD), THEN, Every data should be fetched based on ONLY the AgencyId.
+

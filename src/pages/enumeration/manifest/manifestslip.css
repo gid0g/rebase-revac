@@ -1,0 +1,70 @@
+  * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-size: 14px;
+        font-family: "Poppins", sans-serif;
+      }
+      .container {
+        padding: 2rem 0rem;
+        width: 67%;
+        margin: 0 auto;
+        margin-top: 7rem;
+        background-color: #f2f2f2;
+      }
+      .header {
+        text-align: center;
+        margin: 36px 0px;
+      }
+      .main-section {
+        padding-left: 2rem;
+        width: 75%;
+        border-right: 2px solid black;
+      }
+      .main-section-child {
+        display: flex;
+        padding-top: 16px;
+        justify-content: space-between;
+        width: 60%;
+      }
+
+      .first-section > p {
+        margin-bottom: 2rem;
+      }
+      .second-section > p {
+        margin-bottom: 2rem;
+      }
+      .date {
+        padding-left: 2rem;
+      }
+      @media only screen and (max-width: 500px) {
+        .container {
+          padding-top: 2rem;
+          width: 80%;
+          /* margin-top: ; */
+          margin: 0 auto;
+          background-color: #f2f2f2;
+          border-radius: 1.3rem;
+          padding: 1.5rem;
+          margin-top: 10rem;
+        }
+        .logo {
+          width: 120px;
+          height: 44px;
+        }
+        .body {
+          margin-top: 0.5rem;
+        }
+        .heading {
+          font-size: 1.2rem;
+          line-height: 1.4rem;
+        }
+        .email-body {
+          padding-top: 1rem;
+        }
+        p {
+          font-size: 0.8rem;
+          line-height: 1.2rem;
+        }
+      }

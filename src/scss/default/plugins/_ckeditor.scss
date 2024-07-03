@@ -1,0 +1,96 @@
+.cke {
+	border: none !important;
+	
+	& .cke_toolbar {
+		@if $enable-rtl {
+			float: right;
+		}
+	}
+	& .cke_toolbar_break {
+		@if $enable-rtl {
+			clear: right;
+		}
+	}
+	& .cke_button {
+		border-radius: $border-radius;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		
+		&:hover,
+		&:focus,
+		&:active {
+			border-color: $gray-200;
+			background: $gray-200;
+			border-radius: $border-radius;
+		}
+	}
+	& .cke_combo {
+		& .cke_combo_button {
+			border-radius: $border-radius;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		
+			&:hover,
+			&:focus,
+			&:active {
+				border-color: $gray-200;
+				background: $gray-200;
+				border-radius: $border-radius;
+			}
+		}
+		&.cke_combo_on {
+			& .cke_combo_button {
+				border-color: $gray-200;
+			}
+		}
+	}
+	& .cke_toolgroup,
+	& .cke_toolbars {
+		display: flex;
+		align-items: center;
+	}
+	& .cke_top {
+		border-color: tint-color($border-color, 25%);
+		background: tint-color($gray-200, 50%);
+		
+		& .cke_toolgroup a.cke_button:last-child:after,
+		& .cke_combo:after {
+			border-color: $border-color;
+		} 
+		& .cke_toolbar_separator {
+			background-color: $border-color;
+		}
+	}
+	& .cke_bottom {
+		border-color: tint-color($border-color, 25%);
+		background: tint-color($gray-200, 50%);
+		
+		& .cke_resizer {
+			border-right-color: $gray-500;
+		}
+	}
+	&.cke_panel {
+		border-radius: $border-radius;
+		box-shadow: $box-shadow-lg;
+	}
+}
+
+.cke_notifications_area {
+	& .cke_notification {
+		&.cke_notification_info {
+			background-color: $blue;
+			border: none;
+			padding: $alert-padding-y * .5 $alert-padding-x;
+			font-size: $font-size-base;
+			border-radius: $border-radius;
+			box-shadow: $box-shadow;
+		}
+		& .cke_notification_close {
+			right: $alert-padding-x * .5;
+			top: $alert-padding-y * .5;
+			background: transparent escape-svg($btn-close-bg) center / $btn-close-width auto no-repeat;
+		}
+	}
+}

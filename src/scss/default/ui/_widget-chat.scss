@@ -1,0 +1,215 @@
+.widget-chat {
+	background: var(--app-component-bg);
+	color: var(--app-component-color);
+	
+	& .widget-chat-header {
+		padding: $spacer;
+		display: flex;
+		align-items: center;
+		
+		& .widget-chat-header-icon {
+			@if $enable-rtl {
+				padding-left: $spacer;
+			} @else {
+				padding-right: $spacer;
+			}
+		}
+		& .widget-chat-header-content {
+			flex: 1;
+		}
+		& .widget-chat-header-title {
+			font-size: $h6-font-size;
+			margin: 0;
+		}
+		& .widget-chat-header-desc {
+			margin: 0;
+			color: rgba(var(--app-component-color-rgb), .65);
+		}
+	}
+	& .widget-chat-body {
+		padding: $spacer;
+		background: var(--bs-light);
+	}
+	& .widget-chat-item {
+		color: var(--app-component-color);
+		position: relative;
+		min-height: rem(38px);
+		padding: $spacer * .333 0;
+	}
+	& .widget-chat-media {
+		width: rem(38px);
+		height: rem(38px);
+		position: absolute;
+		bottom: rem(3px);
+		overflow: hidden;
+		border-radius: $border-radius * 10;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		
+		@if $enable-rtl {
+			right: 0;
+		} @else {
+			left: 0;
+		}
+		
+		& img {
+			max-width: 100%;
+			max-height: 100%;
+			display: block;
+		}
+	}
+	& .widget-chat-info {
+		@if $enable-rtl {
+			margin-right: rem(12px);
+		} @else {
+			margin-left: rem(12px);
+		}
+	}
+	& .widget-chat-info-container {
+		background: var(--app-component-bg);
+		display: inline-block;
+		padding: $spacer * .5 $spacer * 0.75;
+		position: relative;
+		color: var(--app-component-color);
+		border-radius: $border-radius * 4;
+	}
+	& .widget-chat-message {
+		font-weight: $font-weight-bold;
+		color: var(--app-component-color);
+		
+		&:before {
+			content: '';
+			position: absolute;
+			bottom: 0;
+			border: 0 solid transparent;
+			border-top-width: rem(15px);
+			border-radius: 50%;
+			width: rem(35px);
+			height: rem(35px);
+			
+			@if $enable-rtl {
+				right: rem(-24px);
+				border-left-width: rem(10px);
+				border-left-color: var(--app-component-bg);
+				transform: rotate(-10deg);
+			} @else {
+				left: rem(-24px);
+				border-right-width: rem(10px);
+				border-right-color: var(--app-component-bg);
+				transform: rotate(10deg);
+			}
+		}
+		&:after {
+			content: '';
+			display: inline-block;
+			width: rem(60px);
+			height: rem(12px);
+		}
+	}
+	& .widget-chat-name {
+		font-weight: $font-weight-bold;
+	}
+	& .widget-chat-time {
+		position: absolute;
+		bottom: rem(8px);
+		font-style: italic;
+		color: $gray-500;
+		font-weight: $font-weight-bold;
+		font-size: $font-size-base * 0.8;
+		
+		@if $enable-rtl {
+			left: rem(12px);
+		} @else {
+			right: rem(12px);
+		}
+	}
+	& .with-media {
+		& .widget-chat-info {
+			min-width: 60%;
+			
+			@if $enable-rtl {
+				margin-right: rem(53px);
+			} @else {
+				margin-left: rem(53px);
+			}
+		}
+		& .end {
+			& .widget-chat-info {
+				@if $enable-rtl {
+					margin-left: rem(53px);
+				} @else {
+					margin-right: rem(53px);
+				}
+			}
+		}
+	}
+	& .end {
+		& .widget-chat-media {
+			@if $enable-rtl {
+				left: 0;
+				right: auto;
+			} @else {
+				left: auto;
+				right: 0;
+			}
+		}
+		& .widget-chat-info {
+			@if $enable-rtl {
+				margin-left: rem(12px);
+				margin-right: 0;
+				text-align: left;
+			} @else {
+				margin-right: rem(12px);
+				margin-left: 0;
+				text-align: right;
+			}
+		}
+		& .widget-chat-time {
+			@if $enable-rtl {
+				right: rem(12px);
+				left: auto;
+			} @else {
+				right: auto;
+				left: rem(12px);
+			}
+		}
+		& .widget-chat-message {
+			&:after {
+				@if $enable-rtl {
+					float: right;
+				} @else {
+					float: left;
+				}
+			}
+			&:before {
+				bottom: rem(-5px);
+				
+				@if $enable-rtl {
+					left: rem(-24px);
+					right: auto;
+					border-left-width: 0;
+					border-left-color: transparent;
+					border-right-width: rem(10px);
+					border-right-color: var(--app-component-bg);
+				} @else {
+					left: auto;
+					right: rem(-24px);
+					border-right-width: 0;
+					border-right-color: transparent;
+					border-left-width: rem(10px);
+					border-left-color: var(--app-component-bg);
+				}
+			}
+		}
+		&.with-media {
+			& .widget-chat-info {
+				@if $enable-rtl {
+					margin-left: rem(53px);
+				} @else {
+					margin-right: rem(53px);
+				}
+			}
+		}
+	}
+}
