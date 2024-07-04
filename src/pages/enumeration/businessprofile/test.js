@@ -2,7 +2,7 @@
     "createPropertyDto": {
         "agencyId": 6,
         "spaceIdentifierId": 16,
-        "wardId": 17,
+        // "wardId": 17,
         "locationAddress": "Ikeja",
         "spaceFloor": 2,
         "buildingNo": 1,

@@ -257,10 +257,10 @@ const BulkBillList = ({data}) => {
                             <p>{selectedRow?.title ? selectedRow?.title : "None"}</p>
                         </div>
 
-                        <div className="flex flex-col justify-start items-start gap-0.5">
+                        {/* <div className="flex flex-col justify-start items-start gap-0.5">
                             <h4 className="text-lg font-semibold">Ward</h4>
                             <p>{selectedRow?.ward ? selectedRow?.ward : "None"}</p>
-                        </div>
+                        </div> */}
 
                         <div className="flex flex-col justify-start items-start gap-0.5">
                             <h4 className="text-lg font-semibold">Interest</h4>

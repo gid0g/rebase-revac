@@ -334,14 +334,14 @@ const Menus = () => {
                                                         className="form-label"
                                                         htmlFor="exampleInputEmail1"
                                                     >
-                                                        Meun Name
+                                                        Menu Name
                                                     </label>
 
                                                     <input
                                                         type="text"
                                                         className="form-control"
                                                         value={menuName}
-                                                        placeholder="Enter Ward Name"
+                                                        placeholder="Enter Menu Name"
                                                         onChange={handleChange}
                                                         required
                                                     />

@@ -44,8 +44,8 @@ const CreateNewStreet = () => {
     selectedCustomer,
     setSelectedCustomer,
     setLocationAddress,
-    ward,
-    setWardOption,
+    // ward,
+    // setWardOption,
     spaceIdentifier,
     setEnumerationStatus,
     setBuildingNumber,
@@ -53,7 +53,7 @@ const CreateNewStreet = () => {
     spaceFloor,
     locationAddress,
     setAgencyOption,
-    wardOption,
+    // wardOption,
     spaceIdentifierOption,
     agencyOption,
     submitPayerId,
@@ -67,7 +67,7 @@ const CreateNewStreet = () => {
   const enteredSpaceFloorIsValid = spaceFloor.trim() !== "";
   const enteredLocationAddressIsValid = locationAddress.trim() !== "";
   const selectedSpaceIdentifierOption = spaceIdentifierOption;
-  const selectedWardOption = wardOption;
+  // const selectedWardOption = wardOption;
   const selectedAgency = agencyOption;
 
   const [formData, setFormData] = useState([
@@ -103,7 +103,7 @@ const CreateNewStreet = () => {
     enteredSpaceFloorIsValid,
     enteredLocationAddressIsValid,
     selectedAgency,
-    selectedWardOption,
+    // selectedWardOption,
     selectedSpaceIdentifierOption,
   ]);
 
@@ -201,9 +201,9 @@ const CreateNewStreet = () => {
   const handleLocation = (event) => {
     setLocationAddress(event.target.value);
   };
-  const handleWardChange = (wardOption) => {
-    setWardOption(wardOption.value);
-  };
+  // const handleWardChange = (wardOption) => {
+  //   setWardOption(wardOption.value);
+  // };
 
   const handleAgencyChange = (agencyOption) => {
     setAgencyOption(agencyOption.value);
@@ -233,12 +233,12 @@ const CreateNewStreet = () => {
         value: item.id,
       }))
     : "";
-  const transformedWardData = ward
-    ? ward.map((item) => ({
-        label: item.wardName,
-        value: item.id,
-      }))
-    : "";
+  // const transformedWardData = ward
+  //   ? ward.map((item) => ({
+  //       label: item.wardName,
+  //       value: item.id,
+  //     }))
+  //   : "";
   
     const transformedAgencyData = agencies
       ? agencies.map((item) => ({
@@ -382,7 +382,7 @@ const CreateNewStreet = () => {
                     </div>
                   </div>
                   <div className="row gx-5">
-                    <div className="col">
+                    {/* <div className="col">
                       <div className="mb-3">
                         <label className="form-label">Ward Name</label>
 
@@ -396,7 +396,7 @@ const CreateNewStreet = () => {
                           onChange={handleWardChange}
                         />
                       </div>
-                    </div>
+                    </div> */}
                     <div className="col">
                       <div className="flex flex-column mb-3">
                         <label className="form-label">Narration</label>{" "}

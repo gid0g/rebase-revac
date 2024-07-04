@@ -15,8 +15,8 @@ const EditProperty = () => {
   const [buildingNumber, setBuildingNumber] = useState("");
   const [spaceFloor, setSpaceFloor] = useState("");
   const [locationAddress, setLocationAddress] = useState("");
-  const [ward, setWard] = useState([]);
-  const [wardOption, setWardOption] = useState("");
+  // const [ward, setWard] = useState([]);
+  // const [wardOption, setWardOption] = useState("");
   const [spaceIdentifier, setSpaceIdentifier] = useState([]);
   const [spaceIdentifierOption, setspaceIdentifierOption] = useState("");
 
@@ -27,7 +27,7 @@ const EditProperty = () => {
     buildingNumber: buildingNumber,
     spaceFloor: spaceFloor,
     locationAddress: locationAddress,
-    wardOption: wardOption,
+    // wardOption: wardOption,
     spaceIdentifierOption: spaceIdentifierOption,
   };
   let navigate = useNavigate();
@@ -39,7 +39,7 @@ const EditProperty = () => {
         {
           agencyId: data.agencyId,
           spaceIdentifierId: spaceIdentifierOption,
-          wardId: wardOption,
+          // wardId: wardOption,
           locationAddress: locationAddress,
           spaceFloor: spaceFloor,
           buildingNo: buildingNumber,
@@ -58,7 +58,7 @@ const EditProperty = () => {
         setData(response.data);
         setSpaceName(response.data.buildingName);
         setLocationAddress(response.data.locationAddress);
-        setWardOption(response.data.wardId);
+        // setWardOption(response.data.wardId);
         setspaceIdentifierOption(response.data.spaceIdentifierId);
         setSpaceFloor(response.data.spaceFloorId);
 
@@ -81,26 +81,26 @@ const EditProperty = () => {
     setLocationAddress(event.target.value);
   };
 
-  const handleSelectChange = (event) => {
-    setWardOption(event.target.value);
-  };
+  // const handleSelectChange = (event) => {
+  //   setWardOption(event.target.value);
+  // };
   const handleSpaceChange = (event) => {
     setspaceIdentifierOption(event.target.value);
   };
-  useEffect(() => {
-    api
-      .get(`enumeration/wards`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((response) => {
-        setWard(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
+  // useEffect(() => {
+  //   api
+  //     .get(`enumeration/wards`, {
+  //       headers: {
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //     })
+  //     .then((response) => {
+  //       setWard(response.data);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // }, []);
   useEffect(() => {
     api
       .get(`enumeration/spaceIdentifiers`, {
@@ -127,7 +127,7 @@ const EditProperty = () => {
         setData(response.data);
         setSpaceName(response.data.buildingName);
         setLocationAddress(response.data.locationAddress);
-        setWardOption(response.data.wardId);
+        // setWardOption(response.data.wardId);
         setspaceIdentifierOption(response.data.spaceIdentifierId);
         setSpaceFloor(response.data.spaceFloorId);
       })
@@ -199,7 +199,7 @@ const EditProperty = () => {
                     </div>
                   </div>
                   <div className="row gx-5">
-                    <div className="col">
+                    {/* <div className="col">
                       <div className="mb-3">
                         <label
                           className="form-label"
@@ -220,7 +220,7 @@ const EditProperty = () => {
                           ))}
                         </select>
                       </div>
-                    </div>
+                    </div> */}
                     <div className="col">
                       <div className="mb-3">
                         <label

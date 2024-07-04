@@ -44,7 +44,7 @@ const Agencies = () => {
       },
     },
     {
-      name: "Agency Name",
+      name: "Department Name",
       selector: (row) => row.agencyName,
       sortable: true,
       grow: 2,
@@ -53,7 +53,7 @@ const Agencies = () => {
       },
     },
     {
-      name: "Agency Code",
+      name: "Department Code",
       selector: (row) => row.agencyCode,
       sortable: true,
       grow: 1,
@@ -62,24 +62,24 @@ const Agencies = () => {
       },
     },
 
-    {
-      name: "Action",
-      sortable: false,
-      center: true,
-      grow: 0,
+    // {
+    //   name: "Action",
+    //   sortable: false,
+    //   center: true,
+    //   grow: 0,
 
-      cell: (row) => (
-        <button
-          data-bs-toggle="modal"
-          data-bs-target="#editAgency"
-          className="btn text-dark"
-          type="button"
-          onClick={() => handleEdit(row)}
-        >
-          <i className="fa-solid fa-pen-to-square"></i> Edit
-        </button>
-      ),
-    },
+    //   cell: (row) => (
+    //     <button
+    //       data-bs-toggle="modal"
+    //       data-bs-target="#editAgency"
+    //       className="btn text-dark"
+    //       type="button"
+    //       onClick={() => handleEdit(row)}
+    //     >
+    //       <i className="fa-solid fa-pen-to-square"></i> Edit
+    //     </button>
+    //   ),
+    // },
   ];
 
   const organisationId = sessionStorage.getItem("organisationId");
@@ -255,7 +255,7 @@ const Agencies = () => {
         onFilter={(e) => setFilterText(e.target.value)}
         onClear={handleClear}
         filterText={filterText}
-        placeholder="Search By Agency Name and Agency Code"
+        placeholder="Search By Department Name and Department Code"
       />
     );
   }, [filterText, resetPaginationToggle]);
@@ -347,7 +347,7 @@ const Agencies = () => {
 
       }
     } catch(error) {
-      toast.error("Unable to Refresh Agencies", {
+      toast.error("Unable to Refresh Departments", {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: true,
@@ -371,33 +371,33 @@ const Agencies = () => {
       <div>
         <div className="mb-2 pl-3 flex justify-content-between">
           <div className=" ">
-            <h3 className=" mb-0">Agencies</h3>
+            <h3 className=" mb-0">Departments</h3>
             <ol className="breadcrumb">
               <li className="breadcrumb-item">
                 <Link to="/home/Dashboard">Home</Link>
               </li>
               <li className="breadcrumb-item">Administration</li>
-              <li className="breadcrumb-item active">Agencies </li>
+              <li className="breadcrumb-item active">Departments </li>
             </ol>
           </div>
 
           <div className=" items-center	 gap-3 flex flex-row-reverse">
             <div className="flex justify-between items-center gap-2 mb-3">
-              <button
+              {/* <button
                 data-bs-toggle="modal"
                 data-bs-target="#addAgency"
                 className="btn bg-primary text-white"
                 type="button"
               >
-                Add New Agency
-              </button>
+                Add New Department
+              </button> */}
 
               <button
                   className="btn !bg-sky-50 border-[1px] border-primary"
                   type="button"
                   data-bs-toggle="modal"
                   data-bs-target="#viewDialog"
-                  title="Refresh Agencies"
+                  title="Refresh Departments"
                   disabled={isRefreshing}
                 >
                 <i className={`fa fa-refresh text-lg text-gray-700 ${isRefreshing ? "animate-spin" : ""}`}></i>
@@ -430,7 +430,7 @@ const Agencies = () => {
           <div className="modal-dialog">
             <div className="modal-content">
               <div className="modal-header">
-                <h4 className="modal-title">Add New Agency</h4>
+                <h4 className="modal-title">Add New Department</h4>
                 <button
                   type="button"
                   className="btn-close"
@@ -450,14 +450,14 @@ const Agencies = () => {
                               className="form-label"
                               htmlFor="exampleInputEmail1"
                             >
-                              Agency
+                              Department
                             </label>
 
                             <input
                               type="text"
                               className="form-control"
                               value={newAgency}
-                              placeholder="Enter Agency"
+                              placeholder="Enter Department"
                               onChange={handleChange}
                               required
                             />
@@ -471,7 +471,7 @@ const Agencies = () => {
                               className="form-label"
                               htmlFor="exampleInputEmail1"
                             >
-                              Agency Code
+                              Department Code
                             </label>
 
                             <input
@@ -527,7 +527,7 @@ const Agencies = () => {
             <div className="modal-content">
               <div className="modal-header">
                 <h4 className="modal-title">
-                  Refresh Agencies
+                  Refresh Departments
                 </h4>
                 <button
                   type="button"
@@ -540,7 +540,7 @@ const Agencies = () => {
                 <div className=" mt-3 d-flex flex-column">
                   <div className="row  align-items-center">
                     <div className="col">
-                        <h4 className="text-center text-lg">Are You Want to Refresh Agencies?</h4>
+                        <h4 className="text-center text-lg">Are You Sure You Want to Refresh Departments?</h4>
                     </div>
                   </div>
                 </div>
@@ -567,7 +567,7 @@ const Agencies = () => {
           <div className="modal-dialog">
             <div className="modal-content">
               <div className="modal-header">
-                <h4 className="modal-title">Edit Agency</h4>
+                <h4 className="modal-title">Edit Department</h4>
                 <button
                   type="button"
                   className="btn-close"
@@ -587,7 +587,7 @@ const Agencies = () => {
                               className="form-label"
                               htmlFor="exampleInputEmail1"
                             >
-                              Agency Name
+                              Department Name
                             </label>
 
                             <input

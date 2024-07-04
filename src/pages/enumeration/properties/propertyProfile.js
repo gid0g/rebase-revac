@@ -65,12 +65,12 @@ const PropertyProfile = () => {
       sortable: true,
       grow: 0,
     },
-    {
-      name: "Ward Name",
-      selector: (row) => row.ward.wardName,
-      sortable: true,
-      grow: 0,
-    },
+    // {
+    //   name: "Ward Name",
+    //   selector: (row) => row.ward.wardName,
+    //   sortable: true,
+    //   grow: 0,
+    // },
     {
       name: "Actions",
       grow: 0,
@@ -145,7 +145,7 @@ const PropertyProfile = () => {
   const {
     setData,
     agencies,
-    ward,
+    // ward,
     spaceIdentifier,
     setEnumerationPosition,
     setSelectedProperty,
@@ -158,14 +158,14 @@ const PropertyProfile = () => {
   const [filterGroups, setFilterGroups] = useState([]);
   const fetchFilterGroups = async () => {
     try {
-      const wardResponse = await api.get(
-        `enumeration/${organisationId}/wards`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      // const wardResponse = await api.get(
+      //   `enumeration/${organisationId}/wards`,
+      //   {
+      //     headers: {
+      //       Authorization: `Bearer ${token}`,
+      //     },
+      //   }
+      // );
 
       const spaceIdentifierResponse = await api.get(
         `enumeration/${organisationId}/space-identifiers`,
@@ -185,20 +185,20 @@ const PropertyProfile = () => {
         }
       );
 
-      const wardData = wardResponse.data;
+      // const wardData = wardResponse.data;
       const spaceIdentifierData = spaceIdentifierResponse.data;
       const agencyData = agencyResponse.data;
 
       const processedFilterGroups = [
-        {
-          name: "Wards",
-          label: "Wards",
-          filters: wardData.map((ward) => ({
-            name: "Wards",
-            value: ward.id,
-            label: ward.wardName,
-          })),
-        },
+        // {
+        //   name: "Wards",
+        //   label: "Wards",
+        //   filters: wardData.map((ward) => ({
+        //     name: "Wards",
+        //     value: ward.id,
+        //     label: ward.wardName,
+        //   })),
+        // },
         {
           name: "Space Identifier",
           label: "Space Identifier",
@@ -270,7 +270,8 @@ const PropertyProfile = () => {
     await api
       .get(
         `http://revbilldemo.ebs-rcm.com/New/api/enumeration/${organisationId}/property?${
-          filterValues.Wards ? `Ward=${filterValues.Wards}` : ""
+          // filterValues.Wards ? `Ward=${filterValues.Wards}` :
+           ""
         }&${
           filterValues["Space Identifier"]
             ? `SpaceIdentifier=${filterValues["Space Identifier"]}`
@@ -303,7 +304,7 @@ const PropertyProfile = () => {
   const submittedData = {
     agencyId: editRow?.agencies.agencyId,
     spaceIdentifierId: editRow?.spaceIdentifier.id,
-    wardId: editRow?.ward.id,
+    // wardId: editRow?.ward.id,
     locationAddress: editRow?.locationAddress,
     spaceFloor: editRow?.spaceFloor,
     buildingNo: editRow?.buildingNo,
@@ -582,7 +583,7 @@ const PropertyProfile = () => {
                         />
                       </div>
                     </div>
-                    <div className="col">
+                    {/* <div className="col">
                       <div className="mb-3">
                         <label className="form-label">Ward</label>
                         <input
@@ -592,7 +593,7 @@ const PropertyProfile = () => {
                           value={selectedRow ? selectedRow.ward.wardName : ""}
                         />
                       </div>
-                    </div>
+                    </div> */}
                   </div>
                 </form>
               </div>
@@ -726,7 +727,7 @@ const PropertyProfile = () => {
                       </div>
                     </div>
 
-                    <div className="col">
+                    {/* <div className="col">
                       <div className="mb-3">
                         <label className="form-label">Ward</label>
                         <select
@@ -744,7 +745,7 @@ const PropertyProfile = () => {
                           ))}
                         </select>
                       </div>
-                    </div>
+                    </div> */}
                   </div>
                   <div className="modal-footer">
                     <a

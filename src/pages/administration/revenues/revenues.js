@@ -554,7 +554,7 @@ const Revenues = () => {
                   className="btn bg-primary text-white"
                   type="button"
                 >
-                  Add Revenue
+                  Map Revenue
                 </button> 
 
                   <button
@@ -664,7 +664,7 @@ const Revenues = () => {
           <div className="modal-dialog"  >
             <div className="modal-content">
               <div className="modal-header">
-                <h4 className="modal-title">Add New Revenue</h4>
+                <h4 className="modal-title">Map Revenue to Business Type</h4>
                 <button
                   type="button"
                   className="btn-close"
