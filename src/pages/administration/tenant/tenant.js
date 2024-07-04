@@ -20,7 +20,7 @@ const Tenants = () => {
   const [data, setData] = useState([]);
   const [pending, setPending] = useState(true);
   const [loading, setLoading] = useState(false);
-  const [newWard, setNewWard] = useState("");
+  // const [newWard, setNewWard] = useState("");
   const [editRow, setEditRow] = useState(null);
   const [itemId, setItemId] = useState("");
   let navigate = useNavigate();

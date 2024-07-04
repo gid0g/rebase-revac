@@ -1,6 +1,6 @@
 import axios from "axios";
 const token = sessionStorage.getItem("myToken");
-// "proxy": "http://revbilldemo.ebs-rcm.com/New/api",
+// "proxy": "https://pm.ebs-rcm.com/revac/api/",
 
 const api = axios.create({
   // baseURL: "https://revbilldemo.ebs-rcm.com/New/api/",
@@ -15,7 +15,7 @@ const api = axios.create({
 
 export const apis = axios.create({
   // baseURL: "https://revbilldemo.ebs-rcm.com/New/api/",
-  baseURL: "https://pm.ebs-rcm.com/revac/api/",
+ baseURL: "https://pm.ebs-rcm.com/revac/api/",
   headers: {
     Accept: "application/json; charset=utf-8",
     "Content-Type": "application/json",
@@ -24,7 +24,7 @@ export const apis = axios.create({
 });
 export const attachment = axios.create({
   // baseURL: "https://revbilldemo.ebs-rcm.com/New/api/",
-  baseURL: "https://pm.ebs-rcm.com/revac/api/",
+ baseURL: "https://pm.ebs-rcm.com/revac/api/",
   headers: {
     Accept: "/*",
     "Content-Type": "multipart/form-data",

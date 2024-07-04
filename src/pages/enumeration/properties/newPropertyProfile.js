@@ -47,8 +47,8 @@ const NewPropertyProfile = () => {
     selectedCustomer,
     setSelectedCustomer,
     setLocationAddress,
-    ward,
-    setWardOption,
+    // ward,
+    // setWardOption,
     streetOption,
     setStreetOption,
     spaceIdentifier,
@@ -58,7 +58,7 @@ const NewPropertyProfile = () => {
     spaceFloor,
     locationAddress,
     setAgencyOption,
-    wardOption,
+    // wardOption,
     spaceIdentifierOption,
     agencyOption,
     submitPayerId,
@@ -75,7 +75,7 @@ const NewPropertyProfile = () => {
   const enteredSpaceFloorIsValid = spaceFloor.trim() !== "";
   const enteredLocationAddressIsValid = locationAddress.trim() !== "";
   const selectedSpaceIdentifierOption = spaceIdentifierOption;
-  const selectedWardOption = wardOption;
+  // const selectedWardOption = wardOption;
   const selectedAgency = agencyOption;
   const selectedStreet = streetOption;
 
@@ -101,7 +101,7 @@ const NewPropertyProfile = () => {
     enteredSpaceFloorIsValid,
     enteredLocationAddressIsValid,
     selectedAgency,
-    selectedWardOption,
+    // selectedWardOption,
     selectedStreet,
     selectedSpaceIdentifierOption,
   ]);
@@ -187,9 +187,9 @@ const NewPropertyProfile = () => {
   const handleLocation = (event) => {
     setLocationAddress(event.target.value);
   };
-  const handleWardChange = (wardOption) => {
-    setWardOption(wardOption.value);
-  };
+  // const handleWardChange = (wardOption) => {
+  //   setWardOption(wardOption.value);
+  // };
   const handleAgencyChange = async (agencyOption) => {
     setAgencyOption(agencyOption.value);
     setAgencyName(agencyOption.label);
@@ -245,12 +245,12 @@ const NewPropertyProfile = () => {
         value: item.id,
       }))
     : "";
-  const transformedWardData = ward
-    ? ward.map((item) => ({
-        label: item.wardName,
-        value: item.id,
-      }))
-    : "";
+  // const transformedWardData = ward
+  //   ? ward.map((item) => ({
+  //       label: item.wardName,
+  //       value: item.id,
+  //     }))
+  //   : "";
   const transformedAgencyData = agencies
     ? agencies.map((item) => ({
         label: `${item.agencyName} / ${item.agencyCode}`,
@@ -268,7 +268,7 @@ const NewPropertyProfile = () => {
         agencyId: agencyOption?.agencyId,
         spaceIdentifierId: spaceIdentifierOption,
         streetId: streetOption.value,
-        wardId:wardOption,
+        // wardId:wardOption,
         locationAddress: `${parseInt(buildingNumber)}, ${streetOption.label}`,
         spaceFloor: parseInt(spaceFloor),
         buildingNo: parseInt(buildingNumber),

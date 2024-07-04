@@ -6,7 +6,7 @@ import { AppSettings } from "../../../config/app-settings";
 import "react-activity/dist/library.css";
 import { ToastContainer, toast } from "react-toastify";
 
-const Wards = () => {
+const Payment = () => {
   const token = sessionStorage.getItem("myToken");
   const imageWidth = 150; // Desired width in pixels
   const imageHeight = 50; // Desired height in pixels
@@ -447,4 +447,4 @@ const Wards = () => {
   );
 };
 
-export default Wards;
+export default Payment;

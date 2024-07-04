@@ -119,7 +119,7 @@ function cleanObjectKeys(obj) {
           buildingNumber: row?.BuildingNumber ? `${row?.BuildingNumber}` : "",
           streetName: row?.StreetName ? `${row?.StreetName}` : "",
           spaceFloor: row["SpaceFloor "] ? `${row["SpaceFloor "]}` : "",
-          ward: row?.Ward ? `${row?.Ward}` : "",
+          // ward: row?.Ward ? `${row?.Ward}` : "",
           payerType: row?.PayerType ? `${row?.PayerType}` : "",
           payerID: row?.PayerID ? `${row?.PayerID}` : null,
           title: row?.Title ? `${row?.Title}` : null,

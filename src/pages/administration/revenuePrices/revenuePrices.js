@@ -313,7 +313,7 @@ const RevenuePrices = () => {
       .catch((error) => {
         setLoading(false);
         console.log("error", error);
-        toast.error(error.response.data.WardName[0], {
+        toast.error(error.response.data, {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: true,
@@ -384,9 +384,7 @@ const RevenuePrices = () => {
   useEffect(() => {
     api
       .get(
-        `revenue/${organisationId}/business-size/${
-          businessSizeId ? businessSizeId : "0"
-        }`,
+        `revenue/${organisationId}/categories`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

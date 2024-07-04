@@ -5,13 +5,15 @@ import FilterComponent from "../../../components/filtercomponent/filtercomponent
 import DataTable from "react-data-table-component";
 import api from "../../../axios/custom";
 // import  'bootstrap/dist/css/bootstrap.min.css';
-import Modal from "react-bootstrap/Modal";
+// import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import { Spinner } from "react-activity";
 import { AppSettings } from "../../../config/app-settings";
 
 import "react-activity/dist/library.css";
 import { ToastContainer, toast } from "react-toastify";
+import { Modal } from "bootstrap";
+
 
 const Users = () => {
   const token = sessionStorage.getItem("myToken");
@@ -25,6 +27,7 @@ const Users = () => {
   const [editRow, setEditRow] = useState(null);
   const [loading, setLoading] = useState(false);
   const [newUser, setNewUser] = useState("");
+  const [modalInstance, setModalInstance] = useState(null);
 
   const [active, setActive] = useState(false);
   const [lockout, setLockout] = useState(false);
@@ -74,6 +77,26 @@ const Users = () => {
     setPhone(e.target.value);
   };
 
+  const authCloseModal = (elementId) => {
+    const myModal = new Modal(document.getElementById(elementId));
+  
+    myModal.show();
+  
+    myModal._element.addEventListener('shown.bs.modal', () => {
+      clearTimeout(myModal._element.hideInterval);
+      const id = setTimeout(() => {
+        myModal.hide();
+      });
+      myModal._element.hideInterval = id;
+  
+      const backdropElement = document.querySelector('.modal-backdrop.show');
+      if (backdropElement) {
+        backdropElement.remove();
+      }
+    });
+  
+    setModalInstance(myModal);
+  }
   const columns = [
     {
       name: "S/N",
@@ -254,8 +277,8 @@ const Users = () => {
         setPending(false);
         if (response.status === 200) {
           setLoading(false);
-          console.log(response);
-          toast.success(response.data.statusMessage, {
+          console.log("sucessful",response);
+          toast.success("User sucessfully created", {
             position: "top-right",
             autoClose: 5000,
             hideProgressBar: true,
@@ -265,18 +288,6 @@ const Users = () => {
             progress: undefined,
             theme: "colored",
           });
-
-          setTimeout(() => {
-            console.log("1");
-            sucessUser("User Successfully Added")
-            modal.style.display = "block";      
-            modal.style.color="green"
-            modal.style.border = "2px solid black"; // Add a visible border
-            setTimeout(() => {
-              modal.style.display = "none";
-            }, 5000);
-          }, 2000);
-
           // Refresh User
           fetchUsers();
 
@@ -308,17 +319,6 @@ const Users = () => {
             progress: undefined,
             theme: "colored",
           });
-
-          setTimeout(() => {
-            console.log("2");
-            sucessUser("Failed To Add User")
-            modal.style.display = "block";
-            modal.style.color="red"
-            modal.style.border = "2px solid black"; // Add a visible border
-            setTimeout(() => {
-              modal.style.display = "none";
-            }, 5000);
-          }, 2000);
         }
         setLoading(false);
         console.log("error", error);
@@ -333,17 +333,15 @@ const Users = () => {
           theme: "colored",
         });
         setPending(false);
-        setTimeout(() => {
-          console.log("3");
-          sucessUser("Failed To Add User")
-          modal.style.display = "block";
-          modal.style.color="red"
-          modal.style.border = "2px solid black"; // Add a visible border
-          setTimeout(() => {
-            modal.style.display = "none";
-          }, 5000);
-        }, 2000);
+
+
       });
+      setTimeout(()=>{
+        console.log("closing modal")
+         authCloseModal("addUser")
+               window.location.reload();
+             },2000)
+
   };
 
   const filteredItems = data.filter(
@@ -398,6 +396,7 @@ const Users = () => {
           },
         })
         .then((response) => {
+          console.log("users fetch")
           setData(response.data);
           setPending(false);
           console.log("users", response.data);
@@ -459,11 +458,10 @@ const Users = () => {
       });
   }, [organisationId, token]);
 
-  function Dissmiss() {
-    modal.style.display = "none";
-  }
+
   return (
     <>
+    <ToastContainer/>
       <div>
         <div className="mb-2 pl-3 flex justify-content-between">
           <div className=" ">
@@ -507,7 +505,6 @@ const Users = () => {
                     class="btn-close"
                     data-bs-dismiss="modal"
                     aria-label="Close"
-                    onClick={Dissmiss}
                   ></button>
                 </div>
                 <div class="modal-body">
@@ -518,7 +515,6 @@ const Users = () => {
                     type="button"
                     class="btn btn-secondary"
                     data-bs-dismiss="modal"
-                    onClick={Dissmiss}
                   >
                     Close
                   </button>
@@ -545,7 +541,7 @@ const Users = () => {
             </div>
           </div>
         </div>
-        <div className="modal fade" id="addUser" ref={modalRef}>
+        <div className="modal fade" id="addUser">
           <div className="modal-dialog">
             <div className="modal-content">
               <div className="modal-header">
@@ -558,7 +554,6 @@ const Users = () => {
                 ></button>
               </div>
               <div className="modal-body">
-                <ToastContainer />
                 <div className="  ">
                   <div className=" p-2 ">
                     <form onSubmit={addNewUser}>
@@ -680,8 +675,6 @@ const Users = () => {
                       <div className="d-flex justify-content-end mt-6">
                         <button
                           type="submit"
-                          data-bs-dismiss="modal"
-                          aria-hidden="true"
                           className="btn shadow-md bg-primary text-white"
                         >
                           {loading ? <Spinner /> : "Add"}
