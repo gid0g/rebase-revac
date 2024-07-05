@@ -5,6 +5,7 @@ import DataTable from "react-data-table-component";
 import api from "../../../axios/custom";
 import { Spinner } from "react-activity";
 import { AppSettings } from "../../../config/app-settings";
+import { Modal } from "bootstrap";
 
 import "react-activity/dist/library.css";
 import { ToastContainer, toast } from "react-toastify";
@@ -21,6 +22,8 @@ const BusinessTypes = () => {
   const [newBusinessType, setNewBusinessType] = useState("");
   const [editRow, setEditRow] = useState(null);
   const [itemId, setItemId] = useState("");
+  const [modalInstance, setModalInstance] = useState(null);
+
   const customRowsPerPageOptions = [5, 10, 20];
   const columns = [
     {
@@ -60,6 +63,29 @@ const BusinessTypes = () => {
       ),
     },
   ];
+
+  const authCloseModal = (elementId) => {
+    const myModal = new Modal(document.getElementById(elementId));
+  
+    myModal.show();
+  
+    myModal._element.addEventListener('shown.bs.modal', () => {
+      clearTimeout(myModal._element.hideInterval);
+      const id = setTimeout(() => {
+        myModal.hide();
+      });
+      myModal._element.hideInterval = id;
+  
+      const backdropElement = document.querySelector('.modal-backdrop.show');
+      if (backdropElement) {
+        backdropElement.remove();
+      }
+    });
+  
+    setModalInstance(myModal);
+  }
+
+
 
   const handleEditChange = (e) => {
     const { name, value } = e.target;
@@ -110,6 +136,10 @@ const BusinessTypes = () => {
             theme: "colored",
           });
           setNewBusinessType("");
+          setTimeout(()=>{
+            authCloseModal("addBusinessType")
+                   window.location.reload();
+                 },2000)
         }
         setLoading(false);
         return true;
@@ -149,6 +179,7 @@ const BusinessTypes = () => {
             theme: "colored",
           });
       });
+
   };
   const editBusinessType = async (e) => {
     setLoading(true);
@@ -181,8 +212,12 @@ const BusinessTypes = () => {
             theme: "colored",
           });
           setNewBusinessType("");
+          setTimeout(()=>{
+            authCloseModal("editBusinessType")
+            window.location.reload();
+          },2000)
         }
-        setLoading(false);
+          setLoading(false);
         // return true;
       })
       .catch((error) => {
@@ -220,6 +255,7 @@ const BusinessTypes = () => {
             theme: "colored",
           });
       });
+   
   };
 
   const filteredItems = data.filter(
