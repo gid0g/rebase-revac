@@ -9,6 +9,7 @@ import Select from "react-select";
 import "react-activity/dist/library.css";
 import { ToastContainer, toast } from "react-toastify";
 import BusinessSizeName from "./businessSizeName";
+import { Modal } from "bootstrap";
 
 const Categories = () => {
   const token = sessionStorage.getItem("myToken");
@@ -20,6 +21,7 @@ const Categories = () => {
   const [pending, setPending] = React.useState(true);
   const [loading, setLoading] = useState(false);
   const [editRow, setEditRow] = useState(null);
+  const [modalInstance, setModalInstance] = useState(null);
 
   const [itemId, setItemId] = useState("");
   const [businessSize, setBusinessSize] = useState(null);
@@ -108,6 +110,33 @@ const Categories = () => {
     },
   ];
 
+  const authCloseModal = (elementId) => {
+    const myModal = new Modal(document.getElementById(elementId));
+  
+    myModal.show();
+  
+    myModal._element.addEventListener('shown.bs.modal', () => {
+      clearTimeout(myModal._element.hideInterval);
+      const id = setTimeout(() => {
+        myModal.hide();
+      });
+      myModal._element.hideInterval = id;
+  
+      myModal._element.addEventListener('hide.bs.modal', () => {
+        const backdropElement = document.querySelector('.modal-backdrop.show');
+        if (backdropElement) {
+          backdropElement.remove();
+        }
+      });
+    }
+  
+  );
+  
+    setModalInstance(myModal);
+  }
+
+
+
   const handleEditChange = (e) => {
     const { name, value } = e.target;
     setEditRow((prevEditData) => ({
@@ -168,17 +197,21 @@ const Categories = () => {
             progress: undefined,
             theme: "colored",
           });
+          toast.success(response.data.message, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          });
+          setTimeout(()=>{
+            authCloseModal("addCategory")
+            window.location.reload();
+                 },2000)
         }
-        toast.success(response.data.message, {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "colored",
-        });
         setLoading(false);
         return true;
       })
@@ -218,6 +251,7 @@ const Categories = () => {
             theme: "colored",
           });
       });
+   
   };
   const editCategory = async (e) => {
     setLoading(true);
@@ -255,6 +289,10 @@ const Categories = () => {
             progress: undefined,
             theme: "colored",
           });
+          setTimeout(()=>{
+            authCloseModal("editCategory")
+            window.location.reload();
+                 },2000)
         }
         setLoading(false);
         // return true;
@@ -305,6 +343,7 @@ const Categories = () => {
             theme: "colored",
           });
       });
+     
   };
 
   const filteredItems = data.filter(
@@ -331,29 +370,30 @@ const Categories = () => {
     );
   }, [filterText, resetPaginationToggle]);
 
+
   useEffect(() => {
     api
-      .get(`revenue/${organisationId}/categories`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((response) => {
-        setPending(false);
-        setData(response.data);
-      })
-      .catch((error) => {
-        toast.error(error.message, {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "colored",
-        });
+    .get(`revenue/${organisationId}/categories`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((response) => {
+      setPending(false);
+      setData(response.data);
+    })
+    .catch((error) => {
+      toast.error(error.message, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
       });
+    });
   }, [token, data]);
 
   useEffect(() => {

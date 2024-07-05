@@ -5,6 +5,7 @@ import DataTable from "react-data-table-component";
 import api from "../../../axios/custom";
 import { Spinner } from "react-activity";
 import { AppSettings } from "../../../config/app-settings";
+import { Modal } from "bootstrap";
 
 import "react-activity/dist/library.css";
 import { ToastContainer, toast } from "react-toastify";
@@ -12,6 +13,7 @@ import { ToastContainer, toast } from "react-toastify";
 const BusinessSizes = () => {
   const token = sessionStorage.getItem("myToken");
   const organisationId = sessionStorage.getItem("organisationId");
+  const [modalInstance, setModalInstance] = useState(null);
 
   const appSettings = useContext(AppSettings);
   const userData = appSettings.userData;
@@ -64,6 +66,28 @@ const BusinessSizes = () => {
     },
   ];
 
+
+  const authCloseModal = (elementId) => {
+    const myModal = new Modal(document.getElementById(elementId));
+  
+    myModal.show();
+  
+    myModal._element.addEventListener('shown.bs.modal', () => {
+      clearTimeout(myModal._element.hideInterval);
+      const id = setTimeout(() => {
+        myModal.hide();
+      });
+      myModal._element.hideInterval = id;
+  
+      const backdropElement = document.querySelector('.modal-backdrop.show');
+      if (backdropElement) {
+        backdropElement.remove();
+      }
+    });
+  
+    setModalInstance(myModal);
+  }
+
   const handleEditChange = (e) => {
     const { name, value } = e.target;
     setEditRow((prevEditData) => ({
@@ -114,6 +138,10 @@ const BusinessSizes = () => {
           });
           setNewBusinessSize("");
         }
+        setTimeout(()=>{
+          authCloseModal("addBusinessSize")
+                 window.location.reload();
+               },2000)
         setLoading(false);
         return true;
       })
@@ -152,6 +180,7 @@ const BusinessSizes = () => {
             theme: "colored",
           });
       });
+      
   };
   const editBusinessSize = async (e) => {
     setLoading(true);
@@ -184,6 +213,10 @@ const BusinessSizes = () => {
             theme: "colored",
           });
           setNewBusinessSize("");
+          setTimeout(()=>{
+            authCloseModal("editBusinessSize")
+                   window.location.reload();
+                 },2000)
         }
         setLoading(false);
         // return true;
@@ -224,6 +257,7 @@ const BusinessSizes = () => {
             theme: "colored",
           });
       });
+
   };
 
   const filteredItems = data.filter(

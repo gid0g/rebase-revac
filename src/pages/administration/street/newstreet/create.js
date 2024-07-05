@@ -252,7 +252,6 @@ const CreateNewStreet = () => {
         const formDataToSend = {
           streetCreation: formData,
         }
-    
         try {
           setIsLoading(true);
           const response = await api.post(
@@ -298,8 +297,9 @@ const CreateNewStreet = () => {
           }
     
         } catch (error) {
-          const { response } = error;
-          toast.error(response.data.statusMessage, {
+          const { message, response } = error;
+          console.log("error---", error)
+          toast.error(response? response : message, {
             position: "top-right",
             autoClose: 5000,
             hideProgressBar: true,
