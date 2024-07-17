@@ -5,6 +5,7 @@ import DataTable from "react-data-table-component";
 import api from "../../../axios/custom";
 import { Spinner } from "react-activity";
 import { AppSettings } from "../../../config/app-settings";
+import { Modal } from "bootstrap";
 
 import "react-activity/dist/library.css";
 import { ToastContainer, toast } from "react-toastify";
@@ -22,6 +23,7 @@ const SpaceIdentifiers = () => {
   const [editRow, setEditRow] = useState(null);
   const [itemId, setItemId] = useState("");
   const customRowsPerPageOptions = [5, 10, 20];
+  const [modalInstance, setModalInstance] = useState(null);
 
 
   const columns = [
@@ -66,6 +68,29 @@ const SpaceIdentifiers = () => {
       ),
     },
   ];
+
+  const authCloseModal = (elementId) => {
+    const myModal = new Modal(document.getElementById(elementId));
+  
+    myModal.show();
+  
+    myModal._element.addEventListener('shown.bs.modal', () => {
+      clearTimeout(myModal._element.hideInterval);
+      const id = setTimeout(() => {
+        myModal.hide();
+      });
+      myModal._element.hideInterval = id;
+  
+      const backdropElement = document.querySelector('.modal-backdrop.show');
+      if (backdropElement) {
+        backdropElement.remove();
+      }
+    });
+  
+    setModalInstance(myModal);
+  }
+
+
 
   const handleEditChange = (e) => {
     const { name, value } = e.target;
@@ -116,6 +141,10 @@ const SpaceIdentifiers = () => {
             theme: "colored",
           });
           setNewSpaceIdentifier("");
+          setTimeout(()=>{
+            authCloseModal("addSpace")
+                   window.location.reload();
+                 },2000)
         }
         setLoading(false);
         return true;
@@ -134,6 +163,7 @@ const SpaceIdentifiers = () => {
           theme: "colored",
         });
       });
+  
   };
   const editSpace = async (e) => {
     setLoading(true);
@@ -168,6 +198,10 @@ const SpaceIdentifiers = () => {
             theme: "colored",
           });
           setNewSpaceIdentifier("");
+          setTimeout(()=>{
+            authCloseModal("editSpace")
+                   window.location.reload();
+                 },2000)
         }
         setLoading(false);
         // return true;
@@ -186,6 +220,7 @@ const SpaceIdentifiers = () => {
           theme: "colored",
         });
       });
+   
   };
 
   const filteredItems = data.filter(

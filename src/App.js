@@ -39,8 +39,13 @@ import ValidatePayId from "./pages/enumeration/validatePayerId";
 import SearchPayId from "./pages/enumeration/searchPayerId";
 import CreateNewPayerId from "./pages/enumeration/createNewPayerId";
 import Administration from "./pages/administration";
+<<<<<<< HEAD
 import Wards from "./pages/administration/wards/ward";
 import Ward from "./pages/administration/wards";
+=======
+// import Wards from "./pages/administration/wards/ward";
+// import Ward from "./pages/administration/wards";
+>>>>>>> 5c16c9258799fd46338cf840869af6db70452acb
 // import StreetIndex from "./pages/administration/street/index"
 import Street from "./pages/administration/street/street";
 import CreateNewStreet from "./pages/administration/street/newstreet/create";
@@ -244,9 +249,15 @@ const App = () => {
 
                 {/* Administration Routes and all children*/}
                 <Route path="administration" element={<Administration />}>
+<<<<<<< HEAD
                   <Route path="wards" element={<Ward />}>
                     <Route path="" element={<Wards />} />
                   </Route>
+=======
+                  {/* <Route path="wards" element={<Ward />}>
+                    <Route path="" element={<Wards />} />
+                  </Route> */}
+>>>>>>> 5c16c9258799fd46338cf840869af6db70452acb
                   <Route path="SpaceIdentifiers" element={<SpaceIdentifier />}>
                     <Route path="" element={<SpaceIdentifiers />} />
                   </Route>
