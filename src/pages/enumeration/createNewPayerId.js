@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import api from "../../axios/custom";
 import { Spinner } from "react-activity";
 import "react-activity/dist/library.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { AppSettings } from "../../config/app-settings";
 
 const CreateNewPayerId = () => {
   const token = sessionStorage.getItem("myToken");
@@ -36,6 +37,9 @@ const CreateNewPayerId = () => {
 
   const [sex, setSex] = useState([]);
   const [sexOption, setSexOption] = useState("");
+  const organisationId = sessionStorage.getItem("organisationId");
+  const appSettings = useContext(AppSettings);
+  const userData = appSettings.userData;
 
   const [dob, setDob] = useState();
 
@@ -75,6 +79,7 @@ const CreateNewPayerId = () => {
   const changeDob = (event) => {
     setDob(event.target.value);
   };
+
   const handleInputChange = (event) => {
     const value = event.target.value;
     setInput({

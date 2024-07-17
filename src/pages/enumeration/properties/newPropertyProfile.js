@@ -258,29 +258,40 @@ const NewPropertyProfile = () => {
       }))
     : "";
 
-    
+  
 
     const handleNewPropertyEnumeration = async (e) => {
-      e.preventDefault();
 
+      e.preventDefault();
+      const formattedLocationAddress = buildingNumber + " " + streetOption.label
+      console.log("formattedLocationAddress",formattedLocationAddress)
       setNewCustomerStatus(true);
-      const formData = {
-        agencyId: agencyOption?.agencyId,
-        spaceIdentifierId: spaceIdentifierOption,
-        streetId: streetOption.value,
-        wardId:wardOption,
-        locationAddress: `${parseInt(buildingNumber)}, ${streetOption.label}`,
-        spaceFloor: parseInt(spaceFloor),
-        buildingNo: parseInt(buildingNumber),
-        buildingName: spaceName,
-        createdBy: userData[0]?.email,
-        dateCreated: new Date().toISOString()
+      const createProperty = {
+        AgencyId: agencyOption,
+        SpaceIdentifierId: spaceIdentifierOption,
+        StreetId: streetOption.value,
+        LocationAddress: formattedLocationAddress,
+        SpaceFloor: parseInt(spaceFloor),
+        BuildingNo: buildingNumber,
+        BuildingName: spaceName,
+        DateCreated: new Date().toISOString(),
+        CreatedBy: userData[0]?.email,
       }
 
       try {
-
+        // const createProperty = {
+        //   AgencyId:formData.agencyId,
+        //   SpaceIdentifierId:formData.spaceIdentifierId,
+        //   StreetId:formData.streetId,
+        //   LocationAddress:formData.locationAddress,
+        //   SpaceFloor:formData.spaceFloor,
+        //   BuildingNo:formData.buildingNo,
+        //   BuildingName:formData.buildingName,
+        //   DateCreated:formData.dateCreated,
+        //   CreatedBy:formData.createdBy
+        // }
         const response = await api.post(`enumeration/${organisationId}/property`,
-          formData,
+          createProperty,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -289,6 +300,7 @@ const NewPropertyProfile = () => {
 
           console.log("newPropertyId:", newPropertyId);
           if(response.data.data) {
+            console.log("New propertID---->", response?.data?.data)
             setNewPropertyId(response?.data?.data);
           }
 
@@ -303,6 +315,11 @@ const NewPropertyProfile = () => {
               progress: undefined,
               theme: "colored",
             });
+            setSpaceName("")
+            setSpaceFloor("")
+            setBuildingNumber("")
+            setLocationAddress("")
+            setWardOption("")
           } else if(response?.data?.status == 403) {
             toast.error(response?.data?.statusMessage, {
               position: "top-right",

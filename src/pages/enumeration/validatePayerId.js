@@ -155,25 +155,25 @@ const ValidatePayId = () => {
       });
   };
 
-  const handlePidChange = (event) => {
-    setPid(event.target.value);
-  };
-
+  
   function getFirstName(fullName) {
     const names = fullName.split(" ");
     return names[0] || "";
   }
-
+  
   function getMiddleName(fullName) {
     const names = fullName.split(" ");
     return names.slice(1, -1).join(" ") || "";
   }
-
+  
   function getLastName(fullName) {
     const names = fullName.split(" ");
     return names.slice(-1)[0] || "";
   }
-
+  
+  const handlePidChange = (event) => {
+    setPid(event.target.value);
+  };
   const createCustomer = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -222,6 +222,7 @@ const ValidatePayId = () => {
 
         setTimeout(() => {
           navigate("/home/enumeration/customerprofile");
+          window.location.reload();
         }, 5000);
       }
 

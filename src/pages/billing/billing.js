@@ -350,6 +350,7 @@ const Billings = () => {
   const handleAgencyChange = (selectedAgency, idx) => {
     const updatedFields = [...fields];
     updatedFields[idx].agencyId = selectedAgency.value;
+    updatedFields.agencyId = selectedAgency.value;
     setFields(updatedFields);
   };
 
@@ -416,6 +417,7 @@ function handleRevenueChange(idx, event) {
 
 
   const handleCategoryChange = (selectedCategory, index) => {
+    //console.log("PINGGGGGGGGGG");
     const updatedFields = [...fields];
    
     if(selectedCategory) {
@@ -427,7 +429,7 @@ function handleRevenueChange(idx, event) {
       }
 
       updatedFields[0].BillRevenuePrices = [
-        ...updatedFields[0].BillRevenuePrices,
+        // ...updatedFields[0].BillRevenuePrices,
         billRevenuePrice,
       ];
     
@@ -459,6 +461,7 @@ function handleRevenueChange(idx, event) {
 
       try {
       setLoading(true);
+      console.log("Bill GeneratedFields: ",fields)
       const response = await api.post(
         `billing/${organisationId}/generate-bill/property/${selectedProperty}/customer/${selectedCustomer}`, formData,
         {
@@ -592,14 +595,15 @@ function handleRevenueChange(idx, event) {
     console.log("context", error);
     setLoading(false);
     const errorMessages = [];
-    for (const response in error.response.data) {
-      error.response.data[response].forEach((errorMessage) => {
-        errorMessages.push(errorMessage);
-      });
-    }
-    errorMessages.forEach((errorMessage) => {
-      toastNotification(errorMessage, "error");
-    });
+    console.log("error message data----", error.response.data)
+    // for (const response in error.response.data) {
+    //   error.response.data[response].forEach((errorMessage) => {
+    //     errorMessages.push(errorMessage);
+    //   });
+    // }
+    // errorMessages.forEach((errorMessage) => {
+    //   toastNotification(errorMessage, "error");
+    // });
   };
   
 
@@ -640,6 +644,7 @@ function handleRevenueChange(idx, event) {
         },
       })
       .then((response) => {
+        console.log("businessType------------>", response.data);
         setBusinessType(response.data);
       })
       .catch((error) => {
@@ -663,6 +668,7 @@ function handleRevenueChange(idx, event) {
 
   //Fetch All Properties
   useEffect(() => {
+    console.log("From get Properties Api Call: PING");
     const fetchProperty = async () => {
       await api
         .get(`enumeration/${organisationId}/property`, {
@@ -671,9 +677,11 @@ function handleRevenueChange(idx, event) {
           },
         })
         .then((response) => {
+          console.log("From get Properties Api Call: Response : ",response);
           setPropertyList(response.data);
         })
         .catch((error) => {
+          console.log("From get Properties Api Call: Error : ",error);
           console.log(error);
         });
     };

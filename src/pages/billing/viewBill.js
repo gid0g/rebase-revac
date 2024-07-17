@@ -225,10 +225,10 @@ const ViewBill = () => {
                     <th colSpan="3" className="border-solid border-1 border-dark text-center">
                       Summary
                     </th>
-                    <th className="border-solid border-1 border-dark text-center">
+                    <th colSpan="2" className="border-solid border-1 border-dark text-center">
                       Arrears(₦)
                     </th>
-                    <th className="border-solid border-1 border-dark text-center">
+                    <th colSpan="2" className="border-solid border-1 border-dark text-center">
                       Credit(₦)
                     </th>
                     {/* <th className="border-solid border-1 border-dark text-center">
@@ -250,12 +250,25 @@ const ViewBill = () => {
                         <td colSpan="3"className="border-solid border-1 border-dark text-center">
                           {item.summary}
                         </td>
+                      {data.length>1 ? (  <>
+                        <td colSpan="2" className="border-solid border-1 border-dark text-center">
+                          ₦ {item.arrears.toLocaleString("en-NG")}
+                        </td>
+                        <td colSpan="2" className="border-solid border-1 border-dark text-center">
+                          ₦ {item.credit.toLocaleString("en-NG")}
+                        </td>
+                        </>) :
+                        (
+                          <>
                         <td className="border-solid border-1 border-dark text-center">
                           ₦ {item.arrears.toLocaleString("en-NG")}
                         </td>
                         <td className="border-solid border-1 border-dark text-center">
                           ₦ {item.credit.toLocaleString("en-NG")}
                         </td>
+                        </>
+                        )
+                        }
                         {/* <td className="border-solid border-1 border-dark text-center">
                           ₦ {item.credit.toLocaleString("en-NG")}
                         </td> */}
@@ -271,12 +284,15 @@ const ViewBill = () => {
                     <td colSpan="5" className="text-left border-solid border-1 border-dark font-bold">
                       Hours of Payment : Monday - Friday 8:00 a.m. - 4:00 p.m.
                     </td>
-                    {/* <td colSpan="2" className="text-right font-bold">
+                    
+             { data.length>1 &&  (    <>
+                     <td colSpan="1" className="text-right font-bold border-solid border-2 border-dark">
                       Harmonized Bill Reference
                     </td>
                     <td className="border-solid border-2 border-dark text-center">
                       {harmonisedBill ? harmonisedBill : data?.harmonizedBillReference}
-                    </td> */}
+                    </td> 
+                    </>)}
                     <td colSpan="2" className="text-center border-solid border-1 border-dark font-bold">
                       Total Due
                     </td>

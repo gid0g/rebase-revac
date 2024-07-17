@@ -382,7 +382,7 @@ const CreateNewStreet = () => {
                     </div>
                   </div>
                   <div className="row gx-5">
-                    <div className="col">
+                    {/* <div className="col">
                       <div className="mb-3">
                         <label className="form-label">Ward Name</label>
 
@@ -396,7 +396,7 @@ const CreateNewStreet = () => {
                           onChange={handleWardChange}
                         />
                       </div>
-                    </div>
+                    </div> */}
                     <div className="col">
                       <div className="flex flex-column mb-3">
                         <label className="form-label">Narration</label>{" "}

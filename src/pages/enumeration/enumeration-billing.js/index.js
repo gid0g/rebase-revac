@@ -26,7 +26,7 @@ const EnumerateBilling = () => {
   const [revenues, setRevenues] = useState([]);
   const [businessType, setBusinessType] = useState([]);
   const [businessSize, setBusinessSize] = useState([]);
-  const { agencyName, agencyOption, agencyId, existingCustomerAgencyId, data, buildingName, enumerationData, existingCustomerFields, enumerateFields, loadingBusiness, submitBusinessProfile } =
+  const { agencyName, agencyOption, agencyId, existingCustomerAgencyId,setExistingCustomerFields, data, buildingName, enumerationData, existingCustomerFields, enumerateFields, loadingBusiness, submitBusinessProfile } =
     useContext(Context);
     console.log("EnumerateFields:", enumerateFields);
     console.log("agencyOption:", agencyOption);
@@ -42,7 +42,13 @@ const EnumerateBilling = () => {
       if(enumerateFields[0]?.businessTypeId) {
         const updatedFields = [...existingCustomerFields];
         updatedFields[0].businessTypeId =  enumerateFields[0]?.businessTypeId;
-
+        setExistingCustomerFields(prevState => [
+          {
+            ...prevState[0], // Keep existing fields of the first object
+            businessTypeId:  enumerateFields[0]?.businessTypeId , // Update appliedDate dynamically
+          },
+          ...prevState.slice(1) // Keep the rest of the array unchanged
+        ]);
         try {
           await api.get(
             `enumeration/${organisationId}/business-types`,
@@ -76,6 +82,14 @@ const EnumerateBilling = () => {
         
         const updatedFields = [...existingCustomerFields];
         updatedFields[0].businessSizeId =  enumerateFields[0]?.businessSizeId;
+        setExistingCustomerFields(prevState => [
+          {
+            ...prevState[0], // Keep existing fields of the first object
+            businessSizeId: enumerateFields[0]?.businessSizeId, // Update businessSizeId
+            createdBy: `${userData[0]?.email}` // Update createdBy
+          },
+          ...prevState.slice(1) // Keep the rest of the array unchanged
+        ]);
         try {
           api
           .get(`enumeration/${organisationId}/business-sizes`, {
@@ -372,8 +386,23 @@ const revenueName = (revenueId) => {
        ...prevCategoryAmounts,
         [revenueId]: selectedCategory.amount,
       }));
+      console.log("Setting billrevenues")
+      setExistingCustomerFields(prevState => [
+        {
+          ...prevState[0], // Keep existing fields of the first object
+           BillRevenuePrices: [...existingCustomerFields[0].BillRevenuePrices, {
+         
+              revenueId: selectedCategory?.revenue,
+              billAmount: selectedCategory?.amount,
+              category: selectedCategory?.label
+                       }
+                      ], // add a new price to the array
+        },
+        ...prevState.slice(1) // Keep the rest of the array unchanged
+      ]);
     }
   };
+
   useEffect(()=>{
     console.log("categoryAmounts", categoryAmounts)
   },[categoryAmounts])

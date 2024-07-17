@@ -192,13 +192,16 @@ const [currentPage, setCurrentPage] = useState(1);
 
   const fetchData = (page) => {
     api
-      .get(`billing/${organisationId}?pagenumber=${page}&PageSize=${perPage}`, {
+      .get(
+        // `billing/${organisationId}?pagenumber=${page}&PageSize=${perPage}`
+        `billing/${organisationId}`
+        , {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
       .then((response) => {
-        console.log("response", response);
+        console.log("response for bill gotten------>", response);
         setPending(false);
         setData(response.data);
         var paginationData = response.headers["x-pagination"];
@@ -222,6 +225,7 @@ const [currentPage, setCurrentPage] = useState(1);
   useEffect(() => {
     // Fetch data from API and update state
     fetchData(1);
+    console.log("fetching---->")
   }, []);
 
 
@@ -259,6 +263,7 @@ const [currentPage, setCurrentPage] = useState(1);
         },
       })
       .then((response) => {
+        console.log("bills this month---->", response)
         setBillsPerMonth(response.data);
       })
       .catch((error) => {

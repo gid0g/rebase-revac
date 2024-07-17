@@ -65,12 +65,12 @@ const PropertyProfile = () => {
       sortable: true,
       grow: 0,
     },
-    {
-      name: "Ward Name",
-      selector: (row) => row.ward.wardName,
-      sortable: true,
-      grow: 0,
-    },
+    // {
+    //   name: "Ward Name",
+    //   selector: (row) => row.ward?.wardName,
+    //   sortable: true,
+    //   grow: 0,
+    // },
     {
       name: "Actions",
       grow: 0,
@@ -124,6 +124,7 @@ const PropertyProfile = () => {
       button: true,
     },
   ];
+
   const subHeaderComponentMemo = useMemo(() => {
     const handleClear = () => {
       if (filterText) {
@@ -245,10 +246,11 @@ const PropertyProfile = () => {
       )
       .then((response) => {
         setLoading(false);
+        console.log("PropertyData------------->", response.data)
+        setPropertyData(response.data);
         var paginationData = response.headers["x-pagination"];
         const parsedPaginationData = JSON.parse(paginationData);
         setTotalRows(parsedPaginationData.TotalPages);
-        setPropertyData(response.data);
       })
       .catch((error) => {
         toast.error(error.message, {
@@ -303,7 +305,7 @@ const PropertyProfile = () => {
   const submittedData = {
     agencyId: editRow?.agencies.agencyId,
     spaceIdentifierId: editRow?.spaceIdentifier.id,
-    wardId: editRow?.ward.id,
+    wardId: editRow?.ward?.id,
     locationAddress: editRow?.locationAddress,
     spaceFloor: editRow?.spaceFloor,
     buildingNo: editRow?.buildingNo,
@@ -366,6 +368,7 @@ const PropertyProfile = () => {
   };
 
   const handleEdit = (item) => {
+    console.log("Editing---->", item)
     setEditRow({ ...item });
   };
 
@@ -582,17 +585,17 @@ const PropertyProfile = () => {
                         />
                       </div>
                     </div>
-                    <div className="col">
+                    {/* <div className="col">
                       <div className="mb-3">
                         <label className="form-label">Ward</label>
                         <input
                           className="form-control"
                           type="text"
                           disabled
-                          value={selectedRow ? selectedRow.ward.wardName : ""}
+                          value={selectedRow ? selectedRow?.ward?.wardName : ""}
                         />
                       </div>
-                    </div>
+                    </div> */}
                   </div>
                 </form>
               </div>
@@ -726,7 +729,7 @@ const PropertyProfile = () => {
                       </div>
                     </div>
 
-                    <div className="col">
+                    {/* <div className="col">
                       <div className="mb-3">
                         <label className="form-label">Ward</label>
                         <select
@@ -744,7 +747,7 @@ const PropertyProfile = () => {
                           ))}
                         </select>
                       </div>
-                    </div>
+                    </div> */}
                   </div>
                   <div className="modal-footer">
                     <a

@@ -388,7 +388,9 @@ function removeDuplicates(profile) {
       }
     }
   }
-  
+  useEffect(()=>{
+    console.log("setting new propertyiDcontext------>",newPropertyId )
+  },[newPropertyId])
   const submitBusinessProfile = async (e) => {
     e.preventDefault();
     setLoadingBusiness(true);
@@ -545,6 +547,7 @@ function removeDuplicates(profile) {
   
       console.log("Data:", existingCustomerFields);
       console.log("Selected Property:", selectedProperty);
+      console.log("New Property:", newPropertyId);
       console.log("Selected Customer:", selectedCustomer);
   
 
@@ -562,7 +565,8 @@ function removeDuplicates(profile) {
           }
         )
         .then((response) => {
-          console.log(response);
+          console.log("old customer bill generated-----------",response);
+          console.log("API called-----------",`billing/${organisationId}/generate-bill/property/${selectedProperty || newPropertyId}/customer/${selectedCustomer}` );
           console.log("formValues", agencyOption);
 
 
