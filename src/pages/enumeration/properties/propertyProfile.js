@@ -146,7 +146,7 @@ const PropertyProfile = () => {
   const {
     setData,
     agencies,
-    ward,
+    // ward,
     spaceIdentifier,
     setEnumerationPosition,
     setSelectedProperty,
@@ -159,14 +159,14 @@ const PropertyProfile = () => {
   const [filterGroups, setFilterGroups] = useState([]);
   const fetchFilterGroups = async () => {
     try {
-      const wardResponse = await api.get(
-        `enumeration/${organisationId}/wards`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      // const wardResponse = await api.get(
+      //   `enumeration/${organisationId}/wards`,
+      //   {
+      //     headers: {
+      //       Authorization: `Bearer ${token}`,
+      //     },
+      //   }
+      // );
 
       const spaceIdentifierResponse = await api.get(
         `enumeration/${organisationId}/space-identifiers`,
@@ -186,20 +186,20 @@ const PropertyProfile = () => {
         }
       );
 
-      const wardData = wardResponse.data;
+      // const wardData = wardResponse.data;
       const spaceIdentifierData = spaceIdentifierResponse.data;
       const agencyData = agencyResponse.data;
 
       const processedFilterGroups = [
-        {
-          name: "Wards",
-          label: "Wards",
-          filters: wardData.map((ward) => ({
-            name: "Wards",
-            value: ward.id,
-            label: ward.wardName,
-          })),
-        },
+        // {
+        //   name: "Wards",
+        //   label: "Wards",
+        //   filters: wardData.map((ward) => ({
+        //     name: "Wards",
+        //     value: ward.id,
+        //     label: ward.wardName,
+        //   })),
+        // },
         {
           name: "Space Identifier",
           label: "Space Identifier",
@@ -237,7 +237,7 @@ const PropertyProfile = () => {
   const fetchPropertyData = async (page) => {
     await api
       .get(
-        `enumeration/${organisationId}/property?PageNumber=${page}&PageSize=${perPage}`,
+        `enumeration/${organisationId}/property?PageNumber=${page}&PageSize=10000000`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -246,7 +246,7 @@ const PropertyProfile = () => {
       )
       .then((response) => {
         setLoading(false);
-        console.log("PropertyData------------->", response.data)
+        console.log(" ", response.data)
         setPropertyData(response.data);
         var paginationData = response.headers["x-pagination"];
         const parsedPaginationData = JSON.parse(paginationData);
@@ -305,7 +305,7 @@ const PropertyProfile = () => {
   const submittedData = {
     agencyId: editRow?.agencies.agencyId,
     spaceIdentifierId: editRow?.spaceIdentifier.id,
-    wardId: editRow?.ward?.id,
+    // wardId: editRow?.ward?.id,
     locationAddress: editRow?.locationAddress,
     spaceFloor: editRow?.spaceFloor,
     buildingNo: editRow?.buildingNo,

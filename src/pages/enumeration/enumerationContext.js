@@ -26,8 +26,8 @@ export const ContextProvider = ({ children }) => {
   const [buildingName, setBuildingName] = useState("");
   const [spaceFloor, setSpaceFloor] = useState("");
   const [locationAddress, setLocationAddress] = useState("");
-  const [ward, setWard] = useState([]);
-  const [wardOption, setWardOption] = useState("");
+  // const [ward, setWard] = useState([]);
+  // const [wardOption, setWardOption] = useState("");
   const [streetOption, setStreetOption] = useState({});
   const [agencyId, setAgencyId] = useState("");
   const [existingCustomerAgencyId, setExistingCustomerAgencyId] = useState(0);
@@ -89,8 +89,8 @@ export const ContextProvider = ({ children }) => {
     setBuildingNumber("");
     setSpaceFloor("");
     setLocationAddress("");
-    setWard([]);
-    setWardOption("");
+    // setWard([]);
+    // setWardOption("");
     setAgencyId("");
     setEnumerationStatus(null);
     setSpaceIdentifier([]);
@@ -207,20 +207,20 @@ export const ContextProvider = ({ children }) => {
       });
   }, []);
 
-  useEffect(() => {
-    api
-      .get(`enumeration/${organisationId}/wards`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((response) => {
-        setWard(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
+  // useEffect(() => {
+  //   api
+  //     .get(`enumeration/${organisationId}/wards`, {
+  //       headers: {
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //     })
+  //     .then((response) => {
+  //       setWard(response.data);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // }, []);
 
   useEffect(() => {
     api
@@ -339,13 +339,13 @@ function removeDuplicates(profile) {
     }
   }
 
-  const chooseWardId = (status) => {
-    if(status == true) {
-      return wardOption;
-    } else {
-      return existingPropertyForNewCustomer?.ward?.id;
-    }
-  }
+  // const chooseWardId = (status) => {
+  //   if(status == true) {
+  //     return wardOption;
+  //   } else {
+  //     return existingPropertyForNewCustomer?.ward?.id;
+  //   }
+  // }
 
   const chooseLocationAddress = (status) => {
     if(status == true) {
@@ -400,7 +400,7 @@ function removeDuplicates(profile) {
           agencyId: chooseAgency(newCustomerStatus),
           spaceIdentifierId: chooseSpaceIdentifierId(newCustomerStatus),
           streetId: streetOption.value,
-          wardId: chooseWardId(newCustomerStatus),
+          // wardId: chooseWardId(newCustomerStatus),
           locationAddress: chooseLocationAddress(newCustomerStatus),
           spaceFloor: chooseSpaceFloor(newCustomerStatus),
           buildingNo: chooseBuildingNo(newCustomerStatus),
@@ -480,7 +480,7 @@ function removeDuplicates(profile) {
 
         .catch((error) => {
           setLoadingBusiness(false);
-          console.log("response--", wardOption);
+          // console.log("response--", wardOption);
 
           console.log("contextt----", error);
           if (error.response) {
@@ -685,15 +685,15 @@ function removeDuplicates(profile) {
     buildingName,
     setSpaceFloor,
     setLocationAddress,
-    setWardOption,
+    // setWardOption,
     setBuildingNumber,
     setBuildingName,
     setspaceIdentifierOption,
     spaceFloor,
     locationAddress,
     setAgencyOption,
-    ward,
-    wardOption,
+    // ward,
+    // wardOption,
     streetOption,
     setStreetOption,
     spaceIdentifier,

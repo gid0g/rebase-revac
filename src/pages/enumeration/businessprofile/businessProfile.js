@@ -35,11 +35,11 @@ const columns = [
     selector: (row) => row.stateId,
     sortable: true,
   },
-  {
-    name: "Ward",
-    selector: (row) => row.wardId,
-    sortable: true,
-  },
+  // {
+  //   name: "Ward",
+  //   selector: (row) => row.wardId,
+  //   sortable: true,
+  // },
   {
     name: "LGA",
     selector: (row) => row.lgaId,

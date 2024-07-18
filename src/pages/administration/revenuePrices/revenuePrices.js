@@ -313,7 +313,7 @@ const RevenuePrices = () => {
       .catch((error) => {
         setLoading(false);
         console.log("error", error);
-        toast.error(error.response.data.WardName[0], {
+        toast.error(error.response.data, {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: true,
@@ -374,6 +374,7 @@ const RevenuePrices = () => {
         },
       })
       .then((response) => {
+        console.log("Revenues----->", response.data)
         setRevenues(response.data);
       })
       .catch((error) => {

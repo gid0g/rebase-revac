@@ -139,7 +139,7 @@ const Banks = () => {
             cell: (row) => (
                 <button
                     data-bs-toggle="modal"
-                    data-bs-target="#editWard"
+                    data-bs-target="#editbank"
                     className="btn shadow-md bg-blue-900 text-white"
                     type="button"
                     onClick={() => handleEdit(row)}
@@ -193,7 +193,7 @@ const Banks = () => {
             .catch((error) => {
                 setLoading(false);
                 console.log("error", error);
-                toast.error(error.response.data.WardName[0], {
+                toast.error(error.response.data, {
                     position: "top-right",
                     autoClose: 5000,
                     hideProgressBar: true,
@@ -305,7 +305,7 @@ const Banks = () => {
                         <div className="flex justify-end mb-3">
                             <button
                                 data-bs-toggle="modal"
-                                data-bs-target="#addWard"
+                                data-bs-target="#addbank"
                                 className="btn shadow-md bg-blue-900 text-white"
                                 type="button"
                             >
@@ -361,7 +361,7 @@ const Banks = () => {
                 </div>
             </div>
 
-            <div className="modal fade" id="addWard">
+            <div className="modal fade" id="addBank">
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">
