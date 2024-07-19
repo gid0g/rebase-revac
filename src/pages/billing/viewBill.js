@@ -50,7 +50,9 @@ const ViewBill = () => {
       return id?.billId;
     }
   }
-  
+  const [signone, setsignone]=useState(null)
+  const [signtwo, setsigntwo]=useState(null)
+
   const billValues = async () => {
     await api
       .get(
@@ -63,11 +65,15 @@ const ViewBill = () => {
       )
       .then((response) => {
         console.log("billValuesResponse", response);
+        const Sign1=`data:image/png;base64,${response.data[0].signatureOne}`
+        const Sig2=`data:image/png;base64,${response.data[0].signatureTwo}`
         setData(response.data);
-   
+        setsignone(Sign1)
+        setsigntwo(Sig2)
       })
       .catch((error) => {
-        console.log(error);
+        console.log("error getting bill---->",error);
+        console.log("bill id--->", fetchId(selectedItem))
       }).finally(() => {
         setLoading(false);
       });
@@ -76,6 +82,10 @@ const ViewBill = () => {
   useEffect(() => {
     billValues();
   }, []);
+
+  useEffect(()=>{
+    console.log("Bill attributes---------->",data)
+  },[data])
 
   const harmonisedBill = selectedItem?.harmonizedBillReferenceNo
   
@@ -199,7 +209,7 @@ const ViewBill = () => {
 
               <div>
                 <font size="2">
-                  The <b>{data[0].organisationName}</b> under the LOCAL
+                  The <b>{data[0]?.organisationName}</b> under the LOCAL
                   GOVERNMENT law demad payment of{" "}
                   <b> DEMAND NOTICE FOR YEAR {}</b> on the above property of the
                   approved ratein respect of the financial year under
@@ -260,10 +270,10 @@ const ViewBill = () => {
                         </>) :
                         (
                           <>
-                        <td className="border-solid border-1 border-dark text-center">
+                        <td colSpan="2" className="border-solid border-1 border-dark text-center">
                           ₦ {item.arrears.toLocaleString("en-NG")}
                         </td>
-                        <td className="border-solid border-1 border-dark text-center">
+                        <td colSpan="2" className="border-solid border-1 border-dark text-center">
                           ₦ {item.credit.toLocaleString("en-NG")}
                         </td>
                         </>
@@ -285,17 +295,26 @@ const ViewBill = () => {
                       Hours of Payment : Monday - Friday 8:00 a.m. - 4:00 p.m.
                     </td>
                     
-             { data.length>1 &&  (    <>
+             { data.length>1 ?  (    <>
                      <td colSpan="1" className="text-right font-bold border-solid border-2 border-dark">
                       Harmonized Bill Reference
                     </td>
                     <td className="border-solid border-2 border-dark text-center">
                       {harmonisedBill ? harmonisedBill : data?.harmonizedBillReference}
                     </td> 
-                    </>)}
                     <td colSpan="2" className="text-center border-solid border-1 border-dark font-bold">
                       Total Due
                     </td>
+                    </>)
+                    :
+                    (
+                      <>
+                   <td colSpan="4" className="text-center border-solid border-1 border-dark font-bold">
+                      Total Due
+                    </td>
+                      </>
+                    )
+                    }
                     <td className="border-solid border-2 border-dark text-center">
                       ₦ {totalPrice.toLocaleString("en-NG")}
                     </td>
@@ -365,7 +384,9 @@ const ViewBill = () => {
                 <div className="p-0">
                   <img
                     className="img-responsive"
-                    src="https://drive.google.com/uc?id=1VwOBRRQ85TqqSUWwtxFoeLqZYDsCzMXK&export=download"
+                    width="100px"
+                    height="auto"
+                    src={signone}
                     alt="lasepa signature"
                   />
                   <div className="w-full font-bold ml-[10px]">
@@ -375,7 +396,9 @@ const ViewBill = () => {
                 <div className="p-0">
                   <img
                     className="img-responsive"
-                    src="https://drive.google.com/uc?id=1VwOBRRQ85TqqSUWwtxFoeLqZYDsCzMXK&export=download"
+                    width="100px"
+                    height="auto"
+                    src={signtwo}
                     alt="lasepa signature"
                   />
                   <div className="w-full font-bold ml-[10px]">

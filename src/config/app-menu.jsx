@@ -72,7 +72,7 @@ export const SuperAdminMenu = [
       // { path: "administration/bulkstreetupload", title: "BulkStreetUpload" },
       {
         path: "administration/revenuepricemanagement",
-        title: "Revenue Prices",
+        title: "Revenue Pricing",
       },
       { path: "administration/spaceidentifiers", title: "Space Identifiers" },
       // { path: "administration/agencies", title: "Agencies" },
@@ -151,7 +151,7 @@ export const AdminMenu = [
       { path: "administration/street", title: "Street" },
       {
         path: "administration/revenuepricemanagement",
-        title: "Revenue Prices",
+        title: "Revenue Pricing",
       },
       { path: "administration/spaceidentifiers", title: "Space Identifiers" },
       // { path: "administration/agencies", title: "Agencies" },
@@ -224,7 +224,7 @@ export const SuperUserMenu = [
       { path: "administration/street", title: "Street" },
       {
         path: "administration/revenuepricemanagement",
-        title: "Revenue Prices",
+        title: "Revenue Pricing",
       },
       { path: "administration/spaceidentifiers", title: "Space Identifiers" },
       // { path: "administration/agencies", title: "Agencies" },
@@ -291,7 +291,7 @@ export const UserMenu = [
       { path: "administration/department", title: "Department" },
       {
         path: "administration/revenuepricemanagement",
-        title: "Revenue Prices",
+        title: "Revenue Pricing",
       },
       { path: "administration/spaceidentifiers", title: "Space Identifiers" },
       // { path: "administration/agencies", title: "Agencies" },
@@ -317,7 +317,7 @@ export const Admin1Menu = [
       { path: "administration/department", title: "Department" },
       {
         path: "administration/revenuepricemanagement",
-        title: "Revenue Prices",
+        title: "Revenue Pricing",
       },
       { path: "administration/spaceidentifiers", title: "Space Identifiers" },
       // { path: "administration/agencies", title: "Agencies" },

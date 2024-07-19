@@ -297,7 +297,7 @@ function removeDuplicates(profile) {
   const lastNameDto =  nameInfo.lastName;
   const addressDto = data.address;
   const emailDto = data.email;
-  const suppliedPidDto = customerStatus == false ? true : enumerationStatus;
+  const suppliedPidDto = data?.payerId == null ? false : true;
   
 
   console.log("Customer Data:", data);
