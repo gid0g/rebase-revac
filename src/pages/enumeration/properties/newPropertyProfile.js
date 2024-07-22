@@ -65,6 +65,7 @@ const NewPropertyProfile = () => {
     setAgencyName,
     loadingBusiness,
     newPropertyId,
+    setAgencyId,
     setNewPropertyId,
     setNewCustomerStatus,
   } = useContext(Context);
@@ -193,6 +194,8 @@ const NewPropertyProfile = () => {
   const handleAgencyChange = async (agencyOption) => {
     setAgencyOption(agencyOption.value);
     setAgencyName(agencyOption.label);
+    setAgencyId(agencyOption.value);
+
     console.log("agencyId", agencyOption);
 
     try {

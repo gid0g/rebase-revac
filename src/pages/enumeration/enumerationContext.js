@@ -715,6 +715,7 @@ function removeDuplicates(profile) {
     setAgencyName,
     agencyName,
     agencyId,
+    setAgencyId,
     setAgencyName,
     existingCustomer,
     setExistingCustomer,

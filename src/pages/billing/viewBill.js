@@ -13,7 +13,7 @@ import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 import ReactToPrint from "react-to-print";
 import ClipLoader from "react-spinners/ClipLoader";
-
+import COA from "../../assets/images/COA.jpeg"
 //override for page spinner
 const override = {
   display: "block",
@@ -54,6 +54,10 @@ const ViewBill = () => {
   const [signtwo, setsigntwo]=useState(null)
 
   const billValues = async () => {
+    console.log(
+      "api called--------->",
+      `billing/${organisationId}/bill/${fetchId(selectedItem)}/generate-bill`
+    );
     await api
       .get(
         `billing/${organisationId}/bill/${fetchId(selectedItem)}/generate-bill`,
@@ -134,296 +138,340 @@ const ViewBill = () => {
         <div>
           {/* button to trigger printing of target component */}
           <ReactToPrint
-            trigger={() => <button className="btn btn-primary mb-8">Print this out!</button>}
+            trigger={() => (
+              <button className="btn btn-primary mb-8">Print this out!</button>
+            )}
             content={() => componentRef}
           />
 
           {/* component to be printed */}
           <div ref={(el) => (componentRef = el)}>
-           
-          <div className="px-2 py-1">
-            <header className="flex justify-between">
-              <div>
-                <img
-                  src={organisationLogo}
-                  alt="organisation logo"
-                  width="100"
-                  height="100"
-                />
-              </div>
-              <div className="self-center text-center">
-                <font size="2">
-                  <b>{data[0]?.organisationName}</b> <br />
-                  {data[0]?.organisationAddress} <br />
-                  Phone:{data[0]?.organisationPhoneNumber}, Email:{" "}
-                  {data[0]?.organisationEmail}
-                </font>
-              </div>
-              <div>
-                <img src={barcode} alt="barcode" width="100" height="100" />
-              </div>
-            </header>
-            <hr />
-
-            <div>
-              <div className="text-base font-bold text-center">
-                {/* DEMAND NOTICE FOR YEAR {data[0].year} */}
-              </div>
-
-              <div className="flex justify-between mt-[20px]">
-                <font size="2" className="w-6/12">
-                  Notice is hereby given to:
-                  <br />
-                  <b>
-                    Customer: {data[0]?.firstName} {data[0]?.middleName}{" "}
-                    {data[0]?.lastName} ,{data[0]?.payerID}
-                  </b>
-                  <br />
-                  {/* <b>Area Office: {data[0].areaOffice}</b> */}
-                  <br />
-                  <b>Generated Date: {formattedDate}</b>
-                  <br />
-                  {/* <b>Printed Date: {data[0].printedDate}</b> */}
-                  <br />
-                  In respect of the property situated at:{" "}
-                  {data[0]?.propertyAddress} <br />
-                  {/* <b> {data[0].propertyAddress}</b> */}
-                </font>
-                <font size="2" className="w-6/12">
-                  <b>IMPORTANT!</b>
-                  <br />
-                  <b>All enquiries are to be forwarded to:</b>
-                  <br />
-                  Council Treasurer - {"treasurePhone"}
-                  <br />
-                  Use the Links below for 'Online Payment'
-                  <br />
-                  <a href="#">https://lagos.vulte.ng</a>
-                  <br />
-                  <a href="#">https://pay.etranzactng.com/lirs</a>
-                  <br />
-                  Click I have Bill and Select WEBGUID ("Bill" "Reference")
-                </font>
-              </div>
-
+            <div className="px-1 py-1">
+              <header className="flex justify-between">
+                <div>
+                  <img
+                    src={COA}
+                    alt="Nigerian Coat Of Arms"
+                    width="75"
+                    height="75"
+                  />
+                </div>
+                <div className="self-center text-center">
+                  <div className="w-100 d-flex justify-content-center">
+                    <img
+                      src={organisationLogo}
+                      alt="organisation logo"
+                      width="75"
+                      height="75"
+                    />
+                  </div>
+                  <font size="2" className="p-0 m-0">
+                    <b>{data[0]?.organisationName}</b> <br />
+                    {data[0]?.organisationAddress} <br />
+                    Phone:{data[0]?.organisationPhoneNumber}, Email:{" "}
+                    {data[0]?.organisationEmail}
+                  </font>
+                </div>
+                <div>
+                  <img src={barcode} alt="barcode" width="75" height="75" />
+                </div>
+              </header>
+              <hr />
 
               <div>
-                <font size="2">
-                  The <b>{data[0]?.organisationName}</b> under the LOCAL
-                  GOVERNMENT law demad payment of{" "}
-                  <b> DEMAND NOTICE FOR YEAR {}</b> on the above property of the
-                  approved ratein respect of the financial year under
-                  consideration. The amount due for the current year and arrears
-                  (if any) of the former rate is now due from you. Payment of
-                  the total amount is now due and is to be made at any of the
-                  designated banks not later than 7 days from the date of this
-                  demand notice. If Payment is not made within <b>ONE WEEK</b>{" "}
-                  of the day of this Demand Notice, legal proceedings shall be
-                  taken immediately
-                </font>
-              </div>
+                {/* <div className="text-base font-bold text-center">
+                   DEMAND NOTICE FOR YEAR {data[0].year} 
+                </div> */}
 
-              <table className="w-full border-separate table-condensed text-xs ">
-                <tbody className="text-center">
-                  <tr className="mx-2 pr-8">
-                    <th className="border-solid border-1 border-dark text-center">
-                      Year
-                    </th>
-                    <th className="border-solid border-1 border-dark text-center">
-                      Bill Reference
-                    </th>
-                    <th colSpan="3" className="border-solid border-1 border-dark text-center">
-                      Summary
-                    </th>
-                    <th colSpan="2" className="border-solid border-1 border-dark text-center">
-                      Arrears(₦)
-                    </th>
-                    <th colSpan="2" className="border-solid border-1 border-dark text-center">
-                      Credit(₦)
-                    </th>
-                    {/* <th className="border-solid border-1 border-dark text-center">
+                <div className="flex justify-between">
+                  <font size="2" className="w-6/12">
+                    Notice is hereby given to:
+                    <br />
+                    <b>
+                      Customer: {data[0]?.firstName} {data[0]?.middleName}{" "}
+                      {data[0]?.lastName} ,{data[0]?.payerID}
+                    </b>
+                    <br />
+                    {/* <b>Area Office: {data[0].areaOffice}</b> */}
+                    <br />
+                    <b>Generated Date: {formattedDate}</b>
+                    <br />
+                    {/* <b>Printed Date: {data[0].printedDate}</b> */}
+                    <br />
+                    In respect of the property situated at:{" "}
+                    {data[0]?.propertyAddress} <br />
+                    {/* <b> {data[0].propertyAddress}</b> */}
+                  </font>
+                  <font size="2" className="w-6/12">
+                    <b>IMPORTANT!</b>
+                    <br />
+                    <b>All enquiries are to be forwarded to:</b>
+                    <br />
+                    Council Treasurer - {"treasurePhone"}
+                    <br />
+                    Use the Links below for 'Online Payment'
+                    <br />
+                    <a href="#">https://lagos.vulte.ng</a>
+                    <br />
+                    <a href="#">https://pay.etranzactng.com/lirs</a>
+                    <br />
+                    Click I have Bill and Select WEBGUID ("Bill" "Reference")
+                  </font>
+                </div>
+
+                <div className="p-0">
+                  <font size="2">
+                    The <b>{data[0]?.organisationName}</b> under the LOCAL
+                    GOVERNMENT law demad payment of{" "}
+                    <b> DEMAND NOTICE FOR YEAR {}</b> on the above property of
+                    the approved ratein respect of the financial year under
+                    consideration. The amount due for the current year and
+                    arrears (if any) of the former rate is now due from you.
+                    Payment of the total amount is now due and is to be made at
+                    any of the designated banks not later than 7 days from the
+                    date of this demand notice. If Payment is not made within{" "}
+                    <b>ONE WEEK</b> of the day of this Demand Notice, legal
+                    proceedings shall be taken immediately
+                  </font>
+                </div>
+
+                <table className="w-full border-separate table-condensed text-xs ">
+                  <tbody className="text-center">
+                    <tr className="mx-2 pr-8">
+                      <th className="border-solid border-1 border-dark text-center">
+                        Year
+                      </th>
+                      <th className="border-solid border-1 border-dark text-center">
+                        Bill Reference
+                      </th>
+                      <th
+                        colSpan="3"
+                        className="border-solid border-1 border-dark text-center"
+                      >
+                        Summary
+                      </th>
+                      <th
+                        colSpan="2"
+                        className="border-solid border-1 border-dark text-center"
+                      >
+                        Arrears(₦)
+                      </th>
+                      <th
+                        colSpan="2"
+                        className="border-solid border-1 border-dark text-center"
+                      >
+                        Credit(₦)
+                      </th>
+                      {/* <th className="border-solid border-1 border-dark text-center">
                       Credit(₦)
                     </th> */}
-                    <th className="border-solid border-1 border-dark text-center">
-                      Balance(₦)
-                    </th>
-                  </tr>
-                  {data.map((item, idx) => {
-                    return (
-                      <tr key={idx} className="p-0">
-                        <td className="border-solid border-1 border-dark text-center">
-                          {item.year}
-                        </td>
-                        <td className="border-solid border-1 border-dark text-center">
-                          <b>{item.billReference}</b>
-                        </td>
-                        <td colSpan="3"className="border-solid border-1 border-dark text-center">
-                          {item.summary}
-                        </td>
-                      {data.length>1 ? (  <>
-                        <td colSpan="2" className="border-solid border-1 border-dark text-center">
-                          ₦ {item.arrears.toLocaleString("en-NG")}
-                        </td>
-                        <td colSpan="2" className="border-solid border-1 border-dark text-center">
-                          ₦ {item.credit.toLocaleString("en-NG")}
-                        </td>
-                        </>) :
-                        (
-                          <>
-                        <td colSpan="2" className="border-solid border-1 border-dark text-center">
-                          ₦ {item.arrears.toLocaleString("en-NG")}
-                        </td>
-                        <td colSpan="2" className="border-solid border-1 border-dark text-center">
-                          ₦ {item.credit.toLocaleString("en-NG")}
-                        </td>
-                        </>
-                        )
-                        }
-                        {/* <td className="border-solid border-1 border-dark text-center">
+                      <th className="border-solid border-1 border-dark text-center">
+                        Balance(₦)
+                      </th>
+                    </tr>
+                    {data.map((item, idx) => {
+                      return (
+                        <tr key={idx} className="p-0">
+                          <td className="border-solid border-1 border-dark text-center">
+                            {item.year}
+                          </td>
+                          <td className="border-solid border-1 border-dark text-center">
+                            <b>{item.billReference}</b>
+                          </td>
+                          <td
+                            colSpan="3"
+                            className="border-solid border-1 border-dark text-center"
+                          >
+                            {item.summary}
+                          </td>
+                          {data.length > 1 ? (
+                            <>
+                              <td
+                                colSpan="2"
+                                className="border-solid border-1 border-dark text-center"
+                              >
+                                ₦ {item.arrears.toLocaleString("en-NG")}
+                              </td>
+                              <td
+                                colSpan="2"
+                                className="border-solid border-1 border-dark text-center"
+                              >
+                                ₦ {item.credit.toLocaleString("en-NG")}
+                              </td>
+                            </>
+                          ) : (
+                            <>
+                              <td
+                                colSpan="2"
+                                className="border-solid border-1 border-dark text-center"
+                              >
+                                ₦ {item.arrears.toLocaleString("en-NG")}
+                              </td>
+                              <td
+                                colSpan="2"
+                                className="border-solid border-1 border-dark text-center"
+                              >
+                                ₦ {item.credit.toLocaleString("en-NG")}
+                              </td>
+                            </>
+                          )}
+                          {/* <td className="border-solid border-1 border-dark text-center">
                           ₦ {item.credit.toLocaleString("en-NG")}
                         </td> */}
-                        <td className="border-solid border-1 border-dark text-center">
-                        ₦ {item.balance.toLocaleString("en-NG")}
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-                <tfoot>
-                  <tr>
-                    <td colSpan="5" className="text-left border-solid border-1 border-dark font-bold">
-                      Hours of Payment : Monday - Friday 8:00 a.m. - 4:00 p.m.
-                    </td>
-                    
-             { data.length>1 ?  (    <>
-                     <td colSpan="1" className="text-right font-bold border-solid border-2 border-dark">
-                      Harmonized Bill Reference
-                    </td>
-                    <td className="border-solid border-2 border-dark text-center">
-                      {harmonisedBill ? harmonisedBill : data?.harmonizedBillReference}
-                    </td> 
-                    <td colSpan="2" className="text-center border-solid border-1 border-dark font-bold">
-                      Total Due
-                    </td>
-                    </>)
-                    :
-                    (
-                      <>
-                   <td colSpan="4" className="text-center border-solid border-1 border-dark font-bold">
-                      Total Due
-                    </td>
-                      </>
-                    )
-                    }
-                    <td className="border-solid border-2 border-dark text-center">
-                      ₦ {totalPrice.toLocaleString("en-NG")}
-                    </td>
-                  </tr>
-                </tfoot>
-              </table>
+                          <td className="border-solid border-1 border-dark text-center">
+                            ₦ {item.balance.toLocaleString("en-NG")}
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                  <tfoot>
+                    <tr>
+                      <td
+                        colSpan="5"
+                        className="text-left border-solid border-1 border-dark font-bold"
+                      >
+                        Hours of Payment : Monday - Friday 8:00 a.m. - 4:00 p.m.
+                      </td>
+
+                      {data.length > 1 ? (
+                        <>
+                          <td
+                            colSpan="1"
+                            className="text-right font-bold border-solid border-2 border-dark"
+                          >
+                            Harmonized Bill Reference
+                          </td>
+                          <td className="border-solid border-2 border-dark text-center">
+                            {harmonisedBill
+                              ? harmonisedBill
+                              : data?.harmonizedBillReference}
+                          </td>
+                          <td
+                            colSpan="2"
+                            className="text-center border-solid border-1 border-dark font-bold"
+                          >
+                            Total Due
+                          </td>
+                        </>
+                      ) : (
+                        <>
+                          <td
+                            colSpan="4"
+                            className="text-center border-solid border-1 border-dark font-bold"
+                          >
+                            Total Due
+                          </td>
+                        </>
+                      )}
+                      <td className="border-solid border-2 border-dark text-center">
+                        ₦ {totalPrice.toLocaleString("en-NG")}
+                      </td>
+                    </tr>
+                  </tfoot>
+                </table>
+                <div className="p-0">
+                  <font size="2">
+                    Please turn over leaf for list of Banks into which
+                    paymentcan be made. Collect your eReceipt before leaving
+                    before leaving the bank or before leaving the revenue
+                    collecting agent's office.
+                  </font>
+                </div>
+
+                <hr className=" border-dashed border-dark" />
+
+                <div className="flex p-0">
+                  <div className="w-6/12 text-center border-r-2 border-dark">
+                    <font size="2">
+                      <b>Bank's/Agent's Copy</b> <br />
+                      <b>{data[0]?.organisationName}</b> <br />
+                      <b> DEMAND NOTICE FOR YEAR {2023}</b> <br />
+                      <font size="2" className="w-6/12">
+                        <b>Payer Name:</b> {data[0]?.firstName}{" "}
+                        {data[0]?.middleName} {data[0]?.lastName} ,
+                        {data[0]?.payerID}
+                        <br />
+                        <b>Payer ID:</b> {data[0]?.payerID}
+                        <br />
+                        <b>Address:</b> {data[0]?.propertyAddress}
+                        <br />
+                        <b>Area Office:</b> {data[0]?.summary}
+                        <br />
+                        <b>Agency Code:</b> {data[0]?.areaOffice}
+                        <br />
+                        <b>Total Due:</b> ₦ {totalPrice.toLocaleString("en-NG")}
+                      </font>
+                    </font>
+                  </div>
+                  <div className="w-6/12 text-center">
+                    <font size="2">
+                      <b>Local Govt's Copy</b> <br />
+                      <b>{data[0]?.organisationName}</b> <br />
+                      <b> DEMAND NOTICE FOR YEAR {2023}</b> <br />
+                      <font size="2" className="w-6/12">
+                        <b>Payer Name:</b> {data[0]?.firstName}{" "}
+                        {data[0]?.middleName} {data[0]?.lastName} ,
+                        {data[0]?.payerID}
+                        <br />
+                        <b>Payer ID:</b> {data[0]?.payerID}
+                        <br />
+                        <b>Address:</b> {data[0]?.propertyAddress}
+                        <br />
+                        <b>Area Office:</b>
+                        {data[0]?.summary}
+                        <br />
+                        <b>Agency Code:</b> {data[0]?.areaOffice}
+                        <br />
+                        <b>Total Due:</b> ₦ {totalPrice.toLocaleString("en-NG")}
+                      </font>
+                    </font>
+                  </div>
+                </div>
+                <div className="mt-[8px] flex justify-around">
+                  <div className="p-0">
+                    <img
+                      className="img-responsive"
+                      width="100%"
+                      height="100%"
+                      src={signone}
+                      alt="lasepa signature"
+                      style={{ width: "100px", height: "33px" }}
+                    />
+                    <div className="w-full font-bold ml-[10px]">
+                      Council Treasurer
+                    </div>
+                  </div>
+                  <div className="p-0">
+                    <img
+                      className="img-responsive"
+                      width="100%"
+                      height="100%"
+                      src={signtwo}
+                      alt="lasepa signature"
+                      style={{ width: "100px", height: "33px" }}
+                    />
+                    <div className="w-full font-bold ml-[10px]">
+                      Revenue Chairman
+                    </div>
+                  </div>
+                </div>
+
                 <div>
-                  
-              <font size="2">
-                Please turn over leaf for list of Banks into which paymentcan be
-                made. Collect your eReceipt before leaving before leaving the
-                bank or before leaving the revenue collecting agent's office.
-              </font>
-                </div>
-             
-
-              <hr className=" border-dashed border-dark" />
-
-              <div className="flex p-0">
-                <div className="w-6/12 text-center border-r-2 border-dark">
-                  <font size="2">
-                    <b>Bank's/Agent's Copy</b> <br />
-                    <b>{data[0]?.organisationName}</b> <br />
-                    <b > DEMAND NOTICE FOR YEAR {2023}</b> <br />
-                    <font size="2" className="w-6/12">
-                      <b>Payer Name:</b> {data[0]?.firstName}{" "}
-                      {data[0]?.middleName} {data[0]?.lastName} ,
-                      {data[0]?.payerID}
-                      <br />
-                      <b>Payer ID:</b> {data[0]?.payerID}
-                      <br />
-                      <b>Address:</b> {data[0]?.propertyAddress}
-                      <br />
-                      <b>Area Office:</b> {data[0]?.summary}
-                      <br />
-                      <b>Agency Code:</b> {data[0]?.areaOffice}
-                      <br />
-                      <b>Total Due:</b> ₦ {totalPrice.toLocaleString("en-NG")}
-                    </font>
-                  </font>
-                </div>
-                <div className="w-6/12 text-center">
-                  <font size="2">
-                    <b>Local Govt's Copy</b> <br />
-                    <b>{data[0]?.organisationName}</b> <br />
-                    <b > DEMAND NOTICE FOR YEAR {2023}</b> <br />
-                    <font size="2" className="w-6/12">
-                      <b>Payer Name:</b> {data[0]?.firstName}{" "}
-                      {data[0]?.middleName} {data[0]?.lastName} ,
-                      {data[0]?.payerID}
-                      <br />
-                      <b>Payer ID:</b> {data[0]?.payerID}
-                      <br />
-                      <b>Address:</b> {data[0]?.propertyAddress}
-                      <br />
-                      <b>Area Office:</b>
-                      {data[0]?.summary}
-                      <br />
-                      <b>Agency Code:</b> {data[0]?.areaOffice}
-                      <br />
-                      <b>Total Due:</b> ₦ {totalPrice.toLocaleString("en-NG")}
-                    </font>
-                  </font>
-                </div>
-              </div>
-              <div className="mt-[20px] flex justify-around">
-                <div className="p-0">
-                  <img
-                    className="img-responsive"
-                    width="100px"
-                    height="auto"
-                    src={signone}
-                    alt="lasepa signature"
-                  />
-                  <div className="w-full font-bold ml-[10px]">
-                    Council Treasurer
+                  <div className="text-center">
+                    <p>
+                      All enquiries are to be forwarded to the Chairman -
+                      Revenue Collection and Review Commitee
+                    </p>
+                    <b>
+                      {" "}
+                      LOST BILL WILL ATTRACT A FINE OF ₦1000, FOR REPRINTING{" "}
+                    </b>
                   </div>
-                </div>
-                <div className="p-0">
-                  <img
-                    className="img-responsive"
-                    width="100px"
-                    height="auto"
-                    src={signtwo}
-                    alt="lasepa signature"
-                  />
-                  <div className="w-full font-bold ml-[10px]">
-                    Revenue Chairman
-                  </div>
-                </div>
-              </div>
-
-
-              <div>
-                <div className="text-center">
-                  <p>
-                    All enquiries are to be forwarded to the Chairman - Revenue
-                    Collection and Review Commitee
-                  </p>
-                  <b>
-                    {" "}
-                    LOST BILL WILL ATTRACT A FINE OF ₦1000, FOR REPRINTING{" "}
-                  </b>
                 </div>
               </div>
             </div>
-          </div>
-          <hr></hr>
-       
+            <hr></hr>
           </div>
         </div>
       )}

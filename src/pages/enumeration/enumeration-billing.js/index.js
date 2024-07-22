@@ -44,7 +44,7 @@ const EnumerateBilling = () => {
         updatedFields[0].businessTypeId =  enumerateFields[0]?.businessTypeId;
         setExistingCustomerFields(prevState => [
           {
-            ...prevState[0], // Keep existing fields of the first object
+            ...prevState[0], 
             businessTypeId:  enumerateFields[0]?.businessTypeId , // Update appliedDate dynamically
           },
           ...prevState.slice(1) // Keep the rest of the array unchanged
@@ -84,9 +84,10 @@ const EnumerateBilling = () => {
         updatedFields[0].businessSizeId =  enumerateFields[0]?.businessSizeId;
         setExistingCustomerFields(prevState => [
           {
-            ...prevState[0], // Keep existing fields of the first object
-            businessSizeId: enumerateFields[0]?.businessSizeId, // Update businessSizeId
-            createdBy: `${userData[0]?.email}` // Update createdBy
+            ...prevState[0], 
+            businessSizeId: enumerateFields[0]?.businessSizeId, 
+            createdBy: `${userData[0]?.email}`, 
+            agencyId:agencyId,
           },
           ...prevState.slice(1) // Keep the rest of the array unchanged
         ]);
@@ -389,7 +390,7 @@ const revenueName = (revenueId) => {
       console.log("Setting billrevenues")
       setExistingCustomerFields(prevState => [
         {
-          ...prevState[0], // Keep existing fields of the first object
+          ...prevState[0], 
            BillRevenuePrices: [...existingCustomerFields[0].BillRevenuePrices, {
          
               revenueId: selectedCategory?.revenue,

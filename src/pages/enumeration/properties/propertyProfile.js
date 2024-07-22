@@ -147,6 +147,7 @@ const PropertyProfile = () => {
     setData,
     agencies,
     // ward,
+    setAgencyId,
     spaceIdentifier,
     setEnumerationPosition,
     setSelectedProperty,
@@ -361,6 +362,7 @@ const PropertyProfile = () => {
     console.log("Enumeration Item:", item);
     setExistingPropertyForNewCustomer(item);
     setNewCustomerStatus(false);
+    setAgencyId(item?.agencies?.agencyId);
     setBuildingName(item.buildingName);
     setSelectedProperty(item.propertyId);
     setExistingCustomerAgencyId(item?.agencies?.agencyId);
