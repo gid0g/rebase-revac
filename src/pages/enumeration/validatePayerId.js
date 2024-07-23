@@ -60,6 +60,27 @@ const ValidatePayId = () => {
     return titleId;
   };
 
+  const authCloseModal = (elementId) => {
+    const myModal = new Modal(document.getElementById(elementId));
+
+    myModal.show();
+
+    myModal._element.addEventListener("shown.bs.modal", () => {
+      clearTimeout(myModal._element.hideInterval);
+      const id = setTimeout(() => {
+        myModal.hide();
+      });
+      myModal._element.hideInterval = id;
+
+      const backdropElement = document.querySelector(".modal-backdrop.show");
+      if (backdropElement) {
+        backdropElement.remove();
+      }
+    });
+
+    setModalInstance(myModal);
+  };
+
   const checkMaritalDtoStatus = (maritalStatus) => {
     let maritalId = 0;
     if (maritalStatus && maritalStatus === "M") {
@@ -155,25 +176,25 @@ const ValidatePayId = () => {
       });
   };
 
-  
-  function getFirstName(fullName) {
-    const names = fullName.split(" ");
-    return names[0] || "";
-  }
-  
-  function getMiddleName(fullName) {
-    const names = fullName.split(" ");
-    return names.slice(1, -1).join(" ") || "";
-  }
-  
-  function getLastName(fullName) {
-    const names = fullName.split(" ");
-    return names.slice(-1)[0] || "";
-  }
-  
   const handlePidChange = (event) => {
     setPid(event.target.value);
   };
+
+  function getFirstName(fullName) {
+    const names = fullName.split(" ");
+    return names.slice(1, -1).join(" ") || ""; //mid
+  }
+
+  function getMiddleName(fullName) {
+    const names = fullName.split(" ");
+    return names.slice(-1)[0] || ""; //last
+  }
+
+  function getLastName(fullName) {
+    const names = fullName.split(" ");
+    return names[0] || ""; //fir
+  }
+
   const createCustomer = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -221,9 +242,10 @@ const ValidatePayId = () => {
         });
 
         setTimeout(() => {
+          authCloseModal("viewDialog");
           navigate("/home/enumeration/customerprofile");
           window.location.reload();
-        }, 5000);
+        }, 2000);
       }
 
       if (response?.data?.status == 409) {
@@ -239,8 +261,10 @@ const ValidatePayId = () => {
         });
 
         setTimeout(() => {
+          authCloseModal("viewDialog");
           navigate("/home/enumeration/customerprofile");
-        }, 5000);
+          window.location.reload();
+        }, 2000);
       }
     } catch (error) {
       if (error.response && error.response.data) {
