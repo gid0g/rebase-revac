@@ -465,7 +465,7 @@ useEffect(()=>{
                         )}
                         <input
                           className="form-control"
-                          type="number"
+                          type="text"
                           name="buildingNumber"
                           placeholder="Building Number"
                           onChange={handleBuildingNo}
