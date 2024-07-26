@@ -113,10 +113,10 @@ const EnumerateBilling = () => {
         console.log(error);
       }
     }
-  }, [Enum, existingCustomerFields, organisationId, token]);
+  }, [Enum, existingCustomerFields]);
   useEffect(() => {
     fetchBusinessType();
-  }, [fetchBusinessType]);
+  }, [[Enum[0]?.businessTypeId]]);
   // useEffect(() => {
   //   const fetchBusinessSize = async () => {
   //     if (Enum) {
@@ -184,11 +184,11 @@ const EnumerateBilling = () => {
         console.log(error);
       }
     }
-  }, [Enum, existingCustomerFields, organisationId, token, userData, agencyId]);
+  }, [Enum, existingCustomerFields]);
 
   useEffect(() => {
     fetchBusinessSize();
-  }, [fetchBusinessSize]);
+  }, [Enum[0]?.businessSizeId]);
   const removeDuplicates = (arr) => {
     if (arr?.length > 0) {
       return arr?.filter((value, index, self) => {
