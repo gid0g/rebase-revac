@@ -238,7 +238,7 @@ const PropertyProfile = () => {
   const fetchPropertyData = async (page) => {
     await api
       .get(
-        `enumeration/${organisationId}/property?PageNumber=${page}&PageSize=10000000`,
+        `enumeration/${organisationId}/property`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
