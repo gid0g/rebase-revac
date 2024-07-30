@@ -13,7 +13,7 @@ import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 import ReactToPrint from "react-to-print";
 import ClipLoader from "react-spinners/ClipLoader";
-import COA from "../../assets/images/COA.jpeg"
+import COA from "../../assets/images/COA.jpeg";
 //override for page spinner
 const override = {
   display: "block",
@@ -44,14 +44,14 @@ const ViewBill = () => {
   console.log("selectedItemBillId", selectedItem?.billId);
 
   const fetchId = (id) => {
-    if(id){
+    if (id) {
       return id?.billId || id;
-    } else if(id?.billId){
+    } else if (id?.billId) {
       return id?.billId;
     }
-  }
-  const [signone, setsignone]=useState(null)
-  const [signtwo, setsigntwo]=useState(null)
+  };
+  const [signone, setsignone] = useState(null);
+  const [signtwo, setsigntwo] = useState(null);
 
   const billValues = async () => {
     console.log(
@@ -69,16 +69,17 @@ const ViewBill = () => {
       )
       .then((response) => {
         console.log("billValuesResponse", response);
-        const Sign1=`data:image/png;base64,${response.data[0].signatureOne}`
-        const Sig2=`data:image/png;base64,${response.data[0].signatureTwo}`
+        const Sign1 = `data:image/png;base64,${response.data[0].signatureOne}`;
+        const Sig2 = `data:image/png;base64,${response.data[0].signatureTwo}`;
         setData(response.data);
-        setsignone(Sign1)
-        setsigntwo(Sig2)
+        setsignone(Sign1);
+        setsigntwo(Sig2);
       })
       .catch((error) => {
-        console.log("error getting bill---->",error);
-        console.log("bill id--->", fetchId(selectedItem))
-      }).finally(() => {
+        console.log("error getting bill---->", error);
+        console.log("bill id--->", fetchId(selectedItem));
+      })
+      .finally(() => {
         setLoading(false);
       });
   };
@@ -87,12 +88,12 @@ const ViewBill = () => {
     billValues();
   }, []);
 
-  useEffect(()=>{
-    console.log("Bill attributes---------->",data)
-  },[data])
+  useEffect(() => {
+    console.log("Bill attributes---------->", data);
+  }, [data]);
 
-  const harmonisedBill = selectedItem?.harmonizedBillReferenceNo
-  
+  const harmonisedBill = selectedItem?.harmonizedBillReferenceNo;
+
   const originalDate = data[0]?.generatedDate;
   const parsedDate = new Date(originalDate);
 
@@ -207,11 +208,7 @@ const ViewBill = () => {
                     <br />
                     <b>All enquiries are to be forwarded to:</b>
                     <br />
-                    Council Treasurer - {"treasurePhone"}
-                    <br />
-                    Use the Links below for 'Online Payment'
-                    <br />
-                    <a href="#">https://lagos.vulte.ng</a>
+                    Council Treasurer - {"07064683372 , 08050791026"}
                     <br />
                     Click I have Bill and Select WEBGUID ("Bill" "Reference")
                   </font>
@@ -370,10 +367,16 @@ const ViewBill = () => {
                 </table>
                 <div className="p-0">
                   <font size="2">
-                    Please turn over leaf for list of Banks into which
-                    paymentcan be made. Collect your eReceipt before leaving
-                    before leaving the bank or before leaving the revenue
-                    collecting agent's office.
+                    PLEASE PAY DIRECTLY TO THE OVERHEAD DESIGNATED BANK AND
+                    COLLECT AUTOMATED REVENUE RECEIPT AT THE POINT OF PAYMENT
+                    WITHOUT THIS Y0UR PAYMENT IS NULL AND VOID.
+                  </font>
+                  <br />
+                  <font size="2">
+                    <b>
+                      COUNCIL'S POS IS AVAILABLE PLEASE DO NOT PAY THROUGH ANY
+                      COMMERCLAL POS/ASS OC1ATION
+                    </b>
                   </font>
                 </div>
 
@@ -432,12 +435,12 @@ const ViewBill = () => {
                       className="img-responsive"
                       width="100%"
                       height="100%"
-                      src={signone}
+                      src={signtwo}
                       alt="lasepa signature"
                       style={{ width: "100px", height: "33px" }}
                     />
                     <div className="w-full font-bold ml-[10px]">
-                      Council Treasurer
+                      Chief Revenue Officer{" "}
                     </div>
                   </div>
                   <div className="p-0">
@@ -450,7 +453,7 @@ const ViewBill = () => {
                       style={{ width: "100px", height: "33px" }}
                     />
                     <div className="w-full font-bold ml-[10px]">
-                      Revenue Chairman
+                      Chief Revenue Officer{" "}
                     </div>
                   </div>
                 </div>
