@@ -158,6 +158,12 @@ const PropertyProfile = () => {
   } = useContext(Context);
 
   const [filterGroups, setFilterGroups] = useState([]);
+  // useEffect(() => {
+  //   console.log("Prop---------->", propertyData);
+  //   propertyData.sort((a, b) => a.propertyId - b.propertyId);
+  //   console.log("Prop", propertyData);
+
+  // }, [propertyData]);
   const fetchFilterGroups = async () => {
     try {
       // const wardResponse = await api.get(
@@ -237,17 +243,14 @@ const PropertyProfile = () => {
   };
   const fetchPropertyData = async (page) => {
     await api
-      .get(
-        `enumeration/${organisationId}/property`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
+      .get(`enumeration/${organisationId}/property`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((response) => {
         setLoading(false);
-        console.log(" ", response.data)
+        // console.log(" ", response.data);
         setPropertyData(response.data);
         var paginationData = response.headers["x-pagination"];
         const parsedPaginationData = JSON.parse(paginationData);
@@ -370,7 +373,7 @@ const PropertyProfile = () => {
   };
 
   const handleEdit = (item) => {
-    console.log("Editing---->", item)
+    console.log("Editing---->", item);
     setEditRow({ ...item });
   };
 
@@ -380,11 +383,14 @@ const PropertyProfile = () => {
     console.log(`View button clicked for item with ID ${item.propertyId}`);
   };
 
-  const filteredItems = propertyData.filter(
-    (item) =>
-      item.buildingName &&
-      item.buildingName.toLowerCase().includes(filterText.toLowerCase())
+  const filteredItems = propertyData.sort(
+    (a, b) => b.propertyId - a.propertyId
   );
+  // const filteredItems = propertyData.filter(
+  //   (item) =>
+  //     item.buildingName &&
+  //     item.buildingName.toLowerCase().includes(filterText.toLowerCase())
+  // );
 
   useEffect(() => {
     fetchPropertyData(1);
