@@ -14,50 +14,61 @@ const AddBusinessProfile = () => {
   const token = sessionStorage.getItem("myToken");
   const [count, setCount] = useState(1);
   const appSettings = useContext(AppSettings);
-  const { fields, setFields, setEnumerateFields, convertedField, submitBusinessProfile, loadingBusiness} =
-    useContext(Context);
+  const {
+    fields,
+    setFields,
+    setEnumerateFields,
+    convertedField,
+    submitBusinessProfile,
+    loadingBusiness,
+  } = useContext(Context);
   const userData = appSettings.userData;
   const [businessType, setBusinessType] = useState([]);
   const [businessSize, setBusinessSize] = useState([]);
   const [typeSelected, setTypeSelected] = useState({});
   const [sizeSelected, setSizeSelected] = useState({});
-  const [allSelected,setallSelected]=useState(false)
+  const [allSelected, setallSelected] = useState(false);
   const [revenueType, setRevenueType] = useState({
     0: {
       types: [],
     },
   });
 
-    const organisationId = sessionStorage.getItem("organisationId");
-    const [isValid, setIsValid] = useState(false);
-    const [checkedRevenues, setCheckedRevenues] = useState([]);
-    const [isRevenueTypeVisible, setIsRevenueTypeVisible] = useState(false);
-    const [isLoading, setIsLoading] = useState(false);
+  const organisationId = sessionStorage.getItem("organisationId");
+  const [isValid, setIsValid] = useState(false);
+  const [checkedRevenues, setCheckedRevenues] = useState([]);
+  const [isRevenueTypeVisible, setIsRevenueTypeVisible] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  
-    const handleCheckedRevenueChange = (revenueId) => {
-      if(revenueId) {
-        setCheckedRevenues((prevCheckedRevenues) => {
-          if (prevCheckedRevenues.includes(revenueId)) {
-            const filteredCheckedCategories = prevCheckedRevenues.filter(id => id !== revenueId);
-            return filteredCheckedCategories;
-          } else {
-            return [...prevCheckedRevenues, revenueId];
-          }
-        });
-  
-      }
-  
-      console.log("Checked Revenues:", checkedRevenues);
+  const handleCheckedRevenueChange = (revenueId) => {
+    if (revenueId) {
+      setCheckedRevenues((prevCheckedRevenues) => {
+        if (prevCheckedRevenues.includes(revenueId)) {
+          const filteredCheckedCategories = prevCheckedRevenues.filter(
+            (id) => id !== revenueId
+          );
+          return filteredCheckedCategories;
+        } else {
+          return [...prevCheckedRevenues, revenueId];
+        }
+      });
     }
-    useEffect(() => {
-      const allTypeSelected = Object.values(typeSelected).every((value) => value);
-      const allSizeSelected = Object.values(sizeSelected).every((value) => value);
-      setallSelected(allTypeSelected && allSizeSelected && isValid  && fields.every((field) => field.businessTypeId && field.businessSizeId));
-    }, [typeSelected, sizeSelected, fields]);
-    useEffect(()=>{
-      console.log("allSelected ", allSelected)
-    },[allSelected])
+
+    console.log("Checked Revenues:", checkedRevenues);
+  };
+  useEffect(() => {
+    const allTypeSelected = Object.values(typeSelected).every((value) => value);
+    const allSizeSelected = Object.values(sizeSelected).every((value) => value);
+    setallSelected(
+      allTypeSelected &&
+        allSizeSelected &&
+        isValid &&
+        fields.every((field) => field.businessTypeId && field.businessSizeId)
+    );
+  }, [typeSelected, sizeSelected, fields]);
+  useEffect(() => {
+    console.log("allSelected ", allSelected);
+  }, [allSelected]);
   async function handleTypeChange(index, event) {
     const { name, value } = event.target;
     const selectedIndex = event.target.selectedIndex;
@@ -66,43 +77,42 @@ const AddBusinessProfile = () => {
       name: event.target[selectedIndex].text,
     };
     const updatedFields = [...fields];
-  
+
     updatedFields[index] = {
       ...updatedFields[index],
       businessTypeId: parseInt(selectedOption.id),
     };
-    setTypeSelected((prevTypeSelected) => ({...prevTypeSelected, [index]: event.target.value!== "" }));
+    setTypeSelected((prevTypeSelected) => ({
+      ...prevTypeSelected,
+      [index]: event.target.value !== "",
+    }));
 
     setFields(updatedFields);
     setIsRevenueTypeVisible(true);
     const types = await api
-      .get(
-        `revenue/${organisationId}/business-type/${selectedOption.id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
+      .get(`revenue/${organisationId}/business-type/${selectedOption.id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((response) => {
         return response.data;
       })
       .catch((error) => {
         console.log(error);
       });
-  
+
     setRevenueType((prevRevenueType) => ({
       ...prevRevenueType,
       [index]: {
         types: types,
       },
     }));
-  
+
     updatedFields[index].createdBy = userData[0]?.email;
     updatedFields[index].billRevenues = [];
     console.log("Updated Size Fields:", updatedFields);
   }
-
 
   function handleSizeChange(index, event) {
     const { name, value } = event.target;
@@ -111,35 +121,37 @@ const AddBusinessProfile = () => {
       id: value,
       name: event.target[selectedIndex].text,
     };
-    setSizeSelected((prevSizeSelected) => ({...prevSizeSelected, [index]: event.target.value!== "" }));
+    setSizeSelected((prevSizeSelected) => ({
+      ...prevSizeSelected,
+      [index]: event.target.value !== "",
+    }));
 
     const updatedFields = [...fields];
-  
+
     updatedFields[index] = {
       ...updatedFields[index],
-      businessSizeId:  parseInt(selectedOption.id),
+      businessSizeId: parseInt(selectedOption.id),
     };
     setFields(updatedFields);
-  
+
     updatedFields[index].createdBy = userData[0]?.email;
     console.log("Updated Type Fields:", updatedFields);
-
   }
 
   const removeDuplicates = (arr) => {
     const uniqueMap = new Map();
-    
-    arr.forEach(item => {
+
+    arr.forEach((item) => {
       uniqueMap.set(item.id, item);
     });
-    
+
     return Array.from(uniqueMap.values());
   };
 
   function handleCheckboxChange(index, event) {
     const { value, checked } = event.target;
     const selectedOptions = fields[index].billRevenues || [];
-    
+
     if (checked) {
       selectedOptions.push({
         id: value,
@@ -147,12 +159,14 @@ const AddBusinessProfile = () => {
       });
       console.log("Selected Option:", selectedOptions);
     } else {
-      const selectedIndex = selectedOptions.findIndex((option) => option.id === value);
+      const selectedIndex = selectedOptions.findIndex(
+        (option) => option.id === value
+      );
       if (selectedIndex !== -1) {
         selectedOptions.splice(selectedIndex, 1);
       }
     }
-  
+
     const updatedFields = [...fields];
     updatedFields[index] = {
       ...updatedFields[index],
@@ -164,7 +178,7 @@ const AddBusinessProfile = () => {
     setFields(updatedFields);
     return updatedFields[index].billRevenues;
   }
-    
+
   function handleAdd() {
     const values = [...fields];
     setRevenueType({
@@ -181,7 +195,6 @@ const AddBusinessProfile = () => {
     setCount(count + 1);
     setTypeSelected({});
     setSizeSelected({});
-
   }
 
   function handleDelete(idx) {
@@ -236,16 +249,15 @@ const AddBusinessProfile = () => {
       setTimeout(() => {
         navigate("/home/enumeration/billing");
       }, 500);
-    } catch(error) {
+    } catch (error) {
       console.log(error);
     } finally {
       setIsLoading(false);
     }
-  }
-////////////////////////////////////////
+  };
+  ////////////////////////////////////////
 
-
-///////////////////////////////////////
+  ///////////////////////////////////////
 
   return (
     <>
@@ -320,8 +332,15 @@ const AddBusinessProfile = () => {
                   </div>
                   {isRevenueTypeVisible && (
                     <div className="mb-3">
-                      <label title="Multiple Revenue type/code can be selected" className="form-label" htmlFor="exampleInputEmail1">
-                      Revenue Type/Code <pre className="text-xs">(Multiple Revenue type/code can be selected)</pre>
+                      <label
+                        title="Multiple Revenue type/code can be selected"
+                        className="form-label"
+                        htmlFor="exampleInputEmail1"
+                      >
+                        Revenue Type/Code{" "}
+                        <pre className="text-xs">
+                          (Multiple Revenue type/code can be selected)
+                        </pre>
                       </label>
                       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
                         {revenueType[idx]?.types?.map((revenue) => {
@@ -336,8 +355,11 @@ const AddBusinessProfile = () => {
                                 name={`revenueId${idx}`}
                                 value={revenue.revenueId}
                                 onChange={(event) => {
-                                  const formFields = handleCheckboxChange(idx, event);
-                                  if(formFields?.length > 0){
+                                  const formFields = handleCheckboxChange(
+                                    idx,
+                                    event
+                                  );
+                                  if (formFields?.length > 0) {
                                     setIsValid(true);
                                   } else {
                                     setIsValid(false);
@@ -345,7 +367,10 @@ const AddBusinessProfile = () => {
                                   handleCheckedRevenueChange(revenue.revenueId);
                                 }}
                               />
-                              <label className="form-check-label" htmlFor={`revenueId${idx}`}>
+                              <label
+                                className="form-check-label"
+                                htmlFor={`revenueId${idx}`}
+                              >
                                 {revenue.revenueName}
                               </label>
                             </div>
@@ -353,7 +378,6 @@ const AddBusinessProfile = () => {
                         })}
                       </div>
                     </div>
-
                   )}
                 </fieldset>
                 {!idx == 0 && (
@@ -393,20 +417,22 @@ const AddBusinessProfile = () => {
               onClick={() => window.history.back()}
             >
               Back
-            </button> 
+            </button>
 
-
-            <button 
-              type="submit" 
-              className={`btn ${!allSelected ? "!bg-sky-300": "!bg-blue-900"} text-white me-5px`}
+            <button
+              type="submit"
+              className={`btn ${
+                !allSelected ? "!bg-sky-300" : "!bg-blue-900"
+              } text-white me-5px`}
               disabled={!allSelected}
             >
-              {!allSelected ? 
-                "Disabled, Please Fill Necessary Details" 
-                : isLoading ?
-                <Spinner /> 
-                : "Continue"
-              }
+              {!allSelected ? (
+                "Disabled, Please Fill Necessary Details"
+              ) : isLoading ? (
+                <Spinner />
+              ) : (
+                "Continue"
+              )}
             </button>
           </div>
         </form>

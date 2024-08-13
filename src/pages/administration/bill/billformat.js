@@ -38,25 +38,26 @@ const BillFormats = () => {
   const [contentLoaded, setcontentLoaded] = useState(false);
   // const [error, setError] = useState({});
 
-
   useEffect(() => {
     const fetchAllBillFormats = async () => {
-      try{
-        const response = await api.get(`/billing/${organisationId}/bill-format`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
+      try {
+        const response = await api.get(
+          `/billing/${organisationId}/bill-format`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
           }
-        });
+        );
         setBillFormats(response.data);
-      } catch(error){
+      } catch (error) {
         console.error("Error fetching bill formats:", error);
       }
-    } 
+    };
 
     fetchAllBillFormats();
   }, [organisationId]);
 
-    
   const handleEditChange = (e) => {
     const { name, value } = e.target;
     setEditRow((prevEditData) => ({
@@ -66,23 +67,21 @@ const BillFormats = () => {
   };
 
   const handleEdit = (item) => {
-
     const signatureOne = `data:image;base64,${item.signatureOneData}`;
     const signatureOneName = `data:image;base64,${item.signatureOneName}`;
-    
+
     setSignatureOne(signatureOne);
     setSignatureOneName(signatureOneName);
-  
+
     const signatureTwo = `data:image;base64,${item.signatureTwoData}`;
     const signatureTwoName = `data:image;base64,${item.signatureTwoName}`;
-    
+
     setSignatureTwo(signatureTwo);
     setSignatureTwoName(signatureTwoName);
-  
+
     setEditRow(item);
     setItemId(item?.billFormatId);
   };
-  
 
   const columns = [
     {
@@ -139,18 +138,18 @@ const BillFormats = () => {
       ),
     },
   ];
-const disabled= data.length!==0
+  const disabled = data.length !== 0;
 
   const filteredItems = useMemo(() => {
     if (!filterText.trim()) {
       return billFormats;
     }
-   
+
     return billFormats?.filter((item) => {
-      const contentOne = item.contentOne || '';
-      const contentTwo = item.contentTwo || ''; 
-      const closingSection = item.closingSection || ''; 
-  
+      const contentOne = item.contentOne || "";
+      const contentTwo = item.contentTwo || "";
+      const closingSection = item.closingSection || "";
+
       return (
         contentOne.toLowerCase().includes(filterText.toLowerCase()) ||
         contentTwo.toLowerCase().includes(filterText.toLowerCase()) ||
@@ -164,7 +163,7 @@ const disabled= data.length!==0
       if (filterText) {
         setResetPaginationToggle(!resetPaginationToggle);
         setFilterText("");
-      } 
+      }
     };
 
     return (
@@ -185,32 +184,42 @@ const disabled= data.length!==0
   }, []);
 
   const handleSignatureOne = (event) => {
+    // const file = event.target.files[0];
+
+    // const reader = new FileReader();
+    // reader.onload = () => {
+    //   setSignatureOne(reader.result)
+    // };
+
+    // if (file) {
+    //   reader.readAsDataURL(file);
+    // }
+    // setSignatureOneName(file.name);
     const file = event.target.files[0];
 
-    const reader = new FileReader();
-    reader.onload = () => {
-      setSignatureOne(reader.result)
-    };
-
     if (file) {
-      reader.readAsDataURL(file);
+      setSignatureOne(file);
+      setSignatureOneName(file.name);
     }
-    setSignatureOneName(file.name);
   };
-
   const handleSignatureTwo = (event) => {
+    // const file = event.target.files[0];
+    // const reader = new FileReader();
+    // reader.onload = () => {
+    //   setSignatureTwo(reader.result)
+    // };
+
+    // if (file) {
+    //   reader.readAsDataURL(file);
+    // }
+    // setSignatureTwoName(file.name);
     const file = event.target.files[0];
-    const reader = new FileReader();
-    reader.onload = () => {
-      setSignatureTwo(reader.result)
-    };
 
     if (file) {
-      reader.readAsDataURL(file);
+      setSignatureTwo(file);
+      setSignatureTwoName(file.name);
     }
-    setSignatureTwoName(file.name);
   };
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setBillFormatData({ ...billFormatData, [name]: value });
@@ -219,65 +228,64 @@ const disabled= data.length!==0
   const fetchBillFormats = () => {
     setLoading(true);
     api
-    .get(`billing/${organisationId}/bill-format/`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-    .then((response) => {
-      setData(response.data);
-      setPending(false);
-      setcontentLoaded(true);
-    })
-    .catch((error) => {
-      if (error.response && error.response.status === 400){
-        setData([]);
+      .get(`billing/${organisationId}/bill-format/`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        setData(response.data);
         setPending(false);
-        setcontentLoaded(false);
-      } else {
-        toast.error(error.message, {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "colored",
-        });
-      }
-    }).finally(() => {
-      setLoading(false);
-    });
-  }
+        setcontentLoaded(true);
+      })
+      .catch((error) => {
+        if (error.response && error.response.status === 400) {
+          setData([]);
+          setPending(false);
+          setcontentLoaded(false);
+        } else {
+          toast.error(error.message, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+          });
+        }
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
 
   useEffect(() => {
     fetchBillFormats();
     setcontentLoaded(true);
   }, []);
 
-
   const authCloseModal = (elementId) => {
     const myModal = new Modal(document.getElementById(elementId));
-  
+
     myModal.show();
-  
-    myModal._element.addEventListener('shown.bs.modal', () => {
+
+    myModal._element.addEventListener("shown.bs.modal", () => {
       clearTimeout(myModal._element.hideInterval);
       const id = setTimeout(() => {
         myModal.hide();
       });
       myModal._element.hideInterval = id;
-  
-      const backdropElement = document.querySelector('.modal-backdrop.show');
+
+      const backdropElement = document.querySelector(".modal-backdrop.show");
       if (backdropElement) {
         backdropElement.remove();
       }
     });
-  
+
     setModalInstance(myModal);
-  }
-  
+  };
 
   const addBillFormat = async (e) => {
     setLoading(true);
@@ -290,8 +298,6 @@ const disabled= data.length!==0
     formData.append("ClosingSection", billFormatData.ClosingSection);
     formData.append("dateCreated", new Date().toISOString());
     formData.append("createdBy", userData[0]?.email);
-
- 
 
     await attachment
       .post(`billing/${organisationId}/create-bill-format`, formData)
@@ -311,15 +317,15 @@ const disabled= data.length!==0
           setTimeout(() => {
             authCloseModal("editBillFormat");
             fetchBillFormats();
-            window.location.reload() 
-          }, 5000)
+            window.location.reload();
+          }, 5000);
         }
         setLoading(false);
         return true;
       })
       .catch((error) => {
         setLoading(false);
-  
+
         toast.error(error.message, {
           position: "top-right",
           autoClose: 5000,
@@ -332,9 +338,9 @@ const disabled= data.length!==0
         });
       });
   };
-useEffect(()=>{
-  console.log("item", itemId, organisationId)
-},[itemId])
+  useEffect(() => {
+    console.log("item", itemId, organisationId);
+  }, [itemId]);
   const editBillFormat = async (e) => {
     setLoading(true);
     e.preventDefault();
@@ -352,7 +358,8 @@ useEffect(()=>{
     await attachment
       .post(
         `billing/${organisationId}/bill-format/${itemId}/update-bill-format`,
-        formData)
+        formData
+      )
       .then((response) => {
         if (response.status === 200) {
           setLoading(false);
@@ -366,13 +373,12 @@ useEffect(()=>{
             progress: undefined,
             theme: "colored",
           });
-          setTimeout(()=>{
-
+          setTimeout(() => {
             authCloseModal("editBillFormat");
             fetchBillFormats();
-            // window.location.reload() 
-          },3000)
-               }
+            // window.location.reload()
+          }, 3000);
+        }
         setLoading(false);
         return true;
       })
@@ -389,12 +395,9 @@ useEffect(()=>{
           progress: undefined,
           theme: "colored",
         });
-        
       });
   };
 
-
-  
   return (
     <>
       <div>
@@ -434,25 +437,24 @@ useEffect(()=>{
       </div>
 
       <div className="flex justify-center">
-          <div className="w-full p-3">
+        <div className="w-full p-3">
+          <div className="">
             <div className="">
-              <div className="">
-                <DataTable
-                  columns={columns}
-                  data={filteredItems}
-                  onClick={(item) => console.log(item)}
-                  pagination
-                  loading
-                  progressPending={pending || loading}
-                  paginationResetDefaultPage={resetPaginationToggle}
-                  subHeader
-                  subHeaderComponent={subHeaderComponentMemo}
-                />
-              </div>
+              <DataTable
+                columns={columns}
+                data={filteredItems}
+                onClick={(item) => console.log(item)}
+                pagination
+                loading
+                progressPending={pending || loading}
+                paginationResetDefaultPage={resetPaginationToggle}
+                subHeader
+                subHeaderComponent={subHeaderComponentMemo}
+              />
             </div>
           </div>
+        </div>
       </div>
-
 
       <div className="modal fade" id="addBillFormat">
         <div className="modal-dialog">
@@ -477,7 +479,7 @@ useEffect(()=>{
                           className="form-label flex items-center justify-start  gap-x-1"
                           htmlFor="exampleInputEmail1"
                         >
-                          Signature One 
+                          Signature One
                           <span className="text-2xl text-red-900"> * </span>
                         </label>
                         <div className="">
@@ -495,7 +497,7 @@ useEffect(()=>{
                           className="form-label"
                           htmlFor="exampleInputEmail1"
                         >
-                          Signature Two 
+                          Signature Two
                         </label>
                         <div className="">
                           <input
@@ -593,7 +595,6 @@ useEffect(()=>{
         </div>
       </div>
 
-
       <div className="modal fade" id="editBillFormat">
         <div className="modal-dialog">
           <div className="modal-content">
@@ -620,8 +621,11 @@ useEffect(()=>{
                           Signature One
                         </label>
                         {editRow && (
-                              <img src={editRow.signatureOneData} alt="Signature One" />
-                            )}
+                          <img
+                            src={editRow.signatureOneData}
+                            alt="Signature One"
+                          />
+                        )}
                         <div className="">
                           <input
                             type="file"

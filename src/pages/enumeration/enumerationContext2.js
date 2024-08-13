@@ -43,8 +43,7 @@ export const ContextProvider = ({ children }) => {
   const [selectedCustomer, setSelectedCustomer] = useState(0);
   const [existingCustomer, setExistingCustomer] = useState(null);
   const [newCustomer, setNewCustomer] = useState(null);
-  const [existingPropertyForNewCustomer, setExistingPropertyForNewCustomer] =
-    useState({});
+  const [existingPropertyForNewCustomer, setExistingPropertyForNewCustomer] = useState({});
   const [fields, setFields] = useState([
     {
       businessTypeId: "",
@@ -54,12 +53,10 @@ export const ContextProvider = ({ children }) => {
       dateCreated: new Date().toISOString(),
     },
   ]);
-  useEffect(() => {
-    console.log("Agency ID---------------->", agencyId);
-  }, [agencyId]);
+
   const [existingCustomerFields, setExistingCustomerFields] = useState([
     {
-      agencyId:  0,
+      agencyId: 0,
       appliedDate: `${new Date().getFullYear()}`,
       BillRevenuePrices: [],
       businessTypeId: 0,
@@ -68,56 +65,57 @@ export const ContextProvider = ({ children }) => {
       createdBy: `${userData[0]?.email}`,
     },
   ]);
-  console.log("existingCustomerFields------------->", existingCustomerFields);
+
   const [enumerateFields, setEnumerateFields] = useState([]);
 
   const [enumerationPosition, setEnumerationPosition] = useState("new");
   const [selectedProperty, setSelectedProperty] = useState("");
   const navigate = useNavigate();
 
-  // on refresh, reset all states
+  // on refresh, reset all states 
   useEffect(() => {
     return () => {
-      setData({});
-      setLoading(false);
-      setLoadingBusiness(false);
-      setEnumerationData(null);
-      setAddressNo("");
-      setPayId("");
-      setPayerTypeId("");
-      setGenderId("");
-      setTitleId("");
-      setMaritalStatusId("");
-      setSpaceName("");
-      setBuildingNumber("");
-      setSpaceFloor("");
-      setLocationAddress("");
-      // setWard([]);
-      // setWardOption("");
-      setAgencyId("");
-      setEnumerationStatus(null);
-      setSpaceIdentifier([]);
-      setspaceIdentifierOption("");
-      setAgencies([]);
-      setAgencyOption("");
-      setAgencyName("");
-      setCustomerStatus(false);
-      setSelectedCustomer(0);
-      setExistingCustomer(null);
-      setFields([
-        {
-          businessTypeId: 0,
-          businessSizeId: 0,
-          billRevenues: [],
-          createdBy: userData[0]?.email,
-          dateCreated: new Date().toISOString(),
-        },
-      ]);
-      setEnumerateFields([]);
-      setEnumerationPosition("new");
-      setSelectedProperty("");
-    };
+    setData({});
+    setLoading(false);
+    setLoadingBusiness(false);
+    setEnumerationData(null);
+    setAddressNo("");
+    setPayId("");
+    setPayerTypeId("");
+    setGenderId("");
+    setTitleId("");
+    setMaritalStatusId("");
+    setSpaceName("");
+    setBuildingNumber("");
+    setSpaceFloor("");
+    setLocationAddress("");
+    // setWard([]);
+    // setWardOption("");
+    setAgencyId("");
+    setEnumerationStatus(null);
+    setSpaceIdentifier([]);
+    setspaceIdentifierOption("");
+    setAgencies([]);
+    setAgencyOption("");
+    setAgencyName("");
+    setCustomerStatus(false);
+    setSelectedCustomer(0);
+    setExistingCustomer(null);
+    setFields([
+      {
+        businessTypeId: 0,
+        businessSizeId: 0,
+        billRevenues: [],
+        createdBy: userData[0]?.email,
+        dateCreated: new Date().toISOString(),
+      },
+    ]);
+    setEnumerateFields([]);
+    setEnumerationPosition("new");
+    setSelectedProperty("");
+  }
   }, []);
+  
 
   // Get and decrypt Organisation ID from local storage
   const organisationId = sessionStorage.getItem("organisationId");
@@ -149,38 +147,43 @@ export const ContextProvider = ({ children }) => {
       (title && title?.toLowerCase() === "miss.")
     ) {
       titleId = 2;
-    } else {
-      titleId = 2;
+    }
+
+    else {
+      titleId = 2
     }
 
     return titleId;
   };
   const checkmaritalstatus = () => {
-    if (
-      data.maritalStatuses &&
-      data.maritalStatuses.maritalStatusCode === "M"
-    ) {
+    if (data.maritalStatuses
+      && data.maritalStatuses.maritalStatusCode
+      === "M") {
       setMaritalStatusId(1);
-    } else if (
-      data.maritalStatuses &&
-      data.maritalStatuses.maritalStatusCode === "S"
-    ) {
+    } else if (data.maritalStatuses
+      && data.maritalStatuses.maritalStatusCode
+      === "S") {
       setMaritalStatusId(2);
     }
   };
 
+
   const checkMaritalDtoStatus = (maritalStatus) => {
     let maritalId = 0;
-    if (maritalStatus && maritalStatus.maritalStatusCode === "M") {
-      maritalId = 1;
-    } else if (maritalStatus && maritalStatus.maritalStatusCode === "S") {
+    if (maritalStatus
+      && maritalStatus.maritalStatusCode
+      === "M") {
+      maritalId = 1
+    } else if (maritalStatus
+      && maritalStatus.maritalStatusCode
+      === "S") {
       maritalId = 2;
     }
 
-    return maritalId;
+    return maritalId
   };
   const checkPayerType = (payerId) => {
-    let payerTypeId = 0;
+      let payerTypeId = 0;
     if (payerId ? payerId.charAt(0) === "N" : "N") {
       payerTypeId = 1;
     } else if (payerId ? payerId.charAt(0) === "C" : "C") {
@@ -234,16 +237,18 @@ export const ContextProvider = ({ children }) => {
       });
   }, []);
 
-  function removeDuplicates(profile) {
-    console.log("Raw:", profile);
 
-    profile.forEach((item) => {
+function removeDuplicates(profile) {
+  console.log("Raw:", profile);
+
+  profile.forEach((item) => {
       item.billRevenues = [...new Set(item.billRevenues)];
-    });
+  });
 
-    console.log("Refactored:", profile);
-    return profile;
-  }
+  console.log("Refactored:", profile);
+  return profile
+
+}
 
   const convertedField = fields.map((obj) => ({
     businessTypeId: obj.businessTypeId,
@@ -289,15 +294,15 @@ export const ContextProvider = ({ children }) => {
   const corporateNameDto = data.corporateName ? data.corporateName : "string";
   const firstNameDto = nameInfo.firstName;
   const middleNameDto = nameInfo.middleName;
-  const lastNameDto = nameInfo.lastName;
+  const lastNameDto =  nameInfo.lastName;
   const addressDto = data.address;
   const emailDto = data.email;
-  const suppliedPidDto = customerStatus == false ? true : enumerationStatus;
+  const suppliedPidDto = data?.payerId == null ? false : true;
   
 
   console.log("Customer Data:", data);
   console.log("existingPropertyForNewCustomer", existingPropertyForNewCustomer);
-
+  
   const createCustomerDto = {
     payerTypeId: payerTypeDto,
     payerId: payerDto,
@@ -319,63 +324,63 @@ export const ContextProvider = ({ children }) => {
   console.log("createCustomerDto:", createCustomerDto);
 
   const chooseAgency = (status) => {
-    if (status == true) {
+    if(status == true){
       return agencyOption?.agencyId;
     } else {
       return existingPropertyForNewCustomer?.agencies?.agencyId;
     }
-  };
+  }
 
   const chooseSpaceIdentifierId = (status) => {
-    if (status == true) {
+    if(status == true) {
       return spaceIdentifierOption;
     } else {
       return existingPropertyForNewCustomer?.spaceIdentifier?.id;
     }
-  };
+  }
 
   // const chooseWardId = (status) => {
-  //   if (status == true) {
+  //   if(status == true) {
   //     return wardOption;
   //   } else {
   //     return existingPropertyForNewCustomer?.ward?.id;
   //   }
-  // };
+  // }
 
   const chooseLocationAddress = (status) => {
-    if (status == true) {
+    if(status == true) {
       return `${parseInt(buildingNumber)}, ${streetOption.label}`;
     } else {
       return existingPropertyForNewCustomer?.locationAddress;
     }
-  };
+  }
 
   const chooseSpaceFloor = (status) => {
-    if (status == true) {
+    if(status == true) {
       return spaceFloor;
     } else {
       return existingPropertyForNewCustomer?.spaceFloor;
     }
-  };
+  }
 
   const chooseBuildingNo = (status) => {
-    if (status == true) {
+    if(status == true) {
       return parseInt(buildingNumber);
     } else {
       return existingPropertyForNewCustomer?.buildingNo;
     }
-  };
+  }
 
   const chooseBuildingName = (status) => {
-    if (status == true) {
+    if(status == true) {
       return spaceName;
     } else {
       return existingPropertyForNewCustomer?.buildingName;
     }
-  };
+  }
 
   const extractText = (value) => {
-    if (value) {
+    if(value) {
       const number = value.match(/\d+/);
       if (number) {
         console.log("Extracted number:", number[0]);
@@ -386,51 +391,47 @@ export const ContextProvider = ({ children }) => {
   useEffect(()=>{
     console.log("setting new propertyiDcontext------>",newPropertyId )
   },[newPropertyId])
-  
-  useEffect(()=>{
-    console.log("AgencyName------>",agencyName )
-  },[agencyName])
-
   const submitBusinessProfile = async (e) => {
     e.preventDefault();
     setLoadingBusiness(true);
 
     const formData = {
-      createPropertyDto: {
-        agencyId: chooseAgency(newCustomerStatus),
-        spaceIdentifierId: chooseSpaceIdentifierId(newCustomerStatus),
-        streetId: streetOption.value,
-        // wardId: chooseWardId(newCustomerStatus),
-        locationAddress: chooseLocationAddress(newCustomerStatus),
-        spaceFloor: chooseSpaceFloor(newCustomerStatus),
-        buildingNo: chooseBuildingNo(newCustomerStatus),
-        buildingName: chooseBuildingName(newCustomerStatus),
-        dateCreated: new Date().toISOString(),
-        createdBy: userData[0]?.email,
-      },
-      createBusinessProfileDto: removeDuplicates(convertedField),
-      createCustomerDto: createCustomerDto,
-      createCustomerPropertyDto: {
-        doesCustomerExist: customerStatus,
-        customerId: selectedCustomer,
-        dateCreated: new Date().toISOString(),
-        createdBy: userData[0]?.email,
-      },
-    };
+        createPropertyDto: {
+          agencyId: chooseAgency(newCustomerStatus),
+          spaceIdentifierId: chooseSpaceIdentifierId(newCustomerStatus),
+          streetId: streetOption.value,
+          // wardId: chooseWardId(newCustomerStatus),
+          locationAddress: chooseLocationAddress(newCustomerStatus),
+          spaceFloor: chooseSpaceFloor(newCustomerStatus),
+          buildingNo: chooseBuildingNo(newCustomerStatus),
+          buildingName: chooseBuildingName(newCustomerStatus),
+          dateCreated: new Date().toISOString(),
+          createdBy: userData[0]?.email,
+        },
+        createBusinessProfileDto: removeDuplicates(convertedField),
+        createCustomerDto: createCustomerDto,
+        createCustomerPropertyDto: {
+          doesCustomerExist: customerStatus,
+          customerId: selectedCustomer,
+          dateCreated: new Date().toISOString(),
+          createdBy: userData[0]?.email,
+        },
+    }
 
-    console.log("FormData------------->", formData);
+    console.log("FormData:", formData);
 
     if (customerStatus == false) {
-      console.log(
-        `End point for ${customerStatus}:`,
-        `enumeration/${organisationId}`
-      );
+      console.log(`End point for ${customerStatus}:`, `enumeration/${organisationId}`);
       await api
-        .post(`enumeration/${organisationId}`, formData, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
+        .post(
+          `enumeration/${organisationId}`,
+          formData,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        )
         .then((response) => {
           console.log("response--", response);
           if (response.status === 200) {
@@ -473,13 +474,13 @@ export const ContextProvider = ({ children }) => {
                 createdBy: userData[0]?.email,
                 dateCreated: new Date().toISOString(),
               },
-            ]);
+            ])
           }
         })
 
         .catch((error) => {
           setLoadingBusiness(false);
-          console.log("response--", error);
+          // console.log("response--", wardOption);
 
           console.log("contextt----", error);
           if (error.response) {
@@ -550,12 +551,10 @@ export const ContextProvider = ({ children }) => {
       console.log("Selected Customer:", selectedCustomer);
   
 
-      //If customer exists => Bill Generation Api
+      //If customer exists => Bill Generation Api 
       await api
         .post(
-          `billing/${organisationId}/generate-bill/property/${
-            selectedProperty || newPropertyId
-          }/customer/${selectedCustomer}`,
+          `billing/${organisationId}/generate-bill/property/${selectedProperty || newPropertyId}/customer/${selectedCustomer}`,
           {
             createPropertyBillDto: existingCustomerFields,
           },
@@ -566,21 +565,14 @@ export const ContextProvider = ({ children }) => {
           }
         )
         .then((response) => {
-          console.log("old customer bill generated-----------", response);
-          console.log(
-            "API called-----------",
-            `billing/${organisationId}/generate-bill/property/${
-              selectedProperty || newPropertyId
-            }/customer/${selectedCustomer}`
-          );
+          console.log("old customer bill generated-----------",response);
+          console.log("API called-----------",`billing/${organisationId}/generate-bill/property/${selectedProperty || newPropertyId}/customer/${selectedCustomer}` );
           console.log("formValues", agencyOption);
+
 
           setLoadingBusiness(false);
           if (response.status === 200) {
-            if (
-              response.data &&
-              response?.data?.statusMessage != "Bill(s) Exists!"
-            ) {
+            if (response.data && response?.data?.statusMessage != "Bill(s) Exists!") {
               setLoading(false);
               const billId = extractText(response.data?.statusMessage);
               toast.success(response.data?.statusMessage, {
@@ -593,7 +585,7 @@ export const ContextProvider = ({ children }) => {
                 progress: undefined,
                 theme: "colored",
               });
-
+              
               setTimeout(() => {
                 navigate("/home/billing/previewbill/", {
                   state: {
@@ -618,9 +610,9 @@ export const ContextProvider = ({ children }) => {
             }
           }
           setLoading(false);
-
+  
           console.log("Submitted Bill:", response.data);
-
+  
           // setTimeout(() => {
           //   navigate("/home/enumeration");
           // }, 2000);
@@ -673,7 +665,7 @@ export const ContextProvider = ({ children }) => {
               progress: undefined,
               theme: "colored",
             });
-        });
+      });  
     }
   };
 
@@ -701,7 +693,6 @@ export const ContextProvider = ({ children }) => {
     locationAddress,
     setAgencyOption,
     // ward,
-    setAgencyId,
     // wardOption,
     streetOption,
     setStreetOption,
@@ -724,6 +715,7 @@ export const ContextProvider = ({ children }) => {
     setAgencyName,
     agencyName,
     agencyId,
+    setAgencyId,
     setAgencyName,
     existingCustomer,
     setExistingCustomer,

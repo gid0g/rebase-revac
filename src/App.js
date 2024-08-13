@@ -77,7 +77,7 @@ import CorporatePayerId from "./pages/user/onboarding/corporatePayerIdCreation";
 import { OnboardingContextProvider } from "./pages/user/onboarding/onboardingcontext";
 import Tenants from "./pages/administration/tenant/tenant";
 import Tenant from "./pages/administration/tenant";
-import EnumerateBilling from "./pages/enumeration/enumeration-billing.js";
+import EnumerateBilling from "./pages/enumeration/enumeration-billing.js/index2.js";
 import Payment from "./pages/administration/payments";
 import Payments from "./pages/administration/payments/payment";
 import ChangePassword from "./pages/user/onboarding/changePassword";
