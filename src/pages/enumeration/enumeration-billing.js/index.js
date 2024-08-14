@@ -6,7 +6,7 @@ import { AppSettings } from "../../../config/app-settings";
 import { Spinner } from "react-activity";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Context } from "../enumerationContext2";
+import { Context } from "../enumerationContext";
 import { useNavigate } from "react-router-dom";
 
 const EnumerateBilling = () => {
@@ -116,7 +116,7 @@ const EnumerateBilling = () => {
     console.log("Agencies Details-------", agencies);
   }, [agencies]);
   const ExactAgency = (id) => {
-    const mainAgency = agencies.find(agency => agency.agencyId === id);
+    const mainAgency = agencies.find((agency) => agency.agencyId === id);
     return mainAgency?.agencyName;
   };
   const ExactBusiness = (id) => {
@@ -268,15 +268,15 @@ const EnumerateBilling = () => {
     (item) => item?.id === enumerateFields[0]?.businessSizeId
   );
 
-  const revenueName = (revenueId,index) => {
+  const revenueName = (revenueId, index) => {
     const revenue = revenues[index].find(
       (revenue) => revenue?.revenueId === revenueId
     );
-    console.log("Revenuessssssss---------->", revenue, revenueId, revenues)
+    console.log("Revenuessssssss---------->", revenue, revenueId, revenues);
     return revenue?.revenueName || "";
   };
 
-  const transformedRevenueCategoryOptions = (index) => {
+  const transformedRevenueCategoryOptions = (index, bill) => {
     const filteredCategories = categories.map((category) => {
       const filteredData = category.filter((item) =>
         crudeRevenue.some((revenueArray) =>
@@ -287,12 +287,25 @@ const EnumerateBilling = () => {
         data: filteredData,
       };
     });
-
+    console.log(
+      "filteredData--------------",
+      "categories",
+      categories,
+      "filteredCategories",
+      filteredCategories,
+      "crudeRevenue",
+      crudeRevenue
+    );
+    console.log("Indexxxxxxxxxx--------------", index, bill);
     // Get the filtered categories for the selected revenueId
-    const filteredCategoriesForIndex = filteredCategories[index];
-
+    console.log("DATA------------", filteredCategories);
+    // const filteredCategoriesForIndex = filteredCategories[index + idx];
+    const filteredCategoriesForIndex = filteredCategories
+      .flatMap((group) => group.data) // Flatten the array of arrays
+      .filter((item) => item.revenueId === bill);
+    console.log("filteredCategoriesForIndex", filteredCategoriesForIndex);
     // Category options
-    const options = filteredCategoriesForIndex?.data?.map((item) => ({
+    const options = filteredCategoriesForIndex?.map((item) => ({
       value: item.categoryId,
       label: item.categoryName,
       amount: item.amount,
@@ -500,7 +513,10 @@ const EnumerateBilling = () => {
                           htmlFor="city"
                           className="block text-lg font-bold leading-6 text-gray-900"
                         >
-                          Revenue Type/Code: <span>{revenues.length>0 && revenueName(bill,idx)}</span>
+                          Revenue Type/Code:{" "}
+                          <span>
+                            {revenues.length > 0 && revenueName(bill, idx)}
+                          </span>
                         </p>
                       </div>
                       <div className="col-span-3 ">
@@ -508,7 +524,11 @@ const EnumerateBilling = () => {
                           htmlFor="city"
                           className="block text-lg font-bold leading-6 text-gray-900"
                         >
-                          Agency Area: <span>{existingCustomerAgencyId!==null && ExactAgency(existingCustomerAgencyId)}</span>
+                          Agency Area:{" "}
+                          <span>
+                            {existingCustomerAgencyId !== null &&
+                              ExactAgency(existingCustomerAgencyId)}
+                          </span>
                         </p>
                       </div>
                       <div className="row mb-3">
@@ -526,7 +546,10 @@ const EnumerateBilling = () => {
                               className="basic-single"
                               classNamePrefix="select"
                               name="category"
-                              options={transformedRevenueCategoryOptions(idx)}
+                              options={transformedRevenueCategoryOptions(
+                                idx,
+                                bill
+                              )}
                               onChange={(event) =>
                                 handleCategoryChange(event, idx, bill)
                               }

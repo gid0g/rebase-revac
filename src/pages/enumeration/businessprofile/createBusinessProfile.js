@@ -14,14 +14,8 @@ const AddBusinessProfile = () => {
   const token = sessionStorage.getItem("myToken");
   const [count, setCount] = useState(1);
   const appSettings = useContext(AppSettings);
-  const {
-    fields,
-    setFields,
-    setEnumerateFields,
-    convertedField,
-    submitBusinessProfile,
-    loadingBusiness,
-  } = useContext(Context);
+  const { fields, setFields, setEnumerateFields, convertedField } =
+    useContext(Context);
   const userData = appSettings.userData;
   const [businessType, setBusinessType] = useState([]);
   const [businessSize, setBusinessSize] = useState([]);
@@ -59,16 +53,24 @@ const AddBusinessProfile = () => {
   useEffect(() => {
     const allTypeSelected = Object.values(typeSelected).every((value) => value);
     const allSizeSelected = Object.values(sizeSelected).every((value) => value);
+    console.log(
+      "Check this out----------->",
+      allTypeSelected,
+      allSizeSelected,
+      isValid,
+      fields.every((field) => field.businessTypeId && field.businessSizeId)
+    );
     setallSelected(
       allTypeSelected &&
         allSizeSelected &&
         isValid &&
         fields.every((field) => field.businessTypeId && field.businessSizeId)
     );
-  }, [typeSelected, sizeSelected, fields]);
+  }, [typeSelected, sizeSelected, isValid]);
   useEffect(() => {
     console.log("allSelected ", allSelected);
   }, [allSelected]);
+
   async function handleTypeChange(index, event) {
     const { name, value } = event.target;
     const selectedIndex = event.target.selectedIndex;
@@ -76,19 +78,25 @@ const AddBusinessProfile = () => {
       id: value,
       name: event.target[selectedIndex].text,
     };
-    const updatedFields = [...fields];
 
-    updatedFields[index] = {
-      ...updatedFields[index],
-      businessTypeId: parseInt(selectedOption.id),
-    };
+    setFields((prevFields) => {
+      const updatedFields = [...prevFields];
+      updatedFields[index] = {
+        ...updatedFields[index],
+        businessTypeId: parseInt(selectedOption.id),
+        createdBy: userData[0]?.email,
+        billRevenues: [],
+      };
+      return updatedFields;
+    });
+
     setTypeSelected((prevTypeSelected) => ({
       ...prevTypeSelected,
       [index]: event.target.value !== "",
     }));
 
-    setFields(updatedFields);
     setIsRevenueTypeVisible(true);
+
     const types = await api
       .get(`revenue/${organisationId}/business-type/${selectedOption.id}`, {
         headers: {
@@ -108,12 +116,7 @@ const AddBusinessProfile = () => {
         types: types,
       },
     }));
-
-    updatedFields[index].createdBy = userData[0]?.email;
-    updatedFields[index].billRevenues = [];
-    console.log("Updated Size Fields:", updatedFields);
   }
-
   function handleSizeChange(index, event) {
     const { name, value } = event.target;
     const selectedIndex = event.target.selectedIndex;
@@ -229,7 +232,7 @@ const AddBusinessProfile = () => {
       .catch((error) => {
         console.log(error);
       });
-  }, [organisationId, token]);
+  }, [1]);
 
   const redirectToBilling = (e) => {
     e.preventDefault();
@@ -248,7 +251,7 @@ const AddBusinessProfile = () => {
       });
       setTimeout(() => {
         navigate("/home/enumeration/billing");
-      }, 500);
+      }, 1000);
     } catch (error) {
       console.log(error);
     } finally {
