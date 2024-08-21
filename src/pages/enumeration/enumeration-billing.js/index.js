@@ -315,56 +315,95 @@ const EnumerateBilling = () => {
     return options;
   };
 
-  const handleCategoryChange = (selectedCategory, index, bill) => {
-    // const updatedFields = [...existingCustomerFields];
+  // const handleCategoryChange = (selectedCategory, index, bill) => {
+  //   // const updatedFields = [...existingCustomerFields];
 
-    if (selectedCategory) {
-      const billRevenuePrice = {
-        revenueId: selectedCategory?.revenue,
-        billAmount: selectedCategory?.amount,
-        category: selectedCategory?.label,
-      };
+  //   if (selectedCategory) {
+  //     const billRevenuePrice = {
+  //       revenueId: selectedCategory?.revenue,
+  //       billAmount: selectedCategory?.amount,
+  //       category: selectedCategory?.label,
+  //     };
 
-      // updatedFields[0].BillRevenuePrices[index] = [
-      //   ...updatedFields[0].BillRevenuePrices[index],
-      //   billRevenuePrice,
-      // ];
+  //     // updatedFields[0].BillRevenuePrices[index] = [
+  //     //   ...updatedFields[0].BillRevenuePrices[index],
+  //     //   billRevenuePrice,
+  //     // ];
 
-      setExistingCustomerFields((prevState) => [
+  //     setExistingCustomerFields((prevState) => [
+  //       {
+  //         ...prevState[0],
+  //         BillRevenuePrices: [
+  //           ...existingCustomerFields[0].BillRevenuePrices,
+  //           billRevenuePrice,
+  //         ],
+  //         createdBy: `${userData[0]?.email}`,
+  //         agencyId: agencyId,
+  //       },
+  //       ...prevState.slice(1),
+  //     ]);
+
+  //     // updatedFields[0].agencyId = agencyOption
+  //     //   ? agencyOption
+  //     //   : existingCustomerAgencyId;
+  //     // updatedFields[0].createdBy = userData[0]?.email;
+  //     // console.log("Updated Fields", updatedFields);
+  //     console.log("agencyOption", agencyOption);
+  //     console.log("agencyId", agencyId);
+  //     console.log("existingCustomerAgencyId", existingCustomerAgencyId);
+  //     // const newCategoryAmounts = [...categoryAmounts, selectedCategory?.amount];
+
+  //     // const newCategoryAmounts = [...categoryAmounts, ];
+  //     // newCategoryAmounts[index] = selectedCategory?.amount;
+  //     // setCategoryAmounts(newCategoryAmounts);
+
+  //     setCategoryAmounts((prevCategoryAmounts) => ({
+  //       ...prevCategoryAmounts,
+  //       [bill]: selectedCategory.amount,
+  //     }));
+  //     setIsVisible(true);
+  //   }
+  // };
+const handleCategoryChange = (selectedCategory, index, bill) => {
+  if (selectedCategory) {
+    const billRevenuePrice = {
+      revenueId: selectedCategory?.revenue,
+      billAmount: selectedCategory?.amount,
+      category: selectedCategory?.label,
+    };
+
+    setExistingCustomerFields((prevState) => {
+      const updatedBillRevenuePrices = [...prevState[0].BillRevenuePrices];
+
+      const existingIndex = updatedBillRevenuePrices.findIndex(
+        (item) => item.revenueId === billRevenuePrice.revenueId
+      );
+
+      if (existingIndex !== -1) {
+        updatedBillRevenuePrices[existingIndex] = billRevenuePrice;
+      } else {
+        updatedBillRevenuePrices.push(billRevenuePrice);
+      }
+
+      return [
         {
           ...prevState[0],
-          BillRevenuePrices: [
-            ...existingCustomerFields[0].BillRevenuePrices,
-            billRevenuePrice,
-          ],
+          BillRevenuePrices: updatedBillRevenuePrices,
           createdBy: `${userData[0]?.email}`,
           agencyId: agencyId,
         },
         ...prevState.slice(1),
-      ]);
+      ];
+    });
 
-      // updatedFields[0].agencyId = agencyOption
-      //   ? agencyOption
-      //   : existingCustomerAgencyId;
-      // updatedFields[0].createdBy = userData[0]?.email;
-      // console.log("Updated Fields", updatedFields);
-      console.log("agencyOption", agencyOption);
-      console.log("agencyId", agencyId);
-      console.log("existingCustomerAgencyId", existingCustomerAgencyId);
-      // const newCategoryAmounts = [...categoryAmounts, selectedCategory?.amount];
+    setCategoryAmounts((prevCategoryAmounts) => ({
+      ...prevCategoryAmounts,
+      [bill]: selectedCategory.amount,
+    }));
 
-      // const newCategoryAmounts = [...categoryAmounts, ];
-      // newCategoryAmounts[index] = selectedCategory?.amount;
-      // setCategoryAmounts(newCategoryAmounts);
-
-      setCategoryAmounts((prevCategoryAmounts) => ({
-        ...prevCategoryAmounts,
-        [bill]: selectedCategory.amount,
-      }));
-      setIsVisible(true);
-    }
-  };
-
+    setIsVisible(true);
+  }
+};
   return (
     <>
       <div className=" ">
