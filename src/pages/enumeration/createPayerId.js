@@ -1194,6 +1194,8 @@ const CreatePayId = () => {
                         htmlFor="exampleInputEmail1"
                       >
                         Type
+                        <span className="text-danger fw-bold fs-4">*</span>
+
                       </label>
                       <select
                         className="form-control"
@@ -1216,6 +1218,8 @@ const CreatePayId = () => {
                         htmlFor="exampleInputEmail1"
                       >
                         Title
+                        <span className="text-danger fw-bold fs-4">*</span>
+
                       </label>
                       <select
                         className="form-control"
@@ -1238,6 +1242,8 @@ const CreatePayId = () => {
                         htmlFor="exampleInputEmail1"
                       >
                         Marital Status
+                        <span className="text-danger fw-bold fs-4">*</span>
+
                       </label>
                       <select
                         className="form-control"
@@ -1262,6 +1268,8 @@ const CreatePayId = () => {
                         htmlFor="exampleInputEmail1"
                       >
                         Sex
+                        <span className="text-danger fw-bold fs-4">*</span>
+
                       </label>
                       <select
                         className="form-control"
@@ -1284,6 +1292,8 @@ const CreatePayId = () => {
                         htmlFor="exampleInputEmail1"
                       >
                         Date of Birth
+                        <span className="text-danger fw-bold fs-4">*</span>
+
                       </label>
                       <input
                         autoFocus
@@ -1306,6 +1316,8 @@ const CreatePayId = () => {
                         htmlFor="exampleInputEmail1"
                       >
                         First Name
+                        <span className="text-danger fw-bold fs-4">*</span>
+
                       </label>
                       <input
                         autoFocus
@@ -1326,6 +1338,8 @@ const CreatePayId = () => {
                         htmlFor="exampleInputEmail1"
                       >
                         Middle Name
+                        <span className="text-danger fw-bold fs-4">*</span>
+
                       </label>
                       <input
                         autoFocus
@@ -1345,6 +1359,8 @@ const CreatePayId = () => {
                         htmlFor="exampleInputEmail1"
                       >
                         Last Name
+                        <span className="text-danger fw-bold fs-4">*</span>
+
                       </label>
                       <input
                         autoFocus
@@ -1368,6 +1384,8 @@ const CreatePayId = () => {
                         htmlFor="exampleInputEmail1"
                       >
                         State
+                        <span className="text-danger fw-bold fs-4">*</span>
+
                       </label>
                       <select
                         className="form-control"
@@ -1396,6 +1414,8 @@ const CreatePayId = () => {
                         htmlFor="exampleInputEmail1"
                       >
                         Email
+                        <span className="text-danger fw-bold fs-4">*</span>
+
                       </label>
                       <input
                         autoFocus
@@ -1417,6 +1437,8 @@ const CreatePayId = () => {
                           htmlFor="exampleInputEmail1"
                         >
                           Payer Id
+                          <span className="text-danger fw-bold fs-4">*</span>
+
                         </label>
                         <input
                           autoFocus
@@ -1439,6 +1461,8 @@ const CreatePayId = () => {
                           htmlFor="exampleInputEmail1"
                         >
                           Nin Number
+                          <span className="text-danger fw-bold fs-4">*</span>
+
                         </label>
                         <input
                           autoFocus
@@ -1461,6 +1485,8 @@ const CreatePayId = () => {
                           htmlFor="exampleInputEmail1"
                         >
                           Bvn Number
+                          <span className="text-danger fw-bold fs-4">*</span>
+
                         </label>
                         <input
                           autoFocus
@@ -1490,6 +1516,8 @@ const CreatePayId = () => {
                         htmlFor="exampleInputEmail1"
                       >
                         Address
+                        <span className="text-danger fw-bold fs-4">*</span>
+
                       </label>
                       <input
                         autoFocus
@@ -1511,6 +1539,8 @@ const CreatePayId = () => {
                         htmlFor="exampleInputEmail1"
                       >
                         Phone Number
+                        <span className="text-danger fw-bold fs-4">*</span>
+
                       </label>
                       <input
                         autoFocus
