@@ -277,7 +277,7 @@ const ViewBill = () => {
                             colSpan="3"
                             className="border-solid border-1 border-dark text-center"
                           >
-                            {item.summary}
+                            {item.summary} ({item.categoryName})
                           </td>
                           {data.length > 1 ? (
                             <>
