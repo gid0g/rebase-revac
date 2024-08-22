@@ -373,6 +373,13 @@ console.log("propertytobecreated-----------",createProperty)
     getRoleAgencyStreets(agencyId);
   }, [agencyId]);
 
+  function NotFound(event) {
+    const {checked}=event.target
+    if (checked) { 
+      alert("Street not found, Create new Street?")
+      navigate("/home/administration/street/createnewstreet/");
+    }
+  }
   return (
     <AppSettings.Consumer>
       {({ cartIsShown, showModalHandler, hideModalHandler }) => (
@@ -464,7 +471,6 @@ console.log("propertytobecreated-----------",createProperty)
                             name="Agency"
                             placeholder="Select Agency"
                             value={getRoleAgency(agencyId)}
-                         
                             readOnly
                           />
                         )}
@@ -558,6 +564,19 @@ console.log("propertytobecreated-----------",createProperty)
                           options={transformedStreetsData}
                           onChange={handleStreetChange}
                         />
+                      </div>
+                      <div>
+                        <input
+                          type="checkbox"
+                          className="me-2"
+                          onClick={NotFound}
+                        />
+                        <label
+                          className="form-label"
+                          htmlFor="exampleInputEmail1"
+                        >
+                          Street not Found
+                        </label>
                       </div>
                     </div>
                   </div>

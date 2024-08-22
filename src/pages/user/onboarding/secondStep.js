@@ -66,7 +66,7 @@ const SecondStep = (props) => {
                   </p>
                   }
               </div>
-
+{/* 
               <div className="mb-4">
                 <label className="mb-2 form-label">LCDA</label>
                 <div className="mb-2 mb-md-0">
@@ -85,7 +85,7 @@ const SecondStep = (props) => {
                   </p>
                   }
                 </div>
-              </div>
+              </div> */}
             </form>
           </div>
         </div>

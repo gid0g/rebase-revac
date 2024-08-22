@@ -193,7 +193,7 @@ const ViewBill = () => {
                       {data[0]?.lastName} ,{data[0]?.payerID}
                     </b>
                     <br />
-                    {/* <b>Area Office: {data[0].areaOffice}</b> */}
+                    {/* <b>Area Council: {data[0].areaOffice}</b> */}
                     <br />
                     <b>Generated Date: {formattedDate}</b>
                     <br />
@@ -218,15 +218,15 @@ const ViewBill = () => {
                   <font size="2">
                     The <b>{data[0]?.organisationName}</b> under the LOCAL
                     GOVERNMENT law demad payment of{" "}
-                    <b> DEMAND NOTICE FOR YEAR {}</b> on the above property of
-                    the approved ratein respect of the financial year under
-                    consideration. The amount due for the current year and
-                    arrears (if any) of the former rate is now due from you.
-                    Payment of the total amount is now due and is to be made at
-                    any of the designated banks not later than 7 days from the
-                    date of this demand notice. If Payment is not made within{" "}
-                    <b>ONE WEEK</b> of the day of this Demand Notice, legal
-                    proceedings shall be taken immediately
+                    <b> DEMAND NOTICE FOR YEAR {data[0]?.year}</b> on the above
+                    property of the approved ratein respect of the financial
+                    year under consideration. The amount due for the current
+                    year and arrears (if any) of the former rate is now due from
+                    you. Payment of the total amount is now due and is to be
+                    made at any of the designated banks not later than 7 days
+                    from the date of this demand notice. If Payment is not made
+                    within <b>ONE WEEK</b> of the day of this Demand Notice,
+                    legal proceedings shall be taken immediately
                   </font>
                 </div>
 
@@ -387,7 +387,7 @@ const ViewBill = () => {
                     <font size="2">
                       <b>Bank's/Agent's Copy</b> <br />
                       <b>{data[0]?.organisationName}</b> <br />
-                      <b> DEMAND NOTICE FOR YEAR {2023}</b> <br />
+                      <b> DEMAND NOTICE FOR YEAR {data[0]?.year}</b> <br />
                       <font size="2" className="w-6/12">
                         <b>Payer Name:</b> {data[0]?.firstName}{" "}
                         {data[0]?.middleName} {data[0]?.lastName} ,
@@ -397,9 +397,7 @@ const ViewBill = () => {
                         <br />
                         <b>Address:</b> {data[0]?.propertyAddress}
                         <br />
-                        <b>Area Office:</b> {data[0]?.summary}
-                        <br />
-                        <b>Agency Code:</b> {data[0]?.areaOffice}
+                        <b>Area Council:</b> {data[0]?.areaOffice}
                         <br />
                         <b>Total Due:</b> ₦ {totalPrice.toLocaleString("en-NG")}
                       </font>
@@ -409,7 +407,7 @@ const ViewBill = () => {
                     <font size="2">
                       <b>Local Govt's Copy</b> <br />
                       <b>{data[0]?.organisationName}</b> <br />
-                      <b> DEMAND NOTICE FOR YEAR {2023}</b> <br />
+                      <b> DEMAND NOTICE FOR YEAR {data[0]?.year}</b> <br />
                       <font size="2" className="w-6/12">
                         <b>Payer Name:</b> {data[0]?.firstName}{" "}
                         {data[0]?.middleName} {data[0]?.lastName} ,
@@ -419,10 +417,8 @@ const ViewBill = () => {
                         <br />
                         <b>Address:</b> {data[0]?.propertyAddress}
                         <br />
-                        <b>Area Office:</b>
-                        {data[0]?.summary}
-                        <br />
-                        <b>Agency Code:</b> {data[0]?.areaOffice}
+                        <b>Area Council: </b>
+                        {data[0]?.areaOffice}
                         <br />
                         <b>Total Due:</b> ₦ {totalPrice.toLocaleString("en-NG")}
                       </font>

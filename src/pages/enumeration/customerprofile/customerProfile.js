@@ -35,10 +35,16 @@ const CustomerProfile = () => {
     },
     {
       name: "Full Name",
-      selector: (row) => row.fullName,
+      selector: (row) => `${row.middleName} ${row.lastName} ${row.firstName}`,
       sortable: true,
       grow: 2,
     },
+    // {
+    //   name: "Full Name",
+    //   selector: (row) => row.fullName,
+    //   sortable: true,
+    //   grow: 2,
+    // },
     {
       name: "Email",
       selector: (row) => row.email,
