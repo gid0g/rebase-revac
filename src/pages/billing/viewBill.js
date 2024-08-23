@@ -190,17 +190,10 @@ const ViewBill = () => {
                     <br />
                     <b>
                       Customer: {data[0]?.firstName} {data[0]?.middleName}{" "}
-                      {data[0]?.lastName} ,{data[0]?.payerID}
+                      {data[0]?.lastName} ({data[0]?.payerID})
                     </b>
                     <br />
-                    {/* <b>Area Council: {data[0].areaOffice}</b> */}
-                    <br />
-                    <b>Generated Date: {formattedDate}</b>
-                    <br />
-                    {/* <b>Printed Date: {data[0].printedDate}</b> */}
-                    <br />
-                    In respect of the property situated at:{" "}
-                    {data[0]?.propertyAddress} <br />
+                    <b> Property Address: {data[0]?.propertyAddress}</b> <br />
                     {/* <b> {data[0].propertyAddress}</b> */}
                   </font>
                   <font size="2" className="w-6/12">
