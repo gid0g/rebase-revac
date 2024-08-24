@@ -35,7 +35,7 @@ const CustomerProfile = () => {
     },
     {
       name: "Full Name",
-      selector: (row) => `${row.middleName} ${row.lastName} ${row.firstName}`,
+      selector: (row) => row.fullName,
       sortable: true,
       grow: 2,
     },
@@ -118,7 +118,7 @@ const CustomerProfile = () => {
       })
       .then((response) => {
         setLoading(false);
-        console.log("data ", response.data);
+        console.log("data------------->", response.data);
         setData(response.data);
       })
       .catch((error) => {

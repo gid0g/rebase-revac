@@ -654,6 +654,28 @@ const CreatePayId = () => {
       setverify(id);
     }
   }, [generatedPid]);
+  function getFirstName(fullName) {
+    const names = fullName.split(" ");
+    console.log("Names---------", names);
+    return names.slice(1, -1).join(" ") || ""; //mid
+  }
+
+  function getMiddleName(fullName) {
+    const names = fullName.split(" ");
+    console.log("Names---------", names);
+    return names.slice(-1)[0] || ""; //last
+  }
+
+  function getLastName(fullName) {
+    const names = fullName.split(" ");
+    console.log("Names---------", names);
+    return names[0] || ""; //fir
+  }
+  useEffect(() => {
+    if (data?.fullName) {
+      createCustomer();
+    }
+  },[data])
   const validate = async () => {
     setLoading(true);
     await api
@@ -684,7 +706,7 @@ const CreatePayId = () => {
               progress: undefined,
               theme: "colored",
             });
-            createCustomer();
+            
           } else {
             setLoading(false);
             toast.error(
@@ -730,14 +752,23 @@ const CreatePayId = () => {
       payerTypeId: checkPayerType(data?.payerID),
       payerId: data?.payerID || input.pid || verify,
       titleId: checkTitle(data?.title) || 1,
-      corporateName: data?.corporateName || "",
-      firstName: data?.firstName || input.firstName || " ",
-      lastName: data.lastName || input.lastName || "",
-      middleName: data?.middleName || input.middleName || "",
+      corporateName: data?.corporateName || data?.fullName || "",
+      firstName:
+        data?.firstName || input.lastName || getLastName(data?.fullName) || " ",
+      lastName:
+        data?.lastName ||
+        input.middleName ||
+        getMiddleName(data?.fullName) ||
+        "",
+      middleName:
+        data?.middleName ||
+        input.firstName ||
+        getFirstName(data?.fullName) ||
+        "",
       genderId: checkGender(data?.sex) || 1,
       maritalStatusId: checkMaritalDtoStatus(data?.maritalstatus) || 1,
       address: data?.address || input.address || "",
-      email: data?.email,
+      email: data?.email || input.email,
       phoneNo: data?.gsm || input.phoneNo || "",
       suppliedPID: true,
       dateCreated: new Date().toISOString(),
@@ -752,10 +783,22 @@ const CreatePayId = () => {
           payerTypeId: checkPayerType(data?.payerID),
           payerId: data?.payerID || input.pid || verify,
           titleId: checkTitle(data?.title) || 1,
-          corporateName: data?.corporateName || "",
-          firstName: data?.firstName || input.lastName || " ",
-          lastName: data.lastName || input.middleName || "",
-          middleName: data?.middleName || input.firstName || "",
+          corporateName: data?.corporateName || data?.fullName || "",
+          firstName:
+            data?.firstName ||
+            input.lastName ||
+            getLastName(data?.fullName) ||
+            " ",
+          lastName:
+            data.lastName ||
+            input.middleName ||
+            getMiddleName(data?.fullName) ||
+            "",
+          middleName:
+            data?.middleName ||
+            input.firstName ||
+            getFirstName(data?.fullName) ||
+            "",
           genderId: checkGender(data?.sex) || 1,
           maritalStatusId: checkMaritalDtoStatus(data?.maritalstatus) || 1,
           address: data?.address || input.address || "",
@@ -937,6 +980,7 @@ const CreatePayId = () => {
           if (response.data.data.flag === "Passed") {
             setLoading(false);
             setNewPayerId(response.data.data.outData);
+            setGeneratedPid(response.data.data.outData);
             setPayerIdData(response.data.data);
             toast.success(response.data?.data.outData, {
               position: "top-right",
@@ -1195,7 +1239,6 @@ const CreatePayId = () => {
                       >
                         Type
                         <span className="text-danger fw-bold fs-4">*</span>
-
                       </label>
                       <select
                         className="form-control"
@@ -1219,7 +1262,6 @@ const CreatePayId = () => {
                       >
                         Title
                         <span className="text-danger fw-bold fs-4">*</span>
-
                       </label>
                       <select
                         className="form-control"
@@ -1243,7 +1285,6 @@ const CreatePayId = () => {
                       >
                         Marital Status
                         <span className="text-danger fw-bold fs-4">*</span>
-
                       </label>
                       <select
                         className="form-control"
@@ -1269,7 +1310,6 @@ const CreatePayId = () => {
                       >
                         Sex
                         <span className="text-danger fw-bold fs-4">*</span>
-
                       </label>
                       <select
                         className="form-control"
@@ -1293,7 +1333,6 @@ const CreatePayId = () => {
                       >
                         Date of Birth
                         <span className="text-danger fw-bold fs-4">*</span>
-
                       </label>
                       <input
                         autoFocus
@@ -1317,7 +1356,6 @@ const CreatePayId = () => {
                       >
                         First Name
                         <span className="text-danger fw-bold fs-4">*</span>
-
                       </label>
                       <input
                         autoFocus
@@ -1339,7 +1377,6 @@ const CreatePayId = () => {
                       >
                         Middle Name
                         <span className="text-danger fw-bold fs-4">*</span>
-
                       </label>
                       <input
                         autoFocus
@@ -1360,7 +1397,6 @@ const CreatePayId = () => {
                       >
                         Last Name
                         <span className="text-danger fw-bold fs-4">*</span>
-
                       </label>
                       <input
                         autoFocus
@@ -1385,7 +1421,6 @@ const CreatePayId = () => {
                       >
                         State
                         <span className="text-danger fw-bold fs-4">*</span>
-
                       </label>
                       <select
                         className="form-control"
@@ -1415,7 +1450,6 @@ const CreatePayId = () => {
                       >
                         Email
                         <span className="text-danger fw-bold fs-4">*</span>
-
                       </label>
                       <input
                         autoFocus
@@ -1438,7 +1472,6 @@ const CreatePayId = () => {
                         >
                           Payer Id
                           <span className="text-danger fw-bold fs-4">*</span>
-
                         </label>
                         <input
                           autoFocus
@@ -1462,7 +1495,6 @@ const CreatePayId = () => {
                         >
                           Nin Number
                           <span className="text-danger fw-bold fs-4">*</span>
-
                         </label>
                         <input
                           autoFocus
@@ -1486,7 +1518,6 @@ const CreatePayId = () => {
                         >
                           Bvn Number
                           <span className="text-danger fw-bold fs-4">*</span>
-
                         </label>
                         <input
                           autoFocus
@@ -1517,7 +1548,6 @@ const CreatePayId = () => {
                       >
                         Address
                         <span className="text-danger fw-bold fs-4">*</span>
-
                       </label>
                       <input
                         autoFocus
@@ -1540,7 +1570,6 @@ const CreatePayId = () => {
                       >
                         Phone Number
                         <span className="text-danger fw-bold fs-4">*</span>
-
                       </label>
                       <input
                         autoFocus
