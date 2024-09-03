@@ -298,9 +298,11 @@ const BillFormats = () => {
     formData.append("ClosingSection", billFormatData.ClosingSection);
     formData.append("dateCreated", new Date().toISOString());
     formData.append("createdBy", userData[0]?.email);
-
-    await attachment
-      .post(`billing/${organisationId}/create-bill-format`, formData)
+   for (let entry of formData.entries()) {
+     console.log(entry[0], entry[1]);
+   }
+    await  
+      attachment.post(`billing/${organisationId}/create-bill-format`, formData)
       .then((response) => {
         if (response.status === 200) {
           setLoading(false);
