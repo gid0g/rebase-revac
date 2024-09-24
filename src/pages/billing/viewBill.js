@@ -368,7 +368,7 @@ const ViewBill = () => {
                   <font size="2">
                     <b>
                       COUNCIL'S POS IS AVAILABLE PLEASE DO NOT PAY THROUGH ANY
-                      COMMERCLAL POS/ASS OC1ATION
+                      COMMERCIAL POS/ASS LOCATION
                     </b>
                   </font>
                 </div>

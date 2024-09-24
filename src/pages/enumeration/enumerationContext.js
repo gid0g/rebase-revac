@@ -26,8 +26,6 @@ export const ContextProvider = ({ children }) => {
   const [buildingName, setBuildingName] = useState("");
   const [spaceFloor, setSpaceFloor] = useState("");
   const [locationAddress, setLocationAddress] = useState("");
-  // const [ward, setWard] = useState([]);
-  // const [wardOption, setWardOption] = useState("");
   const [streetOption, setStreetOption] = useState({});
   const [agencyId, setAgencyId] = useState("");
   const [existingCustomerAgencyId, setExistingCustomerAgencyId] = useState(0);
@@ -92,8 +90,6 @@ export const ContextProvider = ({ children }) => {
       setBuildingNumber("");
       setSpaceFloor("");
       setLocationAddress("");
-      // setWard([]);
-      // setWardOption("");
       setAgencyId("");
       setEnumerationStatus(null);
       setSpaceIdentifier([]);
@@ -202,22 +198,9 @@ export const ContextProvider = ({ children }) => {
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }, [1]);
 
-  // useEffect(() => {
-  //   api
-  //     .get(`enumeration/${organisationId}/wards`, {
-  //       headers: {
-  //         Authorization: `Bearer ${token}`,
-  //       },
-  //     })
-  //     .then((response) => {
-  //       setWard(response.data);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // }, []);
+ 
 
   useEffect(() => {
     api
@@ -232,7 +215,7 @@ export const ContextProvider = ({ children }) => {
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }, [1]);
 
   function removeDuplicates(profile) {
     console.log("Raw:", profile);
@@ -338,13 +321,7 @@ export const ContextProvider = ({ children }) => {
     }
   };
 
-  // const chooseWardId = (status) => {
-  //   if (status == true) {
-  //     return wardOption;
-  //   } else {
-  //     return existingPropertyForNewCustomer?.ward?.id;
-  //   }
-  // };
+ 
 
   const chooseLocationAddress = (status) => {
     if (status == true) {
@@ -404,7 +381,6 @@ export const ContextProvider = ({ children }) => {
         agencyId: chooseAgency(newCustomerStatus),
         spaceIdentifierId: chooseSpaceIdentifierId(newCustomerStatus),
         streetId: streetOption.value,
-        // wardId: chooseWardId(newCustomerStatus),
         locationAddress: chooseLocationAddress(newCustomerStatus),
         spaceFloor: chooseSpaceFloor(newCustomerStatus),
         buildingNo: chooseBuildingNo(newCustomerStatus),
@@ -596,7 +572,7 @@ export const ContextProvider = ({ children }) => {
                 progress: undefined,
                 theme: "colored",
               });
-
+              console.log("Preview Bill-------------------", response?.data)
               setTimeout(() => {
                 navigate("/home/billing/previewbill/", {
                   state: {
@@ -696,16 +672,13 @@ export const ContextProvider = ({ children }) => {
     buildingName,
     setSpaceFloor,
     setLocationAddress,
-    // setWardOption,
     setBuildingNumber,
     setBuildingName,
     setspaceIdentifierOption,
     spaceFloor,
     locationAddress,
     setAgencyOption,
-    // ward,
     setAgencyId,
-    // wardOption,
     streetOption,
     setStreetOption,
     spaceIdentifier,

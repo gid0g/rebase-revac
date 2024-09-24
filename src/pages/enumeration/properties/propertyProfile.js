@@ -166,15 +166,6 @@ const PropertyProfile = () => {
   // }, [propertyData]);
   const fetchFilterGroups = async () => {
     try {
-      // const wardResponse = await api.get(
-      //   `enumeration/${organisationId}/wards`,
-      //   {
-      //     headers: {
-      //       Authorization: `Bearer ${token}`,
-      //     },
-      //   }
-      // );
-
       const spaceIdentifierResponse = await api.get(
         `enumeration/${organisationId}/space-identifiers`,
         {
@@ -193,20 +184,10 @@ const PropertyProfile = () => {
         }
       );
 
-      // const wardData = wardResponse.data;
       const spaceIdentifierData = spaceIdentifierResponse.data;
       const agencyData = agencyResponse.data;
 
       const processedFilterGroups = [
-        // {
-        //   name: "Wards",
-        //   label: "Wards",
-        //   filters: wardData.map((ward) => ({
-        //     name: "Wards",
-        //     value: ward.id,
-        //     label: ward.wardName,
-        //   })),
-        // },
         {
           name: "Space Identifier",
           label: "Space Identifier",
@@ -398,7 +379,7 @@ const PropertyProfile = () => {
 
   useEffect(() => {
     fetchFilterGroups();
-  });
+  },[]);
 
   return (
     <>

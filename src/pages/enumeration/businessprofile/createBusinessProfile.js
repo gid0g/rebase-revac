@@ -289,7 +289,7 @@ const AddBusinessProfile = () => {
                           className="form-label mr-2"
                           htmlFor="businessType"
                         >
-                          Business Type
+                        Revenue Item:
                         </label>
                         <select
                           id="businessType"
@@ -299,7 +299,7 @@ const AddBusinessProfile = () => {
                           onChange={(event) => handleTypeChange(idx, event)}
                         >
                           {" "}
-                          <option value="">Select Business Type</option>
+                          <option value="">Select Revenue Item</option>
                           {businessType.map((busType) => (
                             <option key={busType.id} value={busType.id}>
                               {busType.businessTypeName}
@@ -314,7 +314,7 @@ const AddBusinessProfile = () => {
                           className="form-label mr-2"
                           htmlFor="exampleInputEmail1"
                         >
-                          Business Size
+                          Business Size:
                         </label>
                         <select
                           name="businessSizeId"

@@ -106,34 +106,35 @@ const BulkBill = () => {
       setIsBillLoading(true);
       const formDataToSend = excelData.slice(0, -1);
       const formData = formDataToSend.map((row) => ({
-        spaceIdentifier: row?.spaceIdentifier ? `${row?.spaceIdentifier}` : "",
-        buildingName: row?.buildingName ? `${row?.buildingName}` : "",
-        buildingNumber: row?.buildingNumber ? `${row?.buildingNumber}` : "",
-        streetName: row?.streetName ? `${row?.streetName}` : "",
-        spaceFloor: row?.spaceFloor ? `${row?.spaceFloor}` : "",
-        // ward: row?.ward ? `${row?.ward}` : "",
-        payerType: row?.payerType ? `${row?.payerType}` : "",
+        spaceIdentifier: row?.SpaceIdentifier ? `${row?.SpaceIdentifier}` : "",
+        buildingName: row?.BuildingName ? `${row?.BuildingName}` : "",
+        buildingNumber: row?.BuildingNumber ? `${row?.BuildingNumber}` : "",
+        streetName: row?.StreetName ? `${row?.StreetName}` : "",
+        spaceFloor: row?.SpaceFloor ? `${row?.SpaceFloor}` : "",
+        ward: row?.Ward ? `${row?.Ward}` : "",
+        payerType: row?.PayerType ? `${row?.PayerType}` : "",
         payerID: row?.PayerID ? `${row?.PayerID}` : null,
-        title: row?.title ? `${row?.title}` : null,
-        firstName: row?.firstName ? `${row?.firstName}` : null,
-        middleName: row?.middleName ? `${row?.middleName}` : null,
-        lastName: row?.lastName ? `${row?.lastName}` : null,
-        fullName: row?.fullName ? `${row?.fullName}` : "",
-        gender: row?.gender ? `${row?.gender}` : null,
-        email: row?.email ? `${row?.email}` : "",
-        phoneNumber: row?.phoneNumber ? `${row?.phoneNumber}` : null,
-        agency: row?.agency ? `${row?.agency}` : "",
-        revenue: row?.revenue ? `${row?.revenue}` : "",
+        title: row?.Title ? `${row?.Title}` : null,
+        firstName: row?.FirstName ? `${row?.FirstName}` : null,
+        middleName: row?.MiddleName ? `${row?.MiddleName}` : null,
+        lastName: row?.LastName ? `${row?.LastName}` : null,
+        fullName: row?.FullName ? `${row?.FullName}` : "",
+        gender: row?.Gender ? `${row?.Gender}` : null,
+        email: row?.Email ? `${row?.Email}` : "",
+        phoneNumber: row?.PhoneNumber ? `${row?.PhoneNumber}` : null,
+        agency: row?.Agency ? `${row?.Agency}` : "",
+        revenue: row?.Revenue ? `${row?.Revenue}` : "",
         revenueCode: row?.revenueCode ? `${row?.revenueCode}` : null,
-        category: row?.category ? `${row?.category}` : "",
-        businessType: row?.businessType ? `${row?.businessType}` : "",
-        businessSize: row?.businessSize ? `${row?.businessSize}` : "",
-        appliedDate: row.appliedDate
-          ? `${row.appliedDate}`
+        category: row?.Category ? `${row?.Category}` : "",
+        businessType: row?.BusinessType ? `${row?.BusinessType}` : "",
+        businessSize: row?.BusinessSize ? `${row?.BusinessSize}` : "",
+        appliedDate: row.Year
+          ? `${row.Year}`
           : `${new Date().getFullYear()}`,
-        interest: row?.interest ? `${row?.interest}` : null,
-        penalty: row?.penalty ? `${row?.penalty}` : null,
+        interest: row["Interest(%)"] ? `${row["Interest(%)"]}` : null,
+        penalty: row["Penalty(N)"] ? `${row["Penalty(N)"]}` : null,
       }));
+
 
       console.log("FormData:", formData);
 

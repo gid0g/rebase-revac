@@ -418,7 +418,7 @@ const DebtManagement = () => {
         value: item.agencyId,
       }))
     : [];
-
+    
   transformedAgencyData.unshift({
     value: "",
     label: "-- Area Office/Zone --",
@@ -430,7 +430,6 @@ const DebtManagement = () => {
         value: item.revenueId,
       }))
     : [];
-
   transformedRevenueData.unshift({
     label: "-- Select Revenue --",
     value: "",
@@ -747,28 +746,6 @@ const DebtManagement = () => {
                 onChange={handlePayerType}
               />
             </div>
-            <div className="col-4">
-              <Select
-                id="category"
-                className="basic-single"
-                classNamePrefix="Please Select Billing Type"
-                name="category"
-                // defaultValue={payerType[0]}
-                // options={payerType}
-                // onChange={handlePayerType}
-              />
-            </div>
-            <div className="col-4">
-              <Select
-                id="category"
-                className="basic-single"
-                classNamePrefix="Please Select Billing Type"
-                name="category"
-                // defaultValue={payerType[0]}
-                // options={payerType}
-                // onChange={handlePayerType}
-              />
-            </div>
           </div>
           <div className="row ">
             <div className="col-4">
@@ -793,17 +770,7 @@ const DebtManagement = () => {
                 onChange={handleLgaChange}
               />
             </div>
-            <div className="col-4">
-              <Select
-                id="category"
-                className="basic-single"
-                classNamePrefix="Please Select Billing Type"
-                name="category"
-                defaultValue={transformedLCDAData[0]}
-                options={transformedLCDAData}
-                onChange={handleLcdaChange}
-              />
-            </div>
+            
           </div>
 
           <div className="row ">

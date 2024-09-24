@@ -724,7 +724,7 @@ console.log("important---------:", organisationId, selectedCustomer)
         },
       })
       .then((response) => {
-        // console.log("businessSize", response);
+        console.log("Business type-----------", response.data)
         setBusinessSize(response.data);
       })
       .catch((error) => {
@@ -752,6 +752,7 @@ console.log("important---------:", organisationId, selectedCustomer)
         },
       })
       .then((response) => {
+        console.log("Business type-----------", response.data)
         setBusinessType(response.data);
       })
       .catch((error) => {

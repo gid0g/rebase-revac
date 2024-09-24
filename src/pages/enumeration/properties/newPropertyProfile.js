@@ -380,6 +380,13 @@ console.log("propertytobecreated-----------",createProperty)
       navigate("/home/administration/street/createnewstreet/");
     }
   }
+  function NotFoundspace(event) {
+    const {checked}=event.target
+    if (checked) { 
+      alert("Space Identifier not found, Create new space identifier?")
+      navigate("/home/administration/spaceidentifiers/");
+    }
+  }
   return (
     <AppSettings.Consumer>
       {({ cartIsShown, showModalHandler, hideModalHandler }) => (
@@ -436,6 +443,19 @@ console.log("propertytobecreated-----------",createProperty)
                           options={transformedSpaceData}
                           onChange={handleSpaceChange}
                         />
+                      </div>
+                                 <div>
+                        <input
+                          type="checkbox"
+                          className="me-2"
+                          onClick={NotFoundspace}
+                        />
+                        <label
+                          className="form-label"
+                          htmlFor="exampleInputEmail1"
+                        >
+                          Space Identifier not Found
+                        </label>
                       </div>
                     </div>
                   </div>

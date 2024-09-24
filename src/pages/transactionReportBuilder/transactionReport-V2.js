@@ -220,7 +220,8 @@ const TransactionReportBuilder = () => {
     const [banks, setBanks] = useState([]);
     const [bank, setBank] = useState({});
 
-
+const [reveunehead, setRevenuehead] = useState([])
+const [businesstype, setBusiesstype] = useState([])
 
     const [isLoading, setIsLoading] = useState(false);
 
@@ -230,6 +231,12 @@ const TransactionReportBuilder = () => {
 
     const handleRevenueChange = (selectedRevenue) => {
       setRevenue(selectedRevenue);
+    };
+    const handleRevenueheadChange = (selectedRevenue) => {
+      sethead(selectedRevenue.value);
+    };
+    const handlebusinessChange = (selectedRevenue) => {
+      setbusiness(selectedRevenue.value);
     };
 
     const handleBankChange = (selectedBank) => {
@@ -243,13 +250,24 @@ const TransactionReportBuilder = () => {
       }
     })
 
+    const transformedRevenuesHead = reveunehead.map((head) => {
+      return {
+        label: head?.revenueName,
+        value: head?.revenueCode,
+      }
+    });
+    const transformedBusiness = businesstype.map((business) => {
+      return {
+        label: business?.businessTypeName,
+        value: business?.id,
+      }
+    });
     const transformedRevenues = revenues.map((revenue) => {
       return {
         label: revenue?.revenueName,
         value: revenue?.revenueId,
       }
     });
-
     const transformedBanks = banks.map((bank) => {
       return {
         label: bank?.bankName,
@@ -381,6 +399,17 @@ const getBank = (id) => {
 
 
 
+const [Business, setbusiness] = useState(null)
+const [Head, sethead] = useState(null)
+const [revenuesearch , setRevenuesearch] = useState("")
+useEffect(()=>{
+  const matchingRevenue = revenues.find(revenue => 
+  revenue.businessTypeId === Business && revenue.revenueCode === Head
+);
+const revenueId = matchingRevenue ? matchingRevenue.revenueName : null
+console.log("matchingRevenue:::::", revenueId,Business,Head)
+setRevenuesearch(revenueId)
+},[Business, Head])
     useEffect(() => {
       const fetchData = async () => {
         try {
@@ -403,6 +432,21 @@ const getBank = (id) => {
             });
             console.log("Revenues:", revenueResponse.data);
             setRevenues(revenueResponse.data);
+            const revenueheadResponse = await api.get(`revenue/${organisationId}/revenuehead`, {
+              headers: {
+                Authorization: `Bearer ${token}`
+              }
+            });
+            console.log("Revenues Head:", revenueheadResponse.data);
+            setRevenuehead(revenueheadResponse.data);
+            const businessResponse = await api.get(`enumeration/${organisationId}/business-types`, {
+              headers: {
+                Authorization: `Bearer ${token}`
+              }
+            });
+            console.log("Business Size:", businessResponse.data);
+            setBusiesstype(businessResponse.data);
+            
           }
   
           if (checkboxValues.bank) {
@@ -437,16 +481,17 @@ const getBank = (id) => {
   
   const handleFilter = async (e) => {
     e.preventDefault();
-
+    console.log("API::",`payment/${organisationId}/payment-filter?PayerId=&Revenue=${revenuesearch ? revenuesearch : ""}&BankCode=${bank.value ? bank.value : ""}&StartDate=${startDate ? startDate : ""}EndDate=${endDate ? endDate : ""}&Agency=${agency?.value ? agency?.value : ""}`)
     try {
       setLoading(true);
 
-      const response = await api.get(`payment/${organisationId}/payment-filter?PayerId=&Revenue=${revenue?.label ? revenue?.label : ""}&BankCode=${bank.value ? bank.value : ""}&StartDate=${startDate ? startDate : ""}EndDate=${endDate ? endDate : ""}&Agency=${agency?.value ? agency?.value : ""}`, {
+      // const response = await api.get(`payment/${organisationId}/payment-filter?PayerId=&Revenue=${revenue?.label ? revenue?.label : ""}&BankCode=${bank.value ? bank.value : ""}&StartDate=${startDate ? startDate : ""}EndDate=${endDate ? endDate : ""}&Agency=${agency?.value ? agency?.value : ""}`, {
+      const response = await api.get(`payment/${organisationId}/payment-filter?PayerId=&Revenue=${revenuesearch ? revenuesearch : ""}&BankCode=${bank.value ? bank.value : ""}&StartDate=${startDate ? startDate : ""}EndDate=${endDate ? endDate : ""}&Agency=${agency?.value ? agency?.value : ""}`, {
         headers: {
           Authorization: `Bearer ${token}`
         }
       });
-
+      console.log("Response::::::", response)
       setReportData([
         {
             paymentId: 2,
@@ -600,9 +645,25 @@ const getBank = (id) => {
 
                     {checkboxValues.revenue && (
                       <div className="row">
-                        <div className="col-md-4">
+                        <div className="col-md-4 mb-3">
                           <label htmlFor="category" className="text-gray-600 text- font-medium">
-                            Revenue
+                            Revenue Head:
+                          </label>
+                        </div>
+                        <div className="col-md-8 mb-3">
+                          <Select
+                            id="revenue"
+                            className="basic-single rounded-md"
+                            classNamePrefix="Please Select Revenue"
+                            name="revenue"
+                            defaultValue={"---Select Revenue---"}
+                            options={transformedRevenuesHead}
+                            onChange={handleRevenueheadChange}
+                          />
+                        </div>
+                           <div className="col-md-4">
+                          <label htmlFor="category" className="text-gray-600 text- font-medium">
+                            Business Type:
                           </label>
                         </div>
                         <div className="col-md-8">
@@ -611,9 +672,9 @@ const getBank = (id) => {
                             className="basic-single rounded-md"
                             classNamePrefix="Please Select Revenue"
                             name="revenue"
-                            defaultValue={"---Select Revenue---"}
-                            options={transformedRevenues}
-                            onChange={handleRevenueChange}
+                            defaultValue={"---Select Business Type---"}
+                            options={transformedBusiness}
+                            onChange={handlebusinessChange}
                           />
                         </div>
                       </div>

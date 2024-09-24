@@ -191,10 +191,10 @@ const [currentPage, setCurrentPage] = useState(1);
   //api to get table data
 
   const fetchData = (page) => {
+    // `billing/${organisationId}`
     api
       .get(
-        // `billing/${organisationId}?pagenumber=${page}&PageSize=${perPage}`
-        `billing/${organisationId}`
+        `billing/${organisationId}?pagenumber=${page}&PageSize=${perPage}`
         , {
         headers: {
           Authorization: `Bearer ${token}`,
