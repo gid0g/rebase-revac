@@ -259,7 +259,18 @@ const AddBusinessProfile = () => {
     }
   };
   ////////////////////////////////////////
-
+ const businesssizeopt= businessSize
+    ? businessSize.map((busSize) => ({
+        label: busSize.businessSizeName,
+        value: busSize.id,
+      }))
+    : [];
+    const businesstyeopt = businessType
+    ? businessType.map((busType) => ({
+        value: busType.id,
+        label: busType.businessTypeName,
+      }))
+    : [];
   ///////////////////////////////////////
 
   return (
@@ -283,55 +294,46 @@ const AddBusinessProfile = () => {
               <div key={idx} className="border p-2 mb-4">
                 <fieldset>
                   <div className=" gx-5">
-                    <div className="col">
-                      <div className="mb-3">
-                        <label
-                          className="form-label mr-2"
-                          htmlFor="businessType"
-                        >
-                        Revenue Item:
-                        </label>
-                        <select
-                          id="businessType"
-                          name="businessTypeId"
-                          className=""
-                          value={field.businessTypeId?.id}
+                    <div className="row">
+          <div className="col-3">
+            <label className="form-label" style={{ marginTop: "7px" }}>
+              <p>Select Revenue Item</p>
+            </label>
+          </div>
+             <div className="col-6">
+                          <div className="mb-3">
+                            <Select
+                              className="basic-single"
+                              classNamePrefix="select"
+                              defaultValue="Select Revenue Item"
+                              isSearchable={true}
+                              name="businessTypeId"
+                              options={businesstyeopt}
                           onChange={(event) => handleTypeChange(idx, event)}
-                        >
-                          {" "}
-                          <option value="">Select Revenue Item</option>
-                          {businessType.map((busType) => (
-                            <option key={busType.id} value={busType.id}>
-                              {busType.businessTypeName}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
-                    </div>
-                    <div className="col">
-                      <div className="mb-3">
-                        <label
-                          className="form-label mr-2"
-                          htmlFor="exampleInputEmail1"
-                        >
-                          Business Size:
-                        </label>
-                        <select
-                          name="businessSizeId"
-                          className=""
-                          value={field.businessSizeId?.id}
-                          onChange={(event) => handleSizeChange(idx, event)}
-                        >
-                          {" "}
-                          <option value="">Select Business Size</option>
-                          {businessSize.map((busSize) => (
-                            <option key={busSize.id} value={busSize.id}>
-                              {busSize.businessSizeName}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
-                    </div>
+                            />
+                            </div>
+                          </div>
+                          </div>
+                          <div className="row">
+          <div className="col-3">
+            <label className="form-label" style={{ marginTop: "7px" }}>
+              <p>Select Business Size</p>
+            </label>
+          </div>
+                   <div className="col-6">
+                          <div className="mb-3">
+                            <Select
+                              className="basic-single"
+                              classNamePrefix="select"
+                              defaultValue="Select Business Size"
+                              isSearchable={true}
+                              name="businessSizeId"
+                              options={businesssizeopt}
+                                        onChange={(event) => handleSizeChange(idx, event)}
+                            />
+                            </div>
+                          </div>
+                          </div>
                   </div>
                   {isRevenueTypeVisible && (
                     <div className="mb-3">
