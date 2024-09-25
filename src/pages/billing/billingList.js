@@ -153,9 +153,17 @@ const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     if (selectedBillToBePaid) {
-      navigate("paymentgateway", {
-        state: { selectedItem: selectedBillToBePaid },
-      });
+      // navigate("paymentgateway", {
+      //   state: { selectedItem: selectedBillToBePaid },
+      // });
+      if(selectedBillToBePaid?.harmonizedBillReferenceNo !== null){
+
+        window.open(`https://kuje.credodemo.com/?ref=${selectedBillToBePaid?.harmonizedBillReferenceNo}&type=harmonized`, '_blank');
+      }
+      else{
+        window.open(`https://kuje.credodemo.com/?ref=${selectedBillToBePaid?.billReferenceNo}&type=webguid`, '_blank');
+      }
+
     }
   }, [selectedBillToBePaid, navigate]);
 
