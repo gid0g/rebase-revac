@@ -72,11 +72,11 @@ const AddBusinessProfile = () => {
   }, [allSelected]);
 
   async function handleTypeChange(index, event) {
-    const { name, value } = event.target;
-    const selectedIndex = event.target.selectedIndex;
+        console.log("Event--------------------", event)
+     const { label, value } = event;
     const selectedOption = {
       id: value,
-      name: event.target[selectedIndex].text,
+      name: label,
     };
 
     setFields((prevFields) => {
@@ -92,7 +92,7 @@ const AddBusinessProfile = () => {
 
     setTypeSelected((prevTypeSelected) => ({
       ...prevTypeSelected,
-      [index]: event.target.value !== "",
+      [index]: value !== "",
     }));
 
     setIsRevenueTypeVisible(true);
@@ -118,15 +118,16 @@ const AddBusinessProfile = () => {
     }));
   }
   function handleSizeChange(index, event) {
-    const { name, value } = event.target;
-    const selectedIndex = event.target.selectedIndex;
+    console.log("Event--------------------", event)
+    const { label, value } = event;
+   
     const selectedOption = {
       id: value,
-      name: event.target[selectedIndex].text,
+      name: label,
     };
     setSizeSelected((prevSizeSelected) => ({
       ...prevSizeSelected,
-      [index]: event.target.value !== "",
+      [index]: value !== "",
     }));
 
     const updatedFields = [...fields];

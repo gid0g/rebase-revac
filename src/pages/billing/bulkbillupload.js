@@ -128,13 +128,10 @@ const BulkBill = () => {
         category: row?.Category ? `${row?.Category}` : "",
         businessType: row?.BusinessType ? `${row?.BusinessType}` : "",
         businessSize: row?.BusinessSize ? `${row?.BusinessSize}` : "",
-        appliedDate: row.Year
-          ? `${row.Year}`
-          : `${new Date().getFullYear()}`,
+        appliedDate: row.Year ? `${row.Year}` : `${new Date().getFullYear()}`,
         interest: row["Interest(%)"] ? `${row["Interest(%)"]}` : null,
         penalty: row["Penalty(N)"] ? `${row["Penalty(N)"]}` : null,
       }));
-
 
       console.log("FormData:", formData);
 
@@ -144,27 +141,26 @@ const BulkBill = () => {
         {
           headers: {
             Authorization: `Bearer ${token}`,
-              // "Content-Type": "multipart/form-data",
-            },
-          }
-        );
+            // "Content-Type": "multipart/form-data",
+          },
+        }
+      );
 
-        console.log("Response---:", response?.data);
-        setBillReportData(response?.data);
+      console.log("Response---:", response?.data);
+      setBillReportData(response?.data);
 
-        toast.success("Bulk Bill upload successful:", {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "colored",
-        });
+      toast.success("Bulk Bill upload successful:", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
 
-        setIsUploaded(true);
-      
+      setIsUploaded(true);
     } catch (error) {
       console.log("Bulk bill:", error.response?.data);
       toast.error("Bulk Bill not successful:", {
